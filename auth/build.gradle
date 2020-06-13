@@ -37,7 +37,7 @@ subprojects {
                 url "https://plugins.gradle.org/m2/"
             }
             maven {
-                url = uri("https://maven.pkg.github.com/GMSoft-Official/kuartz-core")
+                url = uri("https://maven.pkg.github.com/kutay-celebi/kuartz-core")
                 credentials {
                     username = gprusr
                     password = gprkey
@@ -61,23 +61,24 @@ subprojects {
         options.addStringOption('charSet', 'UTF-8')
     }
 
+
+
     dependencyManagement {
         imports {
             mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
         }
     }
 
-
     repositories {
         mavenCentral()
+        mavenLocal()
         maven {
-            url = uri("https://maven.pkg.github.com/GMSoft-Official/kuartz-core")
+            url = uri("https://maven.pkg.github.com/kutay-celebi/kuartz-core")
             credentials {
                 username = gprusr
                 password = gprkey
             }
         }
-        mavenLocal()
     }
 
 }

@@ -2,7 +2,7 @@ rootProject.name = 'auth'
 
 
 include ':kuartz-authz-service'
-project(':kuartz-authz-service').projectDir = new File('./kuartz-authorization/authz-service')
+project(':kuartz-authz-service').projectDir = new File('/authz-service')
 
 include ':kuartz-authz-client'
-project(':kuartz-authz-client').projectDir = new File('./kuartz-authorization/kuartz-auth-client')
+project(':kuartz-authz-client').projectDir = new File('/kuartz-auth-client')
