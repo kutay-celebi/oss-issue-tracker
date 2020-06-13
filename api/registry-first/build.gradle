@@ -1,0 +1,25 @@
+group 'com.kuartz.microservices.core'
+version '1.0'
+sourceCompatibility = 1.8
+
+jar {
+    enabled = true
+}
+
+dependencies {
+    compile(
+            [group: 'org.springframework.boot', name: 'spring-boot-starter-web'],
+            [group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'],
+            [group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-server'],
+            [group: 'org.springframework.cloud', name: 'spring-cloud-starter-config'],
+    )
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+}
+
+docker {
+    springBootApplication {
+        baseImage = "openjdk:8-alpine"
+        ports = [8761, 8761]
+        jvmArgs = ['-Dspring.profiles.active=docker', '-Xmx1024m']
+    }
+}

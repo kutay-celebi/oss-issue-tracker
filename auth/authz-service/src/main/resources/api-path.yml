@@ -1,0 +1,15 @@
+kuartz:
+  client:
+    authzClient:
+      url: 'http://localhost:9090'
+      clientsService:
+        path: '/client'
+      userService:
+        path: '/user'
+      roleService:
+        path: '/role'
+      privilegeService:
+        path: '/privilege'
+      companyService:
+        path: '/company'
+    

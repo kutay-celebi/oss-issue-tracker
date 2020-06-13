@@ -1,0 +1,97 @@
+group 'com.kuartz.core.auth.client'
+version "${kuartzAuthClientVersion}"
+sourceCompatibility = 1.8
+
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}
+
+apply plugin: 'maven-publish'
+
+dependencies {
+    compile(
+            // kuartz
+            [group: 'com.kuartz.core.feign', name: 'kuartz-core-feign', version: "${kuartzFeignVersion}"],
+            [group: 'com.kuartz.core.rest', name: 'kuartz-core-rest', version: "${kuartzRestVersion}"],
+            [group: 'com.kuartz.core.cloud', name: 'kuartz-cloud-core', version: "${kuartzCloudVersion}"],
+            [group: 'com.kuartz.core.common', name: 'kuartz-core-common', version: "${kuartzCommonVersion}"],
+    )
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allJava
+    archiveClassifier = 'sources'
+}
+
+task javadocJar(type: Jar) {
+    from javadoc
+    archiveClassifier = 'javadoc'
+}
+
+publishing {
+
+    def gprusr
+    def gprkey
+    def githubProperties = new Properties()
+    def file = rootProject.file("github.properties")
+    if (file.exists()) {
+        githubProperties.load(new FileInputStream(file))
+        gprusr = githubProperties["gprusr"]
+        gprkey = githubProperties["gprkey"]
+    } else {
+        gprusr = System.getenv("GITHUB_USERNAME")
+        gprkey = System.getenv("GITHUB_TOKEN")
+    }
+
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/GMSoft-Official/kuartz-core")
+            credentials {
+                username = gprusr
+                password = gprkey
+            }
+        }
+    }
+
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = 'kuartz-auth-client'
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+            pom {
+                name = 'Kuart Auth Client'
+                description = 'Kuartz UAA Client Library'
+//                 url = 'http://10.10.14.35:8081/repository/maven-public/'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'celebikutay'
+                        name = 'Kutay Çelebi'
+                        email = 'mail@kutaycelebi.com'
+                    }
+                    developer {
+                        id = 'azizerel'
+                        name = 'Aziz Erel'
+                        email = 'azizerel69@gmail.com'
+                    }
+                }
+            }
+        }
+    }
+}
