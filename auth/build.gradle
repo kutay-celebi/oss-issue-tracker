@@ -61,8 +61,6 @@ subprojects {
         options.addStringOption('charSet', 'UTF-8')
     }
 
-
-
     dependencyManagement {
         imports {
             mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
