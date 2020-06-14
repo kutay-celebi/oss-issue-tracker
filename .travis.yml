@@ -1,7 +1,10 @@
 matrix:
   include:
     - stage: auth
+      dist: trusty
       language: java
+      jdk:
+        - oraclejdk8
       sudo: required
       before_install:
         - "cd auth"
@@ -10,6 +13,9 @@ matrix:
         - gradle wrapper
 
     - stage: api
+      dist: trusty
+      jdk:
+        - oraclejdk8
       language: java
       sudo: required
       before_install:
