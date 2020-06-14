@@ -1,7 +1,6 @@
 matrix:
   include:
     - stage: auth
-      dist: trusty
       language: java
       jdk:
         - oraclejdk8
@@ -13,7 +12,6 @@ matrix:
         - gradle wrapper
 
     - stage: api
-      dist: trusty
       jdk:
         - oraclejdk8
       language: java
