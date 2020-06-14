@@ -5,6 +5,7 @@ matrix:
       before_script:
         - "cd api"
       before_install:
+        - "cd api"
         - chmod +x gradlew
         - chmod +x gradle/wrapper/gradle-wrapper.jar
         - gradle wrapper
