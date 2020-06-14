@@ -7,7 +7,7 @@ matrix:
         - "cd auth"
         - chmod +x gradlew
         - chmod +x gradle/wrapper/gradle-wrapper.jar
-        - gradle wrapper
+        - gradlew build
 
     - stage: api
       language: java
@@ -16,7 +16,7 @@ matrix:
         - "cd api"
         - chmod +x gradlew
         - chmod +x gradle/wrapper/gradle-wrapper.jar
-        - gradle wrapper
+        - gradlew build
 notifications:
   email:
     - mail@kutaycelebi.com
