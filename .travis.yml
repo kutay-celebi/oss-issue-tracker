@@ -5,8 +5,8 @@ matrix:
       sudo: required
       before_install:
         - "cd auth"
-        - chmod +x gradlew
-        - chmod +x gradle/wrapper/gradle-wrapper.jar
+#        - chmod +x gradlew
+#        - chmod +x gradle/wrapper/gradle-wrapper.jar
         - gradlew build
 
     - stage: api
@@ -14,8 +14,8 @@ matrix:
       sudo: required
       before_install:
         - "cd api"
-        - chmod +x gradlew
-        - chmod +x gradle/wrapper/gradle-wrapper.jar
+#        - chmod +x gradlew
+#        - chmod +x gradle/wrapper/gradle-wrapper.jar
         - gradlew build
 notifications:
   email:
