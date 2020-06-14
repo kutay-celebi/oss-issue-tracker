@@ -1,12 +1,22 @@
 matrix:
   include:
-    - language: java
+    - stage: auth
+      language: java
+      sudo: required
+      before_install:
+        - "cd auth"
+        - chmod +x gradlew
+        - chmod +x gradle/wrapper/gradle-wrapper.jar
+        - gradle wrapper
+
+    - stage: api
+      language: java
       sudo: required
       before_install:
         - "cd api"
         - chmod +x gradlew
         - chmod +x gradle/wrapper/gradle-wrapper.jar
         - gradle wrapper
-#notifications:
-#  email:
-#    - yourname@gmail.com
+notifications:
+  email:
+    - mail@kutaycelebi.com
