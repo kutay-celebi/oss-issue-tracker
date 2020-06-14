@@ -3,20 +3,26 @@ matrix:
     - stage: auth
       language: java
       sudo: required
-      before_install:
+      before_script:
         - "cd auth"
-#        - chmod +x gradlew
-#        - chmod +x gradle/wrapper/gradle-wrapper.jar
-        - gradlew build
+        - chmod +x gradlew
+        - chmod +x gradle/wrapper/gradle-wrapper.jar
+      script:
+        - "./gradlew build"
 
-    - stage: api
-      language: java
-      sudo: required
-      before_install:
-        - "cd api"
+#      before_install:
+#        - "cd auth"
 #        - chmod +x gradlew
 #        - chmod +x gradle/wrapper/gradle-wrapper.jar
-        - gradlew build
-notifications:
-  email:
-    - mail@kutaycelebi.com
+#        - ./gradlew build
+#    - stage: api
+#      language: java
+#      sudo: required
+#      before_install:
+#        - "cd api"
+#        - chmod +x gradlew
+#        - chmod +x gradle/wrapper/gradle-wrapper.jar
+#        - ./gradlew build
+#notifications:
+#  email:
+#    - mail@kutaycelebi.com
