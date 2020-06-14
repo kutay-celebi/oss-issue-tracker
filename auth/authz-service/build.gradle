@@ -2,7 +2,7 @@ group 'com.kuartz.auth'
 version "${authzServerVersion}"
 sourceCompatibility = 1.8
 
-jar {
+bootJar {
     enabled = true
 }
 
@@ -19,7 +19,7 @@ apply plugin: "com.bmuschko.docker-spring-boot-application"
 
 dependencies {
     compile(
-            project(':kuartz-authz-client'),
+            project(':kuartz-auth-client'),
 
             // kuartz
             [group: 'com.kuartz.core.data.jpa', name: 'kuartz-data-jpa', version: "${kuartzDataJpaVersion}"],

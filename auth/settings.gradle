@@ -1,8 +1,4 @@
 rootProject.name = 'auth'
 
-
-include ':kuartz-authz-service'
-project(':kuartz-authz-service').projectDir = new File('/authz-service')
-
-include ':kuartz-authz-client'
-project(':kuartz-authz-client').projectDir = new File('/kuartz-auth-client')
+include ':authz-service'
+include ':kuartz-auth-client'
