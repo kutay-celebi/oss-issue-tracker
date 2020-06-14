@@ -1,8 +1,0 @@
-language: java
-sudo: required
-before_install:
-  - chmod +x gradlew
-  - chmod +x gradle/wrapper/gradle-wrapper.jar
-  - gradle wrapper
-after_success:
-  - bash <(curl -s https://codecov.io/bash) -t token

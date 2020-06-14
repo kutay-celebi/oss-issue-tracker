@@ -12,8 +12,6 @@ matrix:
         - gradle wrapper
 
     - stage: api
-      jdk:
-        - oraclejdk8
       language: java
       sudo: required
       before_install:
