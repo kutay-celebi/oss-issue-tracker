@@ -3,10 +3,10 @@ matrix:
     - language: java
       sudo: required
       before_script:
-        - cd api
+        - "cd api"
       before_install:
-        - chmod +x api/gradlew
-        - chmod +x api/gradle/wrapper/gradle-wrapper.jar
+        - chmod +x gradlew
+        - chmod +x gradle/wrapper/gradle-wrapper.jar
         - gradle wrapper
 #notifications:
 #  email:
