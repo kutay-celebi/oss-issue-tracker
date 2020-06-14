@@ -2,8 +2,6 @@ matrix:
   include:
     - language: java
       sudo: required
-      before_script:
-        - "cd api"
       before_install:
         - "cd api"
         - chmod +x gradlew
