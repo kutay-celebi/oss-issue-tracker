@@ -25,12 +25,8 @@ export const initRoleModel = () => {
     };
 };
 
-const initialState = {
-    wait        : false,
-    roleFormOpen: false,
-    roleModel   : initRoleModel(),
-    roleList    : {},
-    roleQuery   : {
+export const initRoleQuery = () => {
+    return {
         name    : "",
         code    : "",
         pageable: {
@@ -41,6 +37,14 @@ const initialState = {
             }
         }
     }
+};
+
+const initialState = {
+    wait        : false,
+    roleFormOpen: false,
+    roleModel   : initRoleModel(),
+    roleList    : {},
+    roleQuery   : initRoleQuery()
 };
 
 

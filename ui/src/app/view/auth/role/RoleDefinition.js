@@ -11,21 +11,39 @@ import {clearRoleForm, closeRoleForm, getRole, getRolePage, openRoleForm, saveRo
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEdit} from "@fortawesome/free-solid-svg-icons";
 import KzTable from "../../../../@kuartz/components/KzTable/KzTable";
+import {initRoleModel, initRoleQuery} from "../../../redux/reducers/auth/role.reducer";
 
 class RoleDefinition extends Component {
+
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            query    : initRoleQuery(),
+            roleModel: initRoleModel()
+    }
+    }
+
     handePageChange = (event) => {
-        const currentPage = this.props.query.pageable.pageNumber;
-        if (event !== currentPage) {
-            this.props.query.pageable.pageNumber = event;
-            this.props.getRolePage(this.props.query)
+        if (event !== this.state.query.pageable.pageNumber) {
+
+            this.setState(state => {
+                              state.query.pageable.pageNumber = event
+                          },
+                          () => {
+                              this.props.getRolePage(this.state.query)
+                          });
         }
     };
 
     handleRowPerPageChange = event => {
-        const currentPageSize = this.props.query.pageable.pageSize;
-        if (event !== currentPageSize) {
-            this.props.query.pageable.pageSize = event;
-            this.props.getRolePage(this.props.query)
+        if (event !== this.state.query.pageable.pageSize) {
+            this.setState(state => {
+                              state.query.pageable.pageSize = event
+                          },
+                          () => {
+                              this.props.getRolePage(this.state.query)
+                          })
+
         }
     };
 
@@ -35,7 +53,7 @@ class RoleDefinition extends Component {
         return (
             <KzFormCard title={t("role:title")}>
                 <KzFormFrame>
-                    <RoleQueryForm/>
+                    <RoleQueryForm query={this.state.query} pageFunction={this.props.getRolePage}/>
                 </KzFormFrame>
                 <KzFormFrame>
                     <Button className="my-3" onClick={this.props.handleOpenForm}>
@@ -56,8 +74,8 @@ class RoleDefinition extends Component {
                         data={this.props.roleList.content}
                         onChangeRowsPerPage={this.handleRowPerPageChange}
                         onChangePage={this.handePageChange}
-                        page={this.props.query.pageable.pageNumber}
-                        pageSize={this.props.query.pageable.pageSize}
+                        page={this.state.query.pageable.pageNumber}
+                        pageSize={this.state.query.pageable.pageSize}
                         totalCount={this.props.roleList ? this.props.roleList.totalElements : 0}
                         actions={[
                             {

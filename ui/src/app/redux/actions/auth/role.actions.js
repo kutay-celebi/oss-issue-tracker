@@ -46,8 +46,6 @@ export const successRolePage = (query, response) => (dispatch) => {
 };
 
 export const getRole = (id) => async (dispatch) => {
-
-    console.log("naber")
     // todo add wait reducer.
     // todo move api constant
     await AuthService.getApi().get("/role/get/" + id)
@@ -64,6 +62,9 @@ export const setRole = (role) => (dispatch) => {
 };
 
 export const getRolePage = (query) => async (dispatch) => {
+
+    console.warn(query.pageable);
+
     dispatch({
                  type: GET_ROLE_PAGE,
              });

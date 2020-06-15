@@ -5,49 +5,32 @@ import {useTranslation} from "react-i18next";
 import {DialogContent} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import KzTextField from "@kuartz/components/TextInput/KzTextField";
-import {useFormik} from "formik";
-import {useSelector} from "react-redux";
+import {useForm} from "react-hook-form";
 
 const RoleForm = props => {
-    let {t}    = useTranslation();
-    const roleModel = useSelector(({authReducers}) => authReducers.role.roleModel);
-    let formik = useFormik({
-                               initialValues     : roleModel,
-                               enableReinitialize: true,
-                               validateOnChange: true,
-                               validateOnBlur  : true,
-                               onSubmit          : (values) => props.saveAction(values)
-                           });
+    let {t}         = useTranslation();
+    const {register, handleSubmit, errors, watch} = useForm({mode: 'onChange'});
+
     return (
         <KzFormDialog open={props.openForm}
                       onClose={props.onClose}
                       headerText={t("role:title")}
                       fullWidth
                       maxWidth={"lg"}
-                      onSubmit={formik.handleSubmit}
+                      onSubmit={handleSubmit(props.saveAction)}
                       onClear={props.clearForm}>
             <DialogContent>
-                <form>
+                <form onSubmit={handleSubmit(props.saveAction)}>
                     <Grid container spacing={2} direction="column" className="my-5">
                         <Grid item xs={12} md={12} lg={6} xl={6}>
-                            <KzTextField label={t("code")}
-                                         fullWidth
-                                         value={formik.values.code}
-                                         onChange={formik.handleChange("code")}/>
+                            <KzTextField inputRef={register} name="code" defaultValue={props.roleModel.code}/>
                         </Grid>
+
                         <Grid item xs={12} md={12} lg={6} xl={6}>
-                            <KzTextField label={t("name")}
-                                         fullWidth
-                                         value={formik.values.name}
-                                         onChange={formik.handleChange("name")}/>
+                            <KzTextField inputRef={register} name="name" defaultValue={props.roleModel.name}/>
                         </Grid>
+
                         <Grid item xs={12} md={12} lg={6} xl={6}>
-                            <KzTextField label={t("description")}
-                                         fullWidth
-                                         multiline
-                                         rows={4}
-                                         value={formik.values.description}
-                                         onChange={formik.handleChange("description")}/>
                         </Grid>
 
                     </Grid>
