@@ -5,16 +5,13 @@ import {useTranslation} from "react-i18next";
 import {DialogContent} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import KzTextField from "../../../@kuartz/components/TextInput/KzTextField";
-import ContactForm from "../contact/ContactForm";
-import {useFormik} from "formik";
+import ContactForm from "./ContactForm";
+import {useForm} from "react-hook-form";
 
 const CompanyForm = props => {
     let {t}    = useTranslation("company");
-    let formik = useFormik({
-                               initialValues     : props.company,
-                               enableReinitialize: true,
-                               onSubmit          : (values) => props.saveAction(values)
-                           });
+
+    const companyForm = useForm({mode: 'onChange', reValidateMode: "onChange"});
 
     return (
         <KzFormDialog open={props.openForm}
@@ -22,7 +19,7 @@ const CompanyForm = props => {
                       headerText={t("title")}
                       fullWidth
                       maxWidth={"lg"}
-                      onSubmit={formik.handleSubmit}
+                      onSubmit={companyForm.handleSubmit(props.saveAction)}
                       onClear={props.clearForm}>
             <DialogContent>
                 <form>
@@ -30,20 +27,26 @@ const CompanyForm = props => {
                         <Grid item md={12} lg={6}>
                             <KzTextField label={t("name")}
                                          fullWidth
-                                         {...formik.getFieldProps("name")}/>
+                                         name={"name"}
+                                         defaultValue={props.companyModel.name}
+                                         inputRef={companyForm.register}/>
                         </Grid>
                         <Grid item md={12} lg={6}>
                             <KzTextField label={t("shortName")}
                                          fullWidth
-                                         {...formik.getFieldProps("shortName")}/>
+                                         name={"shortName"}
+                                         defaultValue={props.companyModel.shortName}
+                                         inputRef={companyForm.register}/>
                         </Grid>
                         <Grid item md={12} lg={6}>
                             <KzTextField label={t("country")}
                                          fullWidth
-                                         {...formik.getFieldProps("country")}/>
+                                         name={"country"}
+                                         defaultValue={props.companyModel.country}
+                                         inputRef={companyForm.register}/>
                         </Grid>
                     </Grid>
-                    <ContactForm formik={formik} contact={props.company.contact}/>
+                    <ContactForm contactForm={companyForm} contact={props.companyModel.contact}/>
                 </form>
             </DialogContent>
         </KzFormDialog>
@@ -51,7 +54,7 @@ const CompanyForm = props => {
 };
 
 CompanyForm.propTypes = {
-    company   : PropTypes.object.isRequired,
+    companyModel   : PropTypes.object.isRequired,
     openForm  : PropTypes.bool.isRequired,
     clearForm : PropTypes.func.isRequired,
     onClose   : PropTypes.func,

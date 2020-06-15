@@ -4,12 +4,7 @@ import {InputAdornment, TextField} from "@material-ui/core";
 
 const KzTextField = (props) => {
     return (
-        <TextField value={props.value || ''}
-                   error={props.formikMeta !== undefined && props.formikMeta !== null && props.formikMeta.error !== undefined &&
-                   props.formikMeta.error !== null}
-                   helperText={props.formikMeta !== undefined && props.formikMeta !== null && props.formikMeta.error !== undefined &&
-                   props.formikMeta.error !== null ? props.formikMeta.error : null}
-                   InputProps={{
+        <TextField InputProps={{
                        startAdornment: props.adornmentPosition === "start" && props.adornmentText ?
                            <InputAdornment position="start">{props.adornmentText}</InputAdornment> : null,
                        endAdornment  : props.adornmentPosition === "end" && props.adornmentText ?
@@ -40,8 +35,6 @@ KzTextField.propTypes = {
     adornmentText: PropTypes.string,
 
     adornmentPosition: PropTypes.oneOf(['start', 'end']),
-
-    formikMeta: PropTypes.object
 };
 
 export default KzTextField;

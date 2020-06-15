@@ -1,62 +1,74 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import KzTable from "../../../../@kuartz/components/KzTable/KzTable";
-import {useDispatch, useSelector} from "react-redux";
-import {getRolePage} from "../../../redux/actions/auth/role.actions";
+import {useDispatch} from "react-redux";
 import {useTranslation} from "react-i18next";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrashAlt} from "@fortawesome/free-solid-svg-icons";
-import {ListSubheader, useMediaQuery, useTheme} from "@material-ui/core";
+import {useTheme} from "@material-ui/core";
 import clsx from "clsx";
 import KzAutocomplete from "../../../../@kuartz/components/autocomplete/KzAutocomplete";
-import ListItem from "@material-ui/core/ListItem";
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import List from "@material-ui/core/List";
 import ListItemText from "@material-ui/core/ListItemText";
+import {initRoleQuery} from "../../../redux/reducers/auth/role.reducer";
+import AuthService from "../../../service/authServiceImpl";
+import {API_GET_ROLE_PAGE} from "../../../constants";
+import {enqueueSnackbar} from "../../../redux/actions/core";
 
 
 const UserRoleRelationForm = (props) => {
 
-    const dispatch                    = useDispatch();
-    const {roleQuery, roleList, wait} = useSelector(({authReducers}) => authReducers.role);
-    const {t}                         = useTranslation();
-    const theme                       = useTheme();
-    const tableRef                    = React.createRef();
+    // const {roleList, wait} = useSelector(({authReducers}) => authReducers.role);
+
+    const dispatch = useDispatch();
+
+    const [roleList, setRoleList] = useState({content: []});
+    const [roleWait, setRoleWait] = useState(false);
+
+    const roleQuery = initRoleQuery();
+    const {t}       = useTranslation();
+    const theme     = useTheme();
+    const tableRef  = React.createRef();
 
     const asyncAutocomplete = async (text) => {
         roleQuery.code = text;
-        dispatch(getRolePage(roleQuery));
+        setRoleWait(true);
+        await AuthService.postApi().post(API_GET_ROLE_PAGE, roleQuery)
+                         .then((response) => {
+                             setRoleList(response.data);
+                             setRoleWait(false);
+                         })
+                         .catch((error) => {
+                             dispatch(enqueueSnackbar(error.response.data.message, {variant: "error"})); //todo generic error method.
+                             setRoleWait(false);
+                         });
     };
 
     const addRoleToList = (values) => {
-        const existRole = props.fieldProps.value;
+        const existRole = props.userModel.roleList;
         const map       = values.map((o) => {
             if (!existRole.some(er => er.role.code === o.code)) {
                 return Object.assign({}, {user: props.userUuid}, {role: o});
             }
         });
 
-        if (map !== undefined && !map.includes(undefined)) {
-            const concat = existRole.concat(map);
-            props.helper.setValue(concat);
-        }
+        props.userModel.roleList = {...props.userModel.roleList,...map};
     };
 
     const handleRemoveRole = (role) => {
-        const existRole   = props.fieldProps.value;
-        const removedRole = existRole.filter((r) => {
-            return r.role.code !== role.role.code;
-        });
-        props.helper.setValue(removedRole);
+        // const existRole   = props.fieldProps.value;
+        // const removedRole = existRole.filter((r) => {
+        //     return r.role.code !== role.role.code;
+        // });
+        // props.helper.setValue(removedRole);
     };
 
     return (
         <div>
             <KzAutocomplete options={roleList.content}
                             containerClassName="mb-5"
-                            loading={wait}
+                            loading={roleWait}
                             getOptionLabel={(option) => option.name}
-                            getOptionDisabled={(option) => props.fieldProps.value.some(
+                            getOptionDisabled={(option) => props.userModel.roleList.some(
                                 e => e.role.code === option.code) || option.defaultRole}
                             addButton
                             renderOption={(option) => (
@@ -90,7 +102,7 @@ const UserRoleRelationForm = (props) => {
                          toolbar             : false,
                      }}
                      tableRef={tableRef}
-                     data={props.fieldProps.value}
+                     data={props.userModel.roleList}
                      actions={[
                          rowData => ({
                              icon   : () => <FontAwesomeIcon color={clsx(theme.palette.error.main)} icon={faTrashAlt} size="sm"/>,
@@ -103,9 +115,11 @@ const UserRoleRelationForm = (props) => {
 };
 
 UserRoleRelationForm.propTypes = {
-    userUuid  : PropTypes.string,
-    fieldProps: PropTypes.any,
-    helper    : PropTypes.any
+    userUuid : PropTypes.string,
+    // fieldProps: PropTypes.any,
+    // helper    : PropTypes.any
+    form     : PropTypes.any.isRequired,
+    userModel: PropTypes.object.isRequired
 };
 
 export default UserRoleRelationForm;

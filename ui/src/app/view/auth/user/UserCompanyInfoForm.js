@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CompanySelectDialog from "../../company/CompanySelectDialog";
-import Grid from "@material-ui/core/Grid";
 import {useTranslation} from "react-i18next";
 import {Typography} from "@material-ui/core";
 import CompanySummaryForm from "../../company/CompanySummaryForm";
@@ -12,11 +11,11 @@ const UserCompanyInfoForm = (props) => {
     const {t} = useTranslation();
 
     const handeCompanySelect = (company) => {
-        props.formik.setFieldValue("person.company", company);
+        props.userModel.person.company = company;
     };
 
     const handleCompanyClear = () => {
-        props.formik.setFieldValue("person.company", null);
+        props.userModel.person.company = null;
     };
 
     return (
@@ -29,15 +28,15 @@ const UserCompanyInfoForm = (props) => {
             </div>
             <div className="mt-5">
                 <Typography variant="h6" className="font-bold border-solid border-0 border-b " color="secondary">{t("current")}</Typography>
-
-                <CompanySummaryForm company={props.formik.values.person.company}/>
+                <CompanySummaryForm company={props.userModel.person.company}/>
             </div>
         </div>
     );
 };
 
 UserCompanyInfoForm.propTypes = {
-    formik: PropTypes.any.isRequired
+    form     : PropTypes.any.isRequired,
+    userModel: PropTypes.object.isRequired
 };
 
 export default UserCompanyInfoForm;

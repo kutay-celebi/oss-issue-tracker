@@ -32,7 +32,10 @@
     "findCompany"       : "Find Company",
     "current"           : "Current",
     "companyInfo"       : "Company Information",
-    "uaa"               : "User Account and Authentication"
+    "uaa"               : "User Account and Authentication",
+    "roleDefinition"    : "Rol Definition",
+    "userDefinition"    : "User Definition",
+    "companyDefinition" : "Company Definition"
   },
   "tr": {
     "homepage"          : "Anasayfa",
@@ -70,6 +73,7 @@
     "companyInfo"       : "Kuruluş Bilgileri",
     "uaa"               : "Kullanıcı ve Yetkilendirme",
     "userDefinition"    : "Kullanıcı Tanımlama",
-    "companyDefinition" : "Kuruluş Tanımlama"
+    "companyDefinition" : "Kuruluş Tanımlama",
+    "roleDefinition"    : "Rol Tanımlama"
   }
 }

@@ -1,9 +1,10 @@
-import {PATH_COMPANY_DEFINITIYON, PATH_HOME_PAGE, PATH_USER_MANAGEMENT} from "../constants";
+import {PATH_COMPANY_DEFINITIYON, PATH_HOME_PAGE, PATH_ROLE_DEFINITION, PATH_USER_MANAGEMENT} from "../constants";
 import {HomePageConfig} from "../view/home/HomePageConfig";
 import {AuthConfig} from "../view/auth/AuthConfig";
 import {UserManagementConfig} from "../view/auth/user/UserManagementConfig";
-import {faBuilding, faHome, faShieldAlt, faUsers} from "@fortawesome/free-solid-svg-icons";
+import {faBuilding, faHome, faShieldAlt, faUsers, faUserTag} from "@fortawesome/free-solid-svg-icons";
 import {CompanyDefinitionConfig} from "../view/company/CompanyDefinitionConfig";
+import {RoleDefinitionConfig} from "../view/auth/role/RoleDefinitionConfig";
 
 
 /**
@@ -47,6 +48,16 @@ export const navbarConfig = [
                 icon    : faBuilding,
                 url     : PATH_COMPANY_DEFINITIYON,
                 auth    : CompanyDefinitionConfig.auth,
+                exact   : true,
+                children: []
+            },
+            {
+                id      : "role-definition",
+                title   : "roleDefinition",
+                type    : "item",
+                icon    : faUserTag,
+                url     : PATH_ROLE_DEFINITION,
+                auth    : RoleDefinitionConfig.auth,
                 exact   : true,
                 children: []
             }

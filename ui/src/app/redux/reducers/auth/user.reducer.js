@@ -1,6 +1,7 @@
 import {
     CLEAR_ADD_USER_FORM,
-    CLOSE_USER_FORM, FAIL_USER_PAGE,
+    CLOSE_USER_FORM,
+    FAIL_USER_PAGE,
     GET_USER_PAGE,
     OPEN_USER_FORM,
     SET_USER,
@@ -57,17 +58,20 @@ export const initAddUserForm = () => {
     };
 };
 
-const initialState = {
-    wait        : false,
-    userFormOpen: false,
-    query       : {
+export const initUserQuery = () => {
+    return {
         username: "",
         email   : "",
         pageable: {
             pageNumber: DEFAULT_QUERY_PAGE_NUMBER,
             pageSize  : DEFAULT_QUERY_PAGE_SIZE
         }
-    },
+    }
+}
+
+const initialState = {
+    wait        : false,
+    userFormOpen: false,
     user        : initAddUserForm(),
     userList    : {}
 };

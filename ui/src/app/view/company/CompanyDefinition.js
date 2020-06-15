@@ -18,6 +18,7 @@ import CompanyForm from "./CompanyForm";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEdit} from "@fortawesome/free-solid-svg-icons";
 import CompanyQueryForm from "./CompanyQueryForm";
+import {initCompanyQuery} from "../../redux/reducers/company/company.reducers";
 
 const styles = (theme) => ({
     borderFrame: {
@@ -26,19 +27,35 @@ const styles = (theme) => ({
 });
 
 class CompanyDefinition extends Component {
+
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            query: initCompanyQuery()
+        }
+    }
+
     handePageChange = (event) => {
-        const currentPage = this.props.query.pageable.pageNumber;
-        if (event !== currentPage) {
-            this.props.query.pageable.pageNumber = event;
-            this.props.getPage(this.props.query)
+        if (event !== this.state.query.pageable.pageNumber) {
+
+            this.setState(state => {
+                              state.query.pageable.pageNumber = event
+                          },
+                          () => {
+                              this.props.getPage(this.state.query)
+                          });
         }
     };
 
     handleRowPerPageChange = event => {
-        const currentPageSize = this.props.query.pageable.pageSize;
-        if (event !== currentPageSize) {
-            this.props.query.pageable.pageSize = event;
-            this.props.getPage(this.props.query)
+        if (event !== this.state.query.pageable.pageSize) {
+
+            this.setState(state => {
+                              state.query.pageable.pageSize = event
+                          },
+                          () => {
+                              this.props.getPage(this.state.query)
+                          });
         }
     };
 
@@ -47,7 +64,7 @@ class CompanyDefinition extends Component {
         return (
             <KzFormCard title={t("company:title")}>
                 <div className={clsx(classes.borderFrame, "p-5")}>
-                    <CompanyQueryForm/>
+                    <CompanyQueryForm pageFunction={this.props.getPage} query={this.state.query}/>
                 </div>
 
                 <div className={clsx(classes.borderFrame, "p-5 mt-5")}>
@@ -55,8 +72,11 @@ class CompanyDefinition extends Component {
                         {t("add-new")}
                     </Button>
 
-                    <CompanyForm company={this.props.company} openForm={this.props.openForm} onClose={this.props.handleCloseForm}
-                                 clearForm={this.props.handleClearForm} saveAction={this.props.handleSaveForm}/>
+                    <CompanyForm companyModel={this.props.company}
+                                 openForm={this.props.openForm}
+                                 onClose={this.props.handleCloseForm}
+                                 clearForm={this.props.handleClearForm}
+                                 saveAction={this.props.handleSaveForm}/>
 
                     <KzTable
                         columns={[
@@ -68,8 +88,8 @@ class CompanyDefinition extends Component {
                         data={this.props.companyList.content}
                         onChangeRowsPerPage={this.handleRowPerPageChange}
                         onChangePage={this.handePageChange}
-                        page={this.props.query.pageable.pageNumber}
-                        pageSize={this.props.query.pageable.pageSize}
+                        page={this.state.query.pageable.pageNumber}
+                        pageSize={this.state.query.pageable.pageSize}
                         totalCount={this.props.companyList ? this.props.companyList.totalElements : 0}
                         actions={[
                             {
@@ -99,6 +119,7 @@ function mapDispatchToProps(dispatch) {
                                   handleClearForm: clearCompanyForm,
                                   handleSaveForm : saveCompanyForm,
                                   getCompany     : getCompany,
+                                  getPage        : getCompanyPage
                               }, dispatch)
 }
 

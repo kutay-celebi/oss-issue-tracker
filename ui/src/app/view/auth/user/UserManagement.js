@@ -8,12 +8,14 @@ import {clearAddUserForm, closeUserForm, getUser, getUserPage, openUserForm} fro
 import {withTranslation} from "react-i18next";
 import clsx from "clsx";
 import AddUserForm from "./AddUserForm";
-import {saveUser}  from "../../../redux/actions/auth";
-import Button      from "@material-ui/core/Button";
+import {saveUser} from "../../../redux/actions/auth";
+import Button from "@material-ui/core/Button";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEdit} from "@fortawesome/free-solid-svg-icons";
 import KzOutputDate from "../../../../@kuartz/components/Date/KzOutputDate";
 import KzTable from "../../../../@kuartz/components/KzTable/KzTable";
+import {initUserQuery} from "../../../redux/reducers/auth/user.reducer";
+import KzFormFrame from "../../../../@kuartz/components/form/KzFormFrame";
 
 const styles = (theme) => ({
     borderFrame: {
@@ -23,19 +25,34 @@ const styles = (theme) => ({
 
 class UserManagement extends Component {
 
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            query    : initUserQuery()
+        }
+    }
+
     handePageChange = (event) => {
-        const currentPage = this.props.userQuery.pageable.pageNumber;
-        if (event !== currentPage) {
-            this.props.userQuery.pageable.pageNumber = event;
-            this.props.getUserPage(this.props.userQuery)
+        if (event !== this.state.query.pageable.pageNumber) {
+
+            this.setState(state => {
+                              state.query.pageable.pageNumber = event
+                          },
+                          () => {
+                              this.props.getUserPage(this.state.query)
+                          });
         }
     };
 
     handleRowPerPageChange = event => {
-        const currentPageSize = this.props.userQuery.pageable.pageSize;
-        if (event !== currentPageSize) {
-            this.props.userQuery.pageable.pageSize = event;
-            this.props.getUserPage(this.props.userQuery)
+        if (event !== this.state.query.pageable.pageSize) {
+
+            this.setState(state => {
+                              state.query.pageable.pageSize = event
+                          },
+                          () => {
+                              this.props.getUserPage(this.state.query)
+                          });
         }
     };
 
@@ -43,16 +60,17 @@ class UserManagement extends Component {
         const {classes, t} = this.props;
         return (
             <KzFormCard title="User Management">
-                <div className={clsx(classes.borderFrame)}>
-                    <UserQueryForm query={this.props.userQuery} onSubmit={this.props.getUserPage} classes={classes}/>
-                </div>
-                <div id="table-container" className={clsx("p-5 mt-5", classes.borderFrame)}>
+                <KzFormFrame>
+                    <UserQueryForm query={this.state.query} pageFunction={this.props.getUserPage}/>
+                </KzFormFrame>
+
+                <KzFormFrame>
                     <Button className={clsx("mb-5")} onClick={this.props.openUserForm}>
                         {t("common:add-new")}
                     </Button>
 
                     <AddUserForm handleAddUser={this.props.addUser}
-                                 user={this.props.user}
+                                 userModel={this.props.user}
                                  open={this.props.userFormOpen}
                                  handleClear={this.props.clearUser}
                                  handleFormClose={this.props.closeUserForm}/>
@@ -72,8 +90,8 @@ class UserManagement extends Component {
                         data={this.props.userList.content}
                         onChangeRowsPerPage={this.handleRowPerPageChange}
                         onChangePage={this.handePageChange}
-                        page={this.props.userQuery.pageable.pageNumber}
-                        pageSize={this.props.userQuery.pageable.pageSize}
+                        page={this.state.query.pageable.pageNumber}
+                        pageSize={this.state.query.pageable.pageSize}
                         totalCount={this.props.userList ? this.props.userList.totalElements : 0}
                         actions={[
                             {
@@ -81,7 +99,7 @@ class UserManagement extends Component {
                                 onClick: (event, rowData) => this.props.getUser(rowData.username)
                             }
                         ]}/>
-                </div>
+                </KzFormFrame>
             </KzFormCard>
         )
     }

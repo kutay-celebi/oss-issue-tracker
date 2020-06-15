@@ -5,14 +5,13 @@ import {useTranslation} from "react-i18next";
 import DialogContent from "@material-ui/core/DialogContent";
 import KzFormDialog from "../../../../@kuartz/components/form/KzFormDialog";
 import Avatar from "@material-ui/core/Avatar";
-import {useFormik} from "formik";
 import * as Yup from "yup";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import UserRoleRelationForm from "./UserRoleRelationForm";
 import moment from "moment";
 import MainInformationForm from "./MainInformationForm";
 import UserContactForm from "./UserContactForm";
+import {useForm} from "react-hook-form";
 import UserCompanyInfoForm from "./UserCompanyInfoForm";
 
 const useStyles = makeStyles((theme) => ({
@@ -65,21 +64,13 @@ const AddUserForm = (props) => {
                                                                         })
                                          });
 
-    const formik = useFormik({
-                                 initialValues     : props.user,
-                                 validationSchema  : validator,
-                                 validateOnChange  : true,
-                                 validateOnBlur    : true,
-                                 enableReinitialize: true,
-                                 onSubmit          : (values) => props.handleAddUser(values)
-                             });
+    const userForm = useForm({mode: 'onChange', reValidateMode: "onChange"});
 
-    const [value, setValue] = React.useState(0);
+    const [tabValue, setTabValue] = React.useState(0);
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
+    const handleTabChange = (event, newValue) => {
+        setTabValue(newValue);
     };
-
 
     return (
         <KzFormDialog open={props.open}
@@ -88,32 +79,31 @@ const AddUserForm = (props) => {
                       maxWidth={"lg"}
                       headerText={t("new-user")}
                       onClear={props.handleClear}
-                      onSubmit={formik.handleSubmit}>
+                      onSubmit={userForm.handleSubmit(props.handleAddUser)}>
             <DialogContent>
                 <Avatar src="/assets/images/add-user.png" className={classes.large}/>
-                <Tabs value={value} onChange={handleChange} scrollButtons="on" variant="scrollable" className="mb-3">
+                <Tabs value={tabValue} onChange={handleTabChange} scrollButtons="on" variant="scrollable" className="mb-3">
                     <Tab label={t("mainInfo")} {...a11yProps(0)}/>
                     <Tab label={t("contactInfo")} {...a11yProps(1)}/>
-                    <Tab label={t("userRole")} {...a11yProps(2)}/> {/*todo change tab name*/}
-                    <Tab label={t("companyInfo")} {...a11yProps(3)}/> {/*todo change tab name*/}
+                    <Tab label={t("userRole")} {...a11yProps(2)}/>
+                    <Tab label={t("companyInfo")} {...a11yProps(3)}/>
                 </Tabs>
                 <form>
                     {
-                        value === 0 ?
+                        tabValue === 0 ?
                             <div id="account" role="tabpanel">
-                                <MainInformationForm formik={formik}/>
+                                <MainInformationForm form={userForm} userModel={props.userModel}/>
                             </div>
-                            : value === 1 ?
+                            : tabValue === 1 ?
                             <div id="contact" role="tabpanel">
-                                <UserContactForm formik={formik}/>
+                                <UserContactForm form={userForm} userModel={props.userModel}/>
                             </div>
-                            : value === 2 ?
-                                <UserRoleRelationForm helper={formik.getFieldHelpers("roleList")}
-                                                      fieldProps={formik.getFieldProps("roleList")}
-                                                      userUuid={formik.getFieldProps("uuid").value}/>
-                                : value === 3 ?
-                                    <UserCompanyInfoForm formik={formik}/>
-                                    : null
+                            // todo fixme
+                            // : tabValue === 2 ?
+                            //     <UserRoleRelationForm form={userForm} userModel={props.userModel}/>
+                                : tabValue === 3 ?
+                                <UserCompanyInfoForm form={userForm} userModel={props.userModel}/>
+                                : null
                     }
                 </form>
             </DialogContent>
@@ -128,7 +118,7 @@ AddUserForm.defaultProps = {
 AddUserForm.propTypes = {
     handleAddUser  : PropTypes.func.isRequired,
     handleClear    : PropTypes.func.isRequired,
-    user           : PropTypes.object.isRequired,
+    userModel      : PropTypes.object.isRequired,
     handleFormClose: PropTypes.func.isRequired,
     open           : PropTypes.bool.isRequired
 };

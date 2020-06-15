@@ -42,17 +42,20 @@ export const initCompanyForm = () => {
     }
 };
 
-const initialState = {
-    openForm   : false,
-    wait       : false,
-    query      : {
+export const initCompanyQuery = () => {
+    return {
         companyName: null,
         pageable   : {
             pageNumber: DEFAULT_QUERY_PAGE_NUMBER,
             pageSize  : DEFAULT_QUERY_PAGE_SIZE,
             sort      : {}
         }
-    },
+    }
+}
+
+const initialState = {
+    openForm   : false,
+    wait       : false,
     company    : {},
     companyList: {}
 };
@@ -83,7 +86,7 @@ export const companyReducer = (state = initialState, action) => {
             return {
                 ...state,
                 openForm: true,
-                company: initCompanyForm()
+                company : initCompanyForm()
             }
         }
         case COMPANY_CLOSE_FORM: {
