@@ -1,15 +1,18 @@
 jobs:
   include:
-    - stage: build
-      sudo: required
+    -
+      name: auth-build
       language: java
+      sudo: required
       before_script:
         - "cd auth"
         - chmod +x gradlew
         - chmod +x gradle/wrapper/gradle-wrapper.jar
       script:
         - "./gradlew build"
-    - language: java
+    -
+      name: api-build
+      language: java
       sudo: required
       before_script:
         - "cd api"
