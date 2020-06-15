@@ -1,28 +1,22 @@
-matrix:
+jobs:
   include:
-    - stage: auth
-      language: java
+    - stage: build
       sudo: required
+      language: java
       before_script:
         - "cd auth"
         - chmod +x gradlew
         - chmod +x gradle/wrapper/gradle-wrapper.jar
       script:
         - "./gradlew build"
-
-#      before_install:
-#        - "cd auth"
-#        - chmod +x gradlew
-#        - chmod +x gradle/wrapper/gradle-wrapper.jar
-#        - ./gradlew build
-#    - stage: api
-#      language: java
-#      sudo: required
-#      before_install:
-#        - "cd api"
-#        - chmod +x gradlew
-#        - chmod +x gradle/wrapper/gradle-wrapper.jar
-#        - ./gradlew build
+    - language: java
+      sudo: required
+      before_script:
+        - "cd api"
+        - chmod +x gradlew
+        - chmod +x gradle/wrapper/gradle-wrapper.jar
+      script:
+        - "./gradlew build"
 #notifications:
 #  email:
 #    - mail@kutaycelebi.com
