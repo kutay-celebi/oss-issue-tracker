@@ -1,24 +1,15 @@
 import React from 'react';
 import {useTranslation} from "react-i18next";
-import {useFormik} from "formik";
 import Grid from "@material-ui/core/Grid";
 import KzTextField from "../../../@kuartz/components/TextInput/KzTextField";
 import Button from "@material-ui/core/Button";
-import {useDispatch, useSelector} from "react-redux";
-import {getCompanyPage} from "../../redux/actions/company";
+import PropTypes from "prop-types";
+import {useForm} from "react-hook-form";
 
 const CompanyQueryForm = props => {
 
-    const {t}          = useTranslation();
-    const dispatch = useDispatch();
-    const {query} = useSelector(({companyReducers}) => companyReducers.company);
-
-    let formik = useFormik({
-                               initialValues   : query,
-                               validateOnChange: true,
-                               validateOnBlur  : true,
-                               onSubmit        : (values) => dispatch(getCompanyPage(values))
-                           });
+    const {t}                      = useTranslation();
+    const {register, handleSubmit} = useForm({mode: "onSubmit", defaultValues: props.query});
 
     return (
         <div>
@@ -26,18 +17,26 @@ const CompanyQueryForm = props => {
                 <Grid container spacing={2}>
                     <Grid item>
                         <KzTextField label={t("company:name")}
-                                     {...formik.getFieldProps("companyName")}/>
+                                     name={"companyName"}
+                                     defaultValue={props.query.companyName}
+                                     inputRef={register}/>
                     </Grid>
                 </Grid>
             </form>
 
             <div id="query-form-button-group" className="my-5">
-                <Button id="find-button" onClick={formik.handleSubmit} variant="outlined" color="secondary">
+                <Button id="find-button"
+                        onClick={handleSubmit(data => props.pageFunction({...props.query, ...data}))}>
                     {t("find")}
                 </Button>
             </div>
         </div>
     );
+};
+
+CompanyQueryForm.propTypes = {
+    query       : PropTypes.object.isRequired,
+    pageFunction: PropTypes.func.isRequired
 };
 
 export default CompanyQueryForm;

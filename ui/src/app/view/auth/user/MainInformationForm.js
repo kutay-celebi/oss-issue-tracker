@@ -36,8 +36,8 @@ const MainInformationForm = props => {
             </Grid>
             <Grid item xs={12} md={12} lg={6} xl={6}>
                 <KzTextField label={t("name")}
-                             name={"person.name"}
                              fullWidth
+                             name={"person.name"}
                              defaultValue={props.userModel.person.name}
                              inputRef={register}/>
                 <KzErrorMessage errors={errors} field={"person.name"}/>

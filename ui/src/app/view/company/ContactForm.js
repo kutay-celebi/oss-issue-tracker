@@ -7,19 +7,23 @@ import KzMaskedInput from "../../../@kuartz/components/mask/KzMaskedInput";
 
 const ContactForm = props => {
     let {t} = useTranslation(["contact"]);
+    const {register, handleSubmit, errors, watch, setValue} = props.contactForm;
     return (
         <Grid container spacing={2} direction="column" className="my-5">
-            <Grid item md={12} lg={6}>
+            <Grid item xs={12} md={12} lg={6} xl={6}>
                 <KzTextField label={t("adress")}
-                             {...props.formik.getFieldProps("contact.adress")}
-                             fullWidth
+                             inputRef={register}
+                             name={"contact.adress"}
+                             defaultValue={props.contact.adress}
                              multiline
-                             rows={5}/>
+                             rows={4}
+                             fullWidth/>
             </Grid>
-
             <Grid item md={12} lg={6}>
                 <KzMaskedInput label={t("gsm1")}
-                               {...props.formik.getFieldProps("contact.gsm1")}
+                               inputRef={register}
+                               name={"contact.gsm1"}
+                               defaultValue={props.contact.gsm1}
                                fullWidth
                                maskProps={{
                                    allowEmptyFormatting: true,
@@ -31,7 +35,9 @@ const ContactForm = props => {
 
             <Grid item md={12} lg={6}>
                 <KzMaskedInput label={t("gsm2")}
-                               {...props.formik.getFieldProps("contact.gsm2")}
+                               inputRef={register}
+                               name={"contact.gsm2"}
+                               defaultValue={props.contact.gsm2}
                                fullWidth
                                maskProps={{
                                    allowEmptyFormatting: true,
@@ -43,7 +49,9 @@ const ContactForm = props => {
 
             <Grid item md={12} lg={6}>
                 <KzMaskedInput label={t("tel")}
-                               {...props.formik.getFieldProps("contact.tel")}
+                               inputRef={register}
+                               name={"contact.tel"}
+                               defaultValue={props.contact.tel}
                                fullWidth
                                maskProps={{
                                    allowEmptyFormatting: true,
@@ -55,13 +63,17 @@ const ContactForm = props => {
 
             <Grid item md={12} lg={6}>
                 <KzTextField label={t("mail")}
-                             {...props.formik.getFieldProps("contact.mail")}
+                             inputRef={register}
+                             name={"contact.mail"}
+                             defaultValue={props.contact.mail}
                              fullWidth/>
             </Grid>
 
             <Grid item md={12} lg={6}>
                 <KzTextField label={t("web")}
-                             {...props.formik.getFieldProps("contact.web")}
+                             inputRef={register}
+                             name={"person.contact.web"}
+                             defaultValue={props.contact.web}
                              fullWidth/>
             </Grid>
 
@@ -70,8 +82,8 @@ const ContactForm = props => {
 };
 
 ContactForm.propTypes = {
-    formik : PropTypes.any.isRequired,
-    contact: PropTypes.object.isRequired
+    contactForm: PropTypes.any.isRequired,
+    contact    : PropTypes.object.isRequired
 };
 
 export default React.memo(ContactForm);

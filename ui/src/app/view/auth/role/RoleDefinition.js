@@ -11,15 +11,14 @@ import {clearRoleForm, closeRoleForm, getRole, getRolePage, openRoleForm, saveRo
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEdit} from "@fortawesome/free-solid-svg-icons";
 import KzTable from "../../../../@kuartz/components/KzTable/KzTable";
-import {initRoleModel, initRoleQuery} from "../../../redux/reducers/auth/role.reducer";
+import {initRoleQuery} from "../../../redux/reducers/auth/role.reducer";
 
 class RoleDefinition extends Component {
 
     constructor(props, context) {
         super(props, context);
         this.state = {
-            query    : initRoleQuery(),
-            roleModel: initRoleModel()
+            query    : initRoleQuery()
         }
     }
 
