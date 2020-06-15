@@ -1,63 +1,86 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import Grid from "@material-ui/core/Grid";
 import KzTextField from "../../../../@kuartz/components/TextInput/KzTextField";
 import KzSelect from "../../../../@kuartz/components/select/KzSelect";
 import {gender} from "../../../reference/Gender";
-import KzKeyboardDatePicker from "../../../../@kuartz/components/Date/KzKeyboardDatePicker";
 import {useTranslation} from "react-i18next";
+import KzErrorMessage from "../../../../@kuartz/components/form/KzErrorMessage";
+import KzKeyboardDatePicker from "../../../../@kuartz/components/Date/KzKeyboardDatePicker";
 
 const MainInformationForm = props => {
-
-    const {t}                         = useTranslation();
+    const {t}                                               = useTranslation();
+    const {register, handleSubmit, errors, watch, setValue} = props.form;
+    useEffect(() => {
+        register({name: "person.gender"});
+        register({name: "person.birthday"});
+    }, [register]);
 
     return (
         <Grid container spacing={2} direction="column" className="my-5">
             <Grid item xs={12} md={12} lg={6} xl={6}>
                 <KzTextField label={t("username")}
+                             name={"username"}
+                             defaultValue={props.userModel.username}
                              fullWidth
-                             formikMeta={props.formik.getFieldMeta("username")}
-                             {...props.formik.getFieldProps("username")}/>
+                             inputRef={register}/>
+                <KzErrorMessage errors={errors} field={"username"}/>
             </Grid>
             <Grid item xs={12} md={12} lg={12} xl={12}>
                 <KzTextField label={t("email")}
                              fullWidth
-                             formikMeta={props.formik.getFieldMeta("email")}
-                             {...props.formik.getFieldProps("email")}/>
+                             name={"email"}
+                             defaultValue={props.userModel.email}
+                             inputRef={register}/>
+                <KzErrorMessage errors={errors} field={"email"}/>
             </Grid>
             <Grid item xs={12} md={12} lg={6} xl={6}>
                 <KzTextField label={t("name")}
+                             name={"person.name"}
                              fullWidth
-                             formikMeta={props.formik.getFieldMeta("person.name")}
-                             {...props.formik.getFieldProps("person.name")}/>
+                             defaultValue={props.userModel.person.name}
+                             inputRef={register}/>
+                <KzErrorMessage errors={errors} field={"person.name"}/>
             </Grid>
             <Grid item xs={12} md={12} lg={6} xl={6}>
                 <KzTextField label={t("surname")}
+                             name={"person.lastName"}
                              fullWidth
-                             {...props.formik.getFieldProps("person.lastName")}/>
+                             defaultValue={props.userModel.person.lastName}
+                             inputRef={register}/>
+                <KzErrorMessage errors={errors} field={"person.lastName"}/>
             </Grid>
             <Grid item xs={12} md={12} lg={6} xl={6}>
                 <KzSelect options={gender}
                           label={t("gender")}
+                          value={watch("person.gender")}
+                          onChange={event => setValue("person.gender", event.target.value)}
                           variant="outlined"
                           fullWidth
-                          formikMeta={props.formik.getFieldMeta("person.gender")}
-                          {...props.formik.getFieldProps("person.gender")}/>
+                          defaultValue={props.userModel.person.gender}
+                          ref={register}/>
+                <KzErrorMessage errors={errors} field={"gender"}/>
             </Grid>
             <Grid item xs={12} md={12} lg={6} xl={6}>
+                {/*fixme*/}
                 <KzKeyboardDatePicker label={t("birthday")}
-                                      {...props.formik.getFieldProps("person.birthday")}
-                                      formikMeta={props.formik.getFieldMeta("person.birthday")}
+                                      name={"person.birthday"}
                                       maxDate={new Date()}
-                                      onChange={(value) => props.formik.setFieldValue("person.birthday", value)}/>
+                                      inputRef={register}
+                                      defaultValue={props.userModel.person.birthday}
+                                      onChange={(date, value) => {
+                                          setValue("person.birthday", date)
+                                      }}
+                                      value={watch("person.birthday")}/>
             </Grid>
         </Grid>
     );
 };
 
 MainInformationForm.propTypes = {
-    userUuid: PropTypes.string,
-    formik  : PropTypes.any.isRequired
+    userUuid : PropTypes.string,
+    form     : PropTypes.any.isRequired,
+    userModel: PropTypes.object.isRequired
 };
 
 export default MainInformationForm;

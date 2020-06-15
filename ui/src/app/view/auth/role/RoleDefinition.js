@@ -20,7 +20,7 @@ class RoleDefinition extends Component {
         this.state = {
             query    : initRoleQuery(),
             roleModel: initRoleModel()
-    }
+        }
     }
 
     handePageChange = (event) => {
@@ -67,8 +67,8 @@ class RoleDefinition extends Component {
 
                     <KzTable
                         columns={[
-                            {title: t("role:code"), field: "code"},
-                            {title: t("role:name"), field: "name"},
+                            {title: t("role:roleCode"), field: "code"},
+                            {title: t("role:roleName"), field: "name"},
 
                         ]}
                         data={this.props.roleList.content}

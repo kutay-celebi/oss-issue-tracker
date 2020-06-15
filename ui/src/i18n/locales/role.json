@@ -1,8 +1,12 @@
 {
   "en": {
-    "title": "Role Definition"
+    "title": "Role Definition",
+    "roleName": "Role Name",
+    "roleCode": "Role Code"
   },
   "tr": {
-    "title": "Rol Tanımlama"
+    "title": "Rol Tanımlama",
+    "roleName": "Role Adı",
+    "roleCode": "Role Kodu"
   }
 }

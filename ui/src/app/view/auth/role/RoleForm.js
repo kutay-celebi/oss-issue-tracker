@@ -20,14 +20,14 @@ const RoleForm = props => {
                       onSubmit={handleSubmit(props.saveAction)}
                       onClear={props.clearForm}>
             <DialogContent>
-                <form onSubmit={handleSubmit(props.saveAction)}>
+                <form>
                     <Grid container spacing={2} direction="column" className="my-5">
                         <Grid item xs={12} md={12} lg={6} xl={6}>
-                            <KzTextField inputRef={register} name="code" defaultValue={props.roleModel.code}/>
+                            <KzTextField label={t("role:roleCode")} inputRef={register} name="code" defaultValue={props.roleModel.code}/>
                         </Grid>
 
                         <Grid item xs={12} md={12} lg={6} xl={6}>
-                            <KzTextField inputRef={register} name="name" defaultValue={props.roleModel.name}/>
+                            <KzTextField label={t("role:roleName")} inputRef={register} name="name" defaultValue={props.roleModel.name}/>
                         </Grid>
 
                         <Grid item xs={12} md={12} lg={6} xl={6}>

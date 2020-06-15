@@ -1,38 +1,31 @@
-import React            from "react";
-import {useFormik}      from "formik";
-import KzTextField      from "../../../../@kuartz/components/TextInput/KzTextField";
-import Button           from "@material-ui/core/Button";
-import clsx             from "clsx";
-import PropTypes        from "prop-types";
-import Grid             from "@material-ui/core/Grid";
+import React from "react";
+import KzTextField from "../../../../@kuartz/components/TextInput/KzTextField";
+import Button from "@material-ui/core/Button";
+import PropTypes from "prop-types";
+import Grid from "@material-ui/core/Grid";
 import {useTranslation} from "react-i18next";
+import {useForm} from "react-hook-form";
 
 
 const UserQueryForm = (props) => {
 
     const {t} = useTranslation();
 
-    const formik = useFormik({
-                                 initialValues   : props.query,
-                                 validateOnChange: true,
-                                 validateOnBlur  : true,
-                                 onSubmit        : (values) => props.onSubmit(values)
-                             });
-
+    const {register, handleSubmit} = useForm({mode: "onSubmit", defaultValues: props.query});
     return (
-        <form onSubmit={formik.handleSubmit} className={clsx("p-5", props.classes.border_frame)}>
+        <form onSubmit={handleSubmit(data => props.pageFunction({...props.query, ...data}))}>
 
             <Grid container spacing={2}>
                 <Grid item>
                     <KzTextField label={t("username")}
-                                 value={formik.values.username}
-                                 onChange={formik.handleChange("username")}/>
+                                 name={"userName"}
+                                 inputRef={register}/>
                 </Grid>
 
                 <Grid item>
                     <KzTextField label={t("email")}
-                                 value={formik.values.email}
-                                 onChange={formik.handleChange("email")}/>
+                                 name={"email"}
+                                 inputRef={register}/>
                 </Grid>
             </Grid>
 
@@ -46,8 +39,9 @@ const UserQueryForm = (props) => {
 };
 
 UserQueryForm.propTypes = {
-    query  : PropTypes.object,
-    classes: PropTypes.object
+    query       : PropTypes.object.isRequired,
+    pageFunction: PropTypes.func.isRequired,
+    classes     : PropTypes.object
 };
 
 export default UserQueryForm;
