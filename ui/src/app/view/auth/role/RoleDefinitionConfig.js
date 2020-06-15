@@ -8,11 +8,6 @@ export const RoleDefinitionConfig = {
         {
             path     : PATH_ROLE_DEFINITION,
             component: RoleDefinition,
-            navbar   : {
-                id   : "role-definition",
-                level: 2,
-                title: "Role Definition" // todo with translation
-            },
         }
 
     ]

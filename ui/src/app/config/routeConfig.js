@@ -6,6 +6,7 @@ import {ErrorPageConfig} from "../view/errorPage/ErrorPageConfig";
 import {HomePageConfig} from "../view/home/HomePageConfig";
 import {UserManagementConfig} from "../view/auth/user/UserManagementConfig";
 import {CompanyDefinitionConfig} from "../view/company/CompanyDefinitionConfig";
+import {RoleDefinitionConfig} from "../view/auth/role/RoleDefinitionConfig";
 
 
 /**
@@ -18,7 +19,8 @@ const routeConfigs = [
     ErrorPageConfig,
     HomePageConfig,
     UserManagementConfig,
-    CompanyDefinitionConfig
+    CompanyDefinitionConfig,
+    RoleDefinitionConfig
 ];
 
 

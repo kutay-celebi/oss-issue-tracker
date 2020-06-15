@@ -1,8 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {useTranslation} from "react-i18next";
 import {useFormik} from "formik";
-import clsx from "clsx";
 import Grid from "@material-ui/core/Grid";
 import KzTextField from "../../../@kuartz/components/TextInput/KzTextField";
 import Button from "@material-ui/core/Button";
@@ -25,7 +23,6 @@ const CompanyQueryForm = props => {
     return (
         <div>
             <form>
-
                 <Grid container spacing={2}>
                     <Grid item>
                         <KzTextField label={t("company:name")}

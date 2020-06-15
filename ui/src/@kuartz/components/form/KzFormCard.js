@@ -1,7 +1,7 @@
-import React        from 'react';
-import PropTypes    from 'prop-types';
+import React from 'react';
+import PropTypes from 'prop-types';
 import {makeStyles} from '@material-ui/styles';
-import clsx         from "clsx";
+import clsx from "clsx";
 import {Typography} from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
@@ -56,7 +56,7 @@ const KzFormCard = props => {
                                 : null
                         }
                         <div id="header-title" className="overflow-hidden">
-                            <Typography className={clsx(classes.headerTitle, "truncate")} variant="h4">{props.title}</Typography>
+                            <Typography className={clsx(classes.headerTitle, "truncate ml-5")} variant="h4">{props.title}</Typography>
                             <Typography className="truncate">{props.headerText}</Typography>
                             <Typography className="truncate" variant="caption">{props.headerDetail}</Typography>
                         </div>

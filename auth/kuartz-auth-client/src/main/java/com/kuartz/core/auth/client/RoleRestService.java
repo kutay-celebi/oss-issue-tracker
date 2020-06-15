@@ -42,19 +42,16 @@ public interface RoleRestService {
 
     @RequestMapping(value = "/delete/{id}",
                     method = RequestMethod.DELETE,
-                    consumes = MediaType.APPLICATION_JSON_VALUE,
                     produces = {MediaType.APPLICATION_JSON_VALUE})
     KuartzResponse<Boolean> delete(@NotNull @Positive @PathVariable("id") Long id);
 
     @RequestMapping(value = "/get/{id}",
                     method = RequestMethod.GET,
-                    consumes = MediaType.APPLICATION_JSON_VALUE,
                     produces = {MediaType.APPLICATION_JSON_VALUE})
     KuartzResponse<RoleModel> get(@NotNull @Positive @PathVariable("id") Long id);
 
     @RequestMapping(value = "/addPrivilege",
                     method = RequestMethod.GET,
-                    consumes = MediaType.APPLICATION_JSON_VALUE,
                     produces = {MediaType.APPLICATION_JSON_VALUE})
     KuartzResponse<Boolean> addPrivilege(@NotNull @Positive @RequestParam("roleId") Long roleId,
                                          @NotNull @Positive @RequestParam("privilegeId") Long privilegeId);

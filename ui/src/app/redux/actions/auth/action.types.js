@@ -21,11 +21,19 @@ export const SET_USER = "USER_SET_USER";
 export const GET_USER = "USER_GET_USER";
 
 export const OPEN_USER_FORM  = "USER_OPEN_USER_FORM";
-export const CLOSE_USER_FORM = "CLOSE_OPEN_USER_FORM";
+export const CLOSE_USER_FORM = "CLOSE_USER_FORM";
 //endregion
 
 //region ROLE
 export const GET_ROLE_PAGE     = "ROLE_GET_PAGE";
 export const SUCCESS_ROLE_PAGE = "ROLE_SUCCESS_PAGE";
 export const FAIL_ROLE_PAGE    = "ROLE_FAIL_PAGE";
+
+export const OPEN_ROLE_FORM  = "OPEN_ROLE_FORM";
+export const CLOSE_ROLE_FORM = "CLOSE_ROLE_FORM";
+
+export const SUCCESS_ADD_ROLE    = "SUCCESS_ADD_ROLE";
+export const CLEAR_ADD_ROLE_FORM = "CLEAR_ROLE_FORM";
+
+export const SET_ROLE = "SET_ROLE";
 //endregion
