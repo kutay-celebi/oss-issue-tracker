@@ -13,15 +13,16 @@ import {initAddUserForm} from "./user.reducer";
 
 export const initRoleModel = () => {
     return {
-        id         : null,
-        createdAt  : null,
-        deleted    : false,
-        deletedAt  : null,
-        updatedAt  : null,
-        uuid       : "unsaved",
-        name       : null,
-        code       : null,
-        description: null
+        id                       : null,
+        createdAt                : null,
+        deleted                  : false,
+        deletedAt                : null,
+        updatedAt                : null,
+        uuid                     : "unsaved",
+        name                     : null,
+        code                     : null,
+        description              : null,
+        rolePrivilegeRelationList: []
     };
 };
 
@@ -38,6 +39,19 @@ export const initRoleQuery = () => {
         }
     }
 };
+
+export const initPrivilegeQuery = () => {
+    return {
+        pageable: {
+            pageNumber: DEFAULT_QUERY_PAGE_NUMBER,
+            pageSize  : DEFAULT_QUERY_PAGE_SIZE,
+            sort      : {
+                kzOrderList: []
+            }
+        }
+    }
+};
+
 
 const initialState = {
     wait        : false,

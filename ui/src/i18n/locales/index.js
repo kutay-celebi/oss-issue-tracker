@@ -4,6 +4,7 @@ import company from "./company";
 import table from "./table";
 import contact from "./contact";
 import role from "./role";
+import messages from "./messages";
 
 export {
     common,
@@ -11,5 +12,6 @@ export {
     company,
     table,
     contact,
-    role
+    role,
+    messages
 };
