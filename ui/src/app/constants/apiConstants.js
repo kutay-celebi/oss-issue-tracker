@@ -6,6 +6,8 @@ export const AUTH_TOKEN_PATH = "/oauth/token";
 
 export const API_GET_ROLE_PAGE = "/role/page";
 
+export const API_GET_PRIVILEGE_PAGE = "/privilege/page";
+
 export const API_GET_USER_PAGE = "/user/get/page";
 
 export const API_GET_COMPANY_PAGE  = "/company/get/page";
