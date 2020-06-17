@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import KzFormDialog from "@kuartz/components/form/KzFormDialog";
 import {useTranslation} from "react-i18next";
@@ -13,14 +13,18 @@ import KzTable from "@kuartz/components/KzTable/KzTable";
 import AuthService from "../../../service/authServiceImpl";
 import {API_ADD_ROLE_PRIVILEGE} from "../../../constants";
 import {useDispatch} from "react-redux";
-import {getRole} from "../../../redux/actions/auth/role.actions";
+import {getRole, removePrivilegeRelation} from "../../../redux/actions/auth/role.actions";
 import {enqueueSnackbar} from "../../../redux/actions/core";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faTrash} from "@fortawesome/free-solid-svg-icons";
 
 
 const RoleForm = props => {
     const dispatch                                = useDispatch();
     let {t}                                       = useTranslation();
     const {register, handleSubmit, errors, watch} = useForm({mode: 'onChange'});
+
+    useEffect(() => {}, [props.roleModel]);
 
     const addPrivilege = async (selectedList) => {
         console.log(selectedList);
@@ -87,7 +91,13 @@ const RoleForm = props => {
                                 {title: t("default"), field: "privilege.defaultPrivilege", type: "boolean"},
                             ]}
                             data={props.roleModel ? props.roleModel.rolePrivilegeRelationList : null}
-                            totalCount={props.roleModel.rolePrivilegeRelationList ? props.roleModel.rolePrivilegeRelationList.length : 0}/>
+                            totalCount={props.roleModel.rolePrivilegeRelationList ? props.roleModel.rolePrivilegeRelationList.length : 0}
+                            actions={[
+                                {
+                                    icon   : () => <FontAwesomeIcon icon={faTrash}/>,
+                                    onClick: (event, rowData) => dispatch(removePrivilegeRelation(rowData.id, props.roleModel.id))
+                                }
+                            ]}/>
                     </Card>
 
                 </form>

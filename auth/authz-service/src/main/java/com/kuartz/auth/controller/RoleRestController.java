@@ -6,6 +6,7 @@ import com.kuartz.core.auth.client.RoleRestService;
 import com.kuartz.core.auth.dto.RoleModel;
 import com.kuartz.core.auth.dto.query.RoleQueryModel;
 import com.kuartz.core.common.domain.KzPage;
+import com.kuartz.core.common.model.KzMessageModel;
 import com.kuartz.core.rest.model.KuartzResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -58,5 +59,10 @@ public class RoleRestController implements RoleRestService {
     @Override
     public KuartzResponse<Boolean> addPrivilegeList(@RequestParam("roleId") Long roleId, @RequestBody List<Long> privilegeId) {
         return new KuartzResponse<>(roleService.addPrivilege(roleId, privilegeId));
+    }
+
+    @Override
+    public KuartzResponse<KzMessageModel> removePrivilegeFromRole(@PathVariable("relationId") Long relationId) {
+        return new KuartzResponse<>(roleService.removePrivilegeFromRole(relationId));
     }
 }

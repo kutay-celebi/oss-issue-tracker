@@ -3,6 +3,7 @@ package com.kuartz.core.auth.client;
 import com.kuartz.core.auth.dto.RoleModel;
 import com.kuartz.core.auth.dto.query.RoleQueryModel;
 import com.kuartz.core.common.domain.KzPage;
+import com.kuartz.core.common.model.KzMessageModel;
 import com.kuartz.core.rest.model.KuartzResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -56,5 +57,10 @@ public interface RoleRestService {
                     consumes = MediaType.APPLICATION_JSON_VALUE,
                     produces = {MediaType.APPLICATION_JSON_VALUE})
     KuartzResponse<Boolean> addPrivilegeList(@NotNull @Positive @RequestParam("roleId") Long roleId, @NotNull List<Long> privilegeIdList);
+
+    @RequestMapping(value = "/removePrivilegeRelation/{relationId}",
+                    method = RequestMethod.DELETE,
+                    produces = {MediaType.APPLICATION_JSON_VALUE})
+    KuartzResponse<KzMessageModel> removePrivilegeFromRole(@NotNull @Positive @PathVariable("relationId") Long roleId);
 
 }

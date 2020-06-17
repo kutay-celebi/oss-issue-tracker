@@ -16,14 +16,17 @@ import com.kuartz.core.auth.dto.query.PrivilegeQueryModel;
 import com.kuartz.core.auth.dto.query.RoleQueryModel;
 import com.kuartz.core.common.converter.KuartzModelConverter;
 import com.kuartz.core.common.domain.KzPage;
+import com.kuartz.core.common.model.KzMessageModel;
 import com.kuartz.core.common.util.KzUtil;
 import com.kuartz.core.data.jpa.TransactionalRollback;
+import com.kuartz.core.env.KuartzMessageSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @Service
@@ -44,6 +47,10 @@ public class RoleServiceImpl implements RoleService {
 
     @Autowired
     private RolePrivilegeRepository rolePrivilegeRepository;
+
+    @Autowired
+    private KuartzMessageSource messageSource;
+
 
     @Transactional(readOnly = true)
     @Override
@@ -99,5 +106,11 @@ public class RoleServiceImpl implements RoleService {
             rolePrivilegeRepository.saveAllFlush(relationList);
         }
         return Boolean.TRUE;
+    }
+
+    @Override
+    public KzMessageModel removePrivilegeFromRole(Long relationId) {
+        rolePrivilegeRepository.deleteById(relationId);
+        return KzMessageModel.succeed().addMessage(messageSource.getMessage("delete_success", KzUtil.createArray(1), Locale.getDefault()));
     }
 }

@@ -4,12 +4,13 @@ import {
     FAIL_ROLE_PAGE,
     GET_ROLE_PAGE,
     OPEN_ROLE_FORM,
+    REMOVE_PRIVILEGE_RELATION,
     SET_ROLE,
     SUCCESS_ADD_ROLE,
     SUCCESS_ROLE_PAGE
 } from "./action.types";
 import AuthService from "../../../service/authServiceImpl";
-import {API_GET_ROLE_PAGE} from "../../../constants";
+import {API_GET_ROLE_PAGE, API_REMOVE_PRIVILEGE_RELATION} from "../../../constants";
 import {enqueueSnackbar} from "../core";
 
 export const saveRole = (role) => async (dispatch) => {
@@ -52,9 +53,9 @@ export const getRole = (id) => async (dispatch) => {
                      .then((response) => {
                          dispatch(setRole(response.data));
                      })
-        .catch(
-            error =>  dispatch(enqueueSnackbar(error.response.data.message, {variant: "error"})) //todo generic error method.
-        )
+                     .catch(
+                         error => dispatch(enqueueSnackbar(error.response.data.message, {variant: "error"})) //todo generic error method.
+                     )
 };
 
 export const setRole = (role) => (dispatch) => {
@@ -65,9 +66,6 @@ export const setRole = (role) => (dispatch) => {
 };
 
 export const getRolePage = (query) => async (dispatch) => {
-
-    console.warn(query.pageable);
-
     dispatch({
                  type: GET_ROLE_PAGE,
              });
@@ -98,4 +96,20 @@ export const closeRoleForm = () => (dispatch) => {
     dispatch({
                  type: CLOSE_ROLE_FORM
              })
+};
+
+export const removePrivilegeRelation = (relationId, roleId) => (dispatch) => {
+    dispatch({
+                 type: REMOVE_PRIVILEGE_RELATION
+             });
+
+    AuthService.getApi().delete(API_REMOVE_PRIVILEGE_RELATION + relationId)
+               .then((response) => {
+                   dispatch(enqueueSnackbar(response.data.message, {variant: "success",}));
+               })
+               .catch((error) => {
+                   dispatch(enqueueSnackbar(error.response.data.message, {variant: "error"})); //todo generic error method.
+               });
+
+    dispatch(getRole(roleId))
 };
