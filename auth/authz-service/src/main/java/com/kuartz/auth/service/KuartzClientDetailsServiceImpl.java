@@ -6,6 +6,7 @@ import com.kuartz.auth.repository.KuartzClientDetailsRepository;
 import com.kuartz.core.auth.dto.ClientModel;
 import com.kuartz.core.common.converter.KuartzModelConverter;
 import com.kuartz.core.data.jpa.TransactionalRollback;
+import com.kuartz.core.service.KuartzService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.provider.ClientAlreadyExistsException;
@@ -18,7 +19,7 @@ import java.util.Optional;
 
 @Service
 @TransactionalRollback
-public class KuartzClientDetailsServiceImpl implements KuartzClientDetailsService {
+public class KuartzClientDetailsServiceImpl extends KuartzService implements KuartzClientDetailsService {
 
 
     @Autowired
