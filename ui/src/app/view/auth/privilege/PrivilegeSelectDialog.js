@@ -22,7 +22,7 @@ const PrivilegeSelectDialog = (props) => {
 
     useEffect(() => {
         getPrivilegePage(privlegeQuery)
-    }, []);
+    }, [openPrivilegeQueryForm]);
 
     const getPrivilegePage = async (query) => {
         await AuthService.postApi().post(API_GET_PRIVILEGE_PAGE, query)
@@ -67,34 +67,38 @@ const PrivilegeSelectDialog = (props) => {
             <KzFormDialog open={openPrivilegeQueryForm}
                           headerText={t("role:assocPrivilege")}
                           onClose={() => setOpenPrivilegeQueryForm(false)}
-                          onSubmit={() => props.onSelect(selectedList)}
+                          onSubmit={() => {
+                              props.onSelect(selectedList);
+                              setSelectedList(null);
+                              setOpenPrivilegeQueryForm(false);
+                          }}
                           fullWidth
                           maxWidth={"lg"}>
                 <DialogContent>
-                <div className="p-5">
-                    <KzTable
-                        columns={[
-                            {title: t("code"), field: "code"},
-                            {title: t("parent") + " " + t("code"), field: "parentPrivilege.code"},
-                            {title: t("default"), field: "defaultPrivilege", type: "boolean"},
-                        ]}
-                        options={{
-                            selection            : true,
-                            showSelectAllCheckbox: false,
-                            selectionProps       : row => ({
-                                disabled: props.existPrivilegeList ?
-                                    props.existPrivilegeList.some(
-                                        value => value.privilege.uuid === row.uuid) || row.defaultPrivilege : false
-                            })
-                        }}
-                        data={privilegePage.content}
-                        onChangeRowsPerPage={privilegePageSizeChange}
-                        onChangePage={privilegePageChange}
-                        page={privlegeQuery.pageable.pageNumber}
-                        pageSize={privlegeQuery.pageable.pageSize}
-                        totalCount={privilegePage.content ? privilegePage.content.totalElements : 0}
-                        onSelectionChange={(data) => setSelectedList(data)}/>
-                </div>
+                    <div className="p-5">
+                        <KzTable
+                            columns={[
+                                {title: t("code"), field: "code"},
+                                {title: t("parent") + " " + t("code"), field: "parentPrivilege.code"},
+                                {title: t("default"), field: "defaultPrivilege", type: "boolean"},
+                            ]}
+                            options={{
+                                selection            : true,
+                                showSelectAllCheckbox: false,
+                                selectionProps       : row => ({
+                                    disabled: props.existPrivilegeList ?
+                                        props.existPrivilegeList.some(
+                                            value => value.privilege.uuid === row.uuid) || row.defaultPrivilege : false
+                                })
+                            }}
+                            data={privilegePage.content ? privilegePage.content : null}
+                            onChangeRowsPerPage={privilegePageSizeChange}
+                            onChangePage={privilegePageChange}
+                            page={privlegeQuery.pageable.pageNumber}
+                            pageSize={privlegeQuery.pageable.pageSize}
+                            totalCount={privilegePage.content ? privilegePage.content.totalElements : 0}
+                            onSelectionChange={(data) => setSelectedList(data)}/>
+                    </div>
                 </DialogContent>
             </KzFormDialog>
 

@@ -6,6 +6,8 @@ public class PrivilegeModel extends KuartzModel {
 
     private String code;
 
+    private Boolean defaultPrivilege;
+
     private PrivilegeModel parentPrivilege;
 
     public String getAuthority() {
@@ -19,6 +21,14 @@ public class PrivilegeModel extends KuartzModel {
     public PrivilegeModel(String code, PrivilegeModel parentPrivilege) {
         this.code            = code;
         this.parentPrivilege = parentPrivilege;
+    }
+
+    public Boolean getDefaultPrivilege() {
+        return defaultPrivilege;
+    }
+
+    public void setDefaultPrivilege(Boolean defaultPrivilege) {
+        this.defaultPrivilege = defaultPrivilege;
     }
 
     public String getCode() {

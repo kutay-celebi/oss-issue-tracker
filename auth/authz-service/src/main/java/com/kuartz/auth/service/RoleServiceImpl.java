@@ -1,22 +1,28 @@
 package com.kuartz.auth.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.kuartz.auth.builder.PrivilegeQueryBuilder;
 import com.kuartz.auth.builder.RoleQueryBuilder;
 import com.kuartz.auth.entity.PrivilegeEntity;
 import com.kuartz.auth.entity.RoleEntity;
 import com.kuartz.auth.entity.RolePrivilegeEntity;
+import com.kuartz.auth.entity.query.PrivilegeEntityQuery;
 import com.kuartz.auth.entity.query.RoleEntityQuery;
 import com.kuartz.auth.repository.PrivilegeRepository;
+import com.kuartz.auth.repository.RolePrivilegeRepository;
 import com.kuartz.auth.repository.RoleRepository;
 import com.kuartz.core.auth.dto.RoleModel;
+import com.kuartz.core.auth.dto.query.PrivilegeQueryModel;
 import com.kuartz.core.auth.dto.query.RoleQueryModel;
 import com.kuartz.core.common.converter.KuartzModelConverter;
 import com.kuartz.core.common.domain.KzPage;
+import com.kuartz.core.common.util.KzUtil;
 import com.kuartz.core.data.jpa.TransactionalRollback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +38,12 @@ public class RoleServiceImpl implements RoleService {
 
     @Autowired
     private RoleQueryBuilder queryBuilder;
+
+    @Autowired
+    private PrivilegeQueryBuilder privilegeQueryBuilder;
+
+    @Autowired
+    private RolePrivilegeRepository rolePrivilegeRepository;
 
     @Transactional(readOnly = true)
     @Override
@@ -75,17 +87,17 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Boolean addPrivilege(Long roleId, Long privilegeId) {
+    public Boolean addPrivilege(Long roleId, List<Long> privilegeId) {
         Optional<RoleEntity> roleOne = repository.findById(roleId);
-        Optional<PrivilegeEntity> yetkiOne = privilegeRepository.findById(privilegeId);
-        RoleEntity roleEntity = null;
-        if (roleOne.isPresent() && yetkiOne.isPresent()) {
-            roleEntity = roleOne.get();
-            roleEntity.getRolePrivilegeRelationList().add(new RolePrivilegeEntity(yetkiOne.get(), roleOne.get()));
+        List<PrivilegeEntity> yetkiList = privilegeRepository.findAll(privilegeQueryBuilder.buildQuery(new PrivilegeQueryModel(privilegeId),
+                                                                                                       PrivilegeEntityQuery.privilegeEntity));
+        if (roleOne.isPresent() && !KzUtil.isEmpty(yetkiList)) {
+            ArrayList<RolePrivilegeEntity> relationList = new ArrayList<>();
+            for (PrivilegeEntity privilegeEntity : yetkiList) {
+                relationList.add(new RolePrivilegeEntity(privilegeEntity, roleOne.get()));
+            }
+            rolePrivilegeRepository.saveAllFlush(relationList);
         }
-
-        repository.saveFlush(roleEntity);
-
         return Boolean.TRUE;
     }
 }

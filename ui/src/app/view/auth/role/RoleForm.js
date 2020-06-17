@@ -10,14 +10,35 @@ import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import PrivilegeSelectDialog from "../privilege/PrivilegeSelectDialog";
 import KzTable from "@kuartz/components/KzTable/KzTable";
+import AuthService from "../../../service/authServiceImpl";
+import {API_ADD_ROLE_PRIVILEGE} from "../../../constants";
+import {useDispatch} from "react-redux";
+import {getRole} from "../../../redux/actions/auth/role.actions";
+import {enqueueSnackbar} from "../../../redux/actions/core";
 
 
 const RoleForm = props => {
+    const dispatch                                = useDispatch();
     let {t}                                       = useTranslation();
     const {register, handleSubmit, errors, watch} = useForm({mode: 'onChange'});
 
-    const addPrivilege = (selectedList) => {
+    const addPrivilege = async (selectedList) => {
         console.log(selectedList);
+        await AuthService.postApi().post(API_ADD_ROLE_PRIVILEGE, selectedList.map(p => p.id),
+                                         {
+                                             params: {
+                                                 "roleId": props.roleModel.id
+                                             }
+                                         })
+                         .then(
+                             response => {
+                                 dispatch(getRole(props.roleModel.id));
+                                 console.log("done");
+                             }
+                         )
+                         .catch((error) => {
+                             dispatch(enqueueSnackbar(error.response.data.message, {variant: "error"})); //todo generic error method.
+                         })
     };
 
     return (
@@ -65,7 +86,7 @@ const RoleForm = props => {
                                 {title: t("parent") + " " + t("code"), field: "privilege.parentPrivilege.code"},
                                 {title: t("default"), field: "privilege.defaultPrivilege", type: "boolean"},
                             ]}
-                            data={props.roleModel.rolePrivilegeRelationList}
+                            data={props.roleModel ? props.roleModel.rolePrivilegeRelationList : null}
                             totalCount={props.roleModel.rolePrivilegeRelationList ? props.roleModel.rolePrivilegeRelationList.length : 0}/>
                     </Card>
 

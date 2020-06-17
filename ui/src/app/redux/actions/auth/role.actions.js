@@ -52,6 +52,9 @@ export const getRole = (id) => async (dispatch) => {
                      .then((response) => {
                          dispatch(setRole(response.data));
                      })
+        .catch(
+            error =>  dispatch(enqueueSnackbar(error.response.data.message, {variant: "error"})) //todo generic error method.
+        )
 };
 
 export const setRole = (role) => (dispatch) => {
