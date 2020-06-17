@@ -24,10 +24,11 @@ dependencies {
             // kuartz
             [group: 'com.kuartz.core.data.jpa', name: 'kuartz-data-jpa', version: "${kuartzDataJpaVersion}"],
             [group: 'com.kuartz.core.auth', name: 'kuartz-auth-core', version: "${kuartzAuthCoreVersion}"],
+            [group: 'com.kuartz.core.service', name: 'kuartz-core-service', version: "${kuartzServiceVersion}"],
 
             // boot
             [group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'],
-            [group: 'org.springframework.boot', name: 'spring-boot-starter-web'],
+//            [group: 'org.springframework.boot', name: 'spring-boot-starter-web'],
 
             [group: 'io.springfox', name: 'springfox-swagger2', version: "${swaggerVersion}"],
             [group: 'io.springfox', name: 'springfox-swagger-ui', version: "${swaggerVersion}"],

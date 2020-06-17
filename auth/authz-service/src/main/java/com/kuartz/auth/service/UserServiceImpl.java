@@ -17,6 +17,7 @@ import com.kuartz.core.common.exception.ExceptionMessage;
 import com.kuartz.core.common.exception.KzException;
 import com.kuartz.core.common.util.KzUtil;
 import com.kuartz.core.data.jpa.TransactionalRollback;
+import com.kuartz.core.service.KuartzService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -30,7 +31,7 @@ import java.util.Optional;
 
 @Service
 @TransactionalRollback
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends KuartzService implements UserService {
 
     @Autowired
     private UserRepository userRepository;

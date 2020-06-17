@@ -20,18 +20,18 @@ import com.kuartz.core.common.model.KzMessageModel;
 import com.kuartz.core.common.util.KzUtil;
 import com.kuartz.core.data.jpa.TransactionalRollback;
 import com.kuartz.core.env.KuartzMessageSource;
+import com.kuartz.core.service.KuartzService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
 @Service
 @TransactionalRollback
-public class RoleServiceImpl implements RoleService {
+public class RoleServiceImpl extends KuartzService implements RoleService {
 
     @Autowired
     private RoleRepository repository;
@@ -107,12 +107,12 @@ public class RoleServiceImpl implements RoleService {
             savedEntity = rolePrivilegeRepository.saveAllFlush(relationList);
         }
         return KzMessageModel.succeed().addMessage(
-                messageSource.getMessage("rowEffect", KzUtil.createArray(savedEntity.size()), Locale.getDefault()));
+                messageSource.getMessage("rowEffect", KzUtil.createArray(savedEntity.size()), request.getLocale()));
     }
 
     @Override
     public KzMessageModel removePrivilegeFromRole(Long relationId) {
         rolePrivilegeRepository.deleteById(relationId);
-        return KzMessageModel.succeed().addMessage(messageSource.getMessage("delete_success", KzUtil.createArray(1), Locale.getDefault()));
+        return KzMessageModel.succeed().addMessage(messageSource.getMessage("delete_success", KzUtil.createArray(1), request.getLocale()));
     }
 }
