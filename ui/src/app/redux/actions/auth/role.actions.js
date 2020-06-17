@@ -10,7 +10,7 @@ import {
     SUCCESS_ROLE_PAGE
 } from "./action.types";
 import AuthService from "../../../service/authServiceImpl";
-import {API_GET_ROLE_PAGE, API_REMOVE_PRIVILEGE_RELATION} from "../../../constants";
+import {API_ADD_ROLE_PRIVILEGE, API_GET_ROLE_PAGE, API_REMOVE_PRIVILEGE_RELATION} from "../../../constants";
 import {enqueueSnackbar} from "../core";
 
 export const saveRole = (role) => async (dispatch) => {
@@ -105,11 +105,30 @@ export const removePrivilegeRelation = (relationId, roleId) => (dispatch) => {
 
     AuthService.getApi().delete(API_REMOVE_PRIVILEGE_RELATION + relationId)
                .then((response) => {
+                   dispatch(getRole(roleId));
                    dispatch(enqueueSnackbar(response.data.message, {variant: "success",}));
                })
                .catch((error) => {
                    dispatch(enqueueSnackbar(error.response.data.message, {variant: "error"})); //todo generic error method.
                });
-
-    dispatch(getRole(roleId))
 };
+
+export const addPrivilegeToRole = (privilegeList,roleId) => (dispatch) => {
+    AuthService.postApi().post(API_ADD_ROLE_PRIVILEGE, privilegeList.map(p => p.id),
+                               {
+                                   params: {
+                                       "roleId": roleId
+                                   }
+                               })
+               .then(
+                   response => {
+                       dispatch(getRole(roleId));
+                       dispatch(enqueueSnackbar(response.data.message, {variant: "success",}));
+                   }
+               )
+               .catch((error) => {
+                   dispatch(enqueueSnackbar(error.response.data.message, {variant: "error"})); //todo generic error method.
+               })
+};
+
+
