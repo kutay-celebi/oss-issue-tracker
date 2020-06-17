@@ -2,7 +2,25 @@ package com.kuartz.core.auth.dto.query;
 
 import com.kuartz.core.common.model.KuartzQueryModel;
 
-// FIXME: @kutay-celebi 07.03.2020 add constraints
+import java.util.List;
+
 public class PrivilegeQueryModel extends KuartzQueryModel {
-//    todo yazilacak
+
+    private List<Long> idList;
+
+    public PrivilegeQueryModel() {
+        //    do nothing
+    }
+
+    public PrivilegeQueryModel(List<Long> idList) {
+        this.idList = idList;
+    }
+
+    public List<Long> getIdList() {
+        return idList;
+    }
+
+    public void setIdList(List<Long> idList) {
+        this.idList = idList;
+    }
 }

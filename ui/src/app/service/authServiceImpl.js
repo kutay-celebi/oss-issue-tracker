@@ -1,7 +1,7 @@
-import KzUtils                                            from "../../@kuartz/KzUtils";
-import axios                                              from "axios";
+import KzUtils from "../../@kuartz/KzUtils";
+import axios from "axios";
 import {AUTH_PATH, AUTH_TOKEN_PATH, BASE_PATH, PATH_ROOT} from "../constants";
-import history                                            from "@history";
+import history from "@history";
 
 
 // todo naming.
@@ -76,7 +76,7 @@ class AuthServiceImpl extends KzUtils.EventEmitter {
             }
         });
         return instance;
-    }
+    };
 }
 
 const AuthService = new AuthServiceImpl();

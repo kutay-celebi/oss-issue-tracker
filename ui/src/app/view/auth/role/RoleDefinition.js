@@ -68,6 +68,7 @@ class RoleDefinition extends Component {
                         columns={[
                             {title: t("role:roleCode"), field: "code"},
                             {title: t("role:roleName"), field: "name"},
+                            {title: t("default"), field: "defaultRole", type: "boolean"},
 
                         ]}
                         data={this.props.roleList.content}

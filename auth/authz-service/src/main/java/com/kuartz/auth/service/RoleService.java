@@ -3,6 +3,7 @@ package com.kuartz.auth.service;
 import com.kuartz.core.auth.dto.RoleModel;
 import com.kuartz.core.auth.dto.query.RoleQueryModel;
 import com.kuartz.core.common.domain.KzPage;
+import com.kuartz.core.common.model.KzMessageModel;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
@@ -24,5 +25,7 @@ public interface RoleService {
 
     RoleModel get(@NotNull @Positive Long id);
 
-    Boolean addPrivilege(@NotNull @Positive Long roleId, @NotNull @Positive Long privilegeId);
+    Boolean addPrivilege(@NotNull @Positive Long roleId, @NotNull List<Long> privilegeId);
+
+    KzMessageModel removePrivilegeFromRole(@NotNull @Positive Long relationId);
 }
