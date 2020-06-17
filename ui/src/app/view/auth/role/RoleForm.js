@@ -10,11 +10,8 @@ import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import PrivilegeSelectDialog from "../privilege/PrivilegeSelectDialog";
 import KzTable from "@kuartz/components/KzTable/KzTable";
-import AuthService from "../../../service/authServiceImpl";
-import {API_ADD_ROLE_PRIVILEGE} from "../../../constants";
 import {useDispatch} from "react-redux";
-import {getRole, removePrivilegeRelation} from "../../../redux/actions/auth/role.actions";
-import {enqueueSnackbar} from "../../../redux/actions/core";
+import {addPrivilegeToRole, removePrivilegeRelation} from "../../../redux/actions/auth/role.actions";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrash} from "@fortawesome/free-solid-svg-icons";
 
@@ -24,25 +21,11 @@ const RoleForm = props => {
     let {t}                                       = useTranslation();
     const {register, handleSubmit, errors, watch} = useForm({mode: 'onChange'});
 
-    useEffect(() => {}, [props.roleModel]);
+    useEffect(() => {
+    }, [props.roleModel]);
 
-    const addPrivilege = async (selectedList) => {
-        console.log(selectedList);
-        await AuthService.postApi().post(API_ADD_ROLE_PRIVILEGE, selectedList.map(p => p.id),
-                                         {
-                                             params: {
-                                                 "roleId": props.roleModel.id
-                                             }
-                                         })
-                         .then(
-                             response => {
-                                 dispatch(getRole(props.roleModel.id));
-                                 console.log("done");
-                             }
-                         )
-                         .catch((error) => {
-                             dispatch(enqueueSnackbar(error.response.data.message, {variant: "error"})); //todo generic error method.
-                         })
+    const addPrivilege = (selectedList) => {
+        dispatch(addPrivilegeToRole(selectedList, props.roleModel.id));
     };
 
     return (

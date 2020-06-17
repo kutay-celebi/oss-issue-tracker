@@ -57,7 +57,7 @@ public class RoleRestController implements RoleRestService {
 
     @PreAuthorize(UAAPrivilegeConstants.ROLE_FULL)
     @Override
-    public KuartzResponse<Boolean> addPrivilegeList(@RequestParam("roleId") Long roleId, @RequestBody List<Long> privilegeId) {
+    public KuartzResponse<KzMessageModel> addPrivilegeList(@RequestParam("roleId") Long roleId, @RequestBody List<Long> privilegeId) {
         return new KuartzResponse<>(roleService.addPrivilege(roleId, privilegeId));
     }
 

@@ -56,7 +56,8 @@ public interface RoleRestService {
                     method = RequestMethod.POST,
                     consumes = MediaType.APPLICATION_JSON_VALUE,
                     produces = {MediaType.APPLICATION_JSON_VALUE})
-    KuartzResponse<Boolean> addPrivilegeList(@NotNull @Positive @RequestParam("roleId") Long roleId, @NotNull List<Long> privilegeIdList);
+    KuartzResponse<KzMessageModel> addPrivilegeList(@NotNull @Positive @RequestParam("roleId") Long roleId,
+                                                    @NotNull List<Long> privilegeIdList);
 
     @RequestMapping(value = "/removePrivilegeRelation/{relationId}",
                     method = RequestMethod.DELETE,

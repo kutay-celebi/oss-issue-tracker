@@ -25,7 +25,7 @@ public interface RoleService {
 
     RoleModel get(@NotNull @Positive Long id);
 
-    Boolean addPrivilege(@NotNull @Positive Long roleId, @NotNull List<Long> privilegeId);
+    KzMessageModel addPrivilege(@NotNull @Positive Long roleId, @NotNull List<Long> privilegeId);
 
     KzMessageModel removePrivilegeFromRole(@NotNull @Positive Long relationId);
 }

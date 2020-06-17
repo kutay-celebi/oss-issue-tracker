@@ -94,18 +94,20 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Boolean addPrivilege(Long roleId, List<Long> privilegeId) {
+    public KzMessageModel addPrivilege(Long roleId, List<Long> privilegeId) {
         Optional<RoleEntity> roleOne = repository.findById(roleId);
         List<PrivilegeEntity> yetkiList = privilegeRepository.findAll(privilegeQueryBuilder.buildQuery(new PrivilegeQueryModel(privilegeId),
                                                                                                        PrivilegeEntityQuery.privilegeEntity));
+        List<RolePrivilegeEntity> savedEntity = new ArrayList<>();
         if (roleOne.isPresent() && !KzUtil.isEmpty(yetkiList)) {
             ArrayList<RolePrivilegeEntity> relationList = new ArrayList<>();
             for (PrivilegeEntity privilegeEntity : yetkiList) {
                 relationList.add(new RolePrivilegeEntity(privilegeEntity, roleOne.get()));
             }
-            rolePrivilegeRepository.saveAllFlush(relationList);
+            savedEntity = rolePrivilegeRepository.saveAllFlush(relationList);
         }
-        return Boolean.TRUE;
+        return KzMessageModel.succeed().addMessage(
+                messageSource.getMessage("rowEffect", KzUtil.createArray(savedEntity.size()), Locale.getDefault()));
     }
 
     @Override
