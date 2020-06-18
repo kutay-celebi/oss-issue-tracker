@@ -41,6 +41,7 @@ const PrivilegeSelectDialog = (props) => {
             });
 
             getPrivilegePage(privlegeQuery);
+
         }
     };
 
