@@ -14,8 +14,7 @@ const styles = theme => ({
 
 class KzLayout extends Component {
     render() {
-        // const {classes} = this.props;
-        const Layout = KzLayouts[this.props.settings.layout.style];
+        const Layout    = KzLayouts[this.props.settings.layout.style];
         return (
             <Layout/>
         )

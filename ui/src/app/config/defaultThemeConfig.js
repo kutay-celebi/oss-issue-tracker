@@ -6,12 +6,12 @@ export const defaultThemeConfig = {
     default: {
         props    : {
             // Name of the component ⚛️
-            MuiButton: {
+            MuiButton   : {
                 // The default props to change
                 disableRipple: true, // No more ripple, on the whole application
                 variant      : 'outlined'
             },
-            MuiTextField : {
+            MuiTextField: {
                 color    : 'secondary',
                 variant  : 'outlined',
                 type     : 'input',
@@ -20,6 +20,16 @@ export const defaultThemeConfig = {
         },
         overrides: {
             // todo search it.
+        },
+        zIndex   : {
+            mobileStepper: 1000,
+            speedDial    : 1050,
+            appBar       : 1100,
+            drawer       : 1200,
+            modal        : 1300,
+            snackbar     : 1400,
+            tooltip      : 1500,
+            backdrop     : 5000
         },
         palette  : {
             type      : "light",
