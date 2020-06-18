@@ -5,14 +5,7 @@ import {withTranslation} from "react-i18next";
 import clsx from "clsx";
 import KzTable from "../../../@kuartz/components/KzTable/KzTable";
 import {bindActionCreators} from "redux";
-import {
-    clearCompanyForm,
-    closeCompanyForm,
-    getCompany,
-    getCompanyPage,
-    openCompanyForm,
-    saveCompanyForm
-} from "../../redux/actions/company";
+import {getCompany, getCompanyPage, openCompanyForm} from "../../redux/actions/company";
 import {Button, withStyles} from "@material-ui/core";
 import CompanyForm from "./CompanyForm";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -72,11 +65,7 @@ class CompanyDefinition extends Component {
                         {t("add-new")}
                     </Button>
 
-                    <CompanyForm companyModel={this.props.company}
-                                 openForm={this.props.openForm}
-                                 onClose={this.props.handleCloseForm}
-                                 clearForm={this.props.handleClearForm}
-                                 saveAction={this.props.handleSaveForm}/>
+                    <CompanyForm/>
 
                     <KzTable
                         columns={[
@@ -105,21 +94,15 @@ class CompanyDefinition extends Component {
 
 const mapStateToProps = ({companyReducers}) => {
     return {
-        company    : companyReducers.company.company,
-        query      : companyReducers.company.query,
         companyList: companyReducers.company.companyList,
-        openForm   : companyReducers.company.openForm,
     }
 };
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-                                  handleOpenForm : openCompanyForm,
-                                  handleCloseForm: closeCompanyForm,
-                                  handleClearForm: clearCompanyForm,
-                                  handleSaveForm : saveCompanyForm,
-                                  getCompany     : getCompany,
-                                  getPage        : getCompanyPage
+                                  handleOpenForm: openCompanyForm,
+                                  getCompany    : getCompany,
+                                  getPage       : getCompanyPage
                               }, dispatch)
 }
 

@@ -2,7 +2,7 @@ import {LOGIN_FAIL, LOGIN_SUCCESS, LOGOUT_SUCCESS} from "./action.types";
 import {AUTH_PATH, AUTH_TOKEN_PATH, BASE_PATH, PATH_HOME_PAGE} from "../../../constants";
 import history from '../../../../@history'
 import {enqueueSnackbar} from "../core";
-import {AxiosInstance as axios} from "axios";
+import axios from "axios";
 
 export const loginSuccess = (response) => (dispatch) => {
     dispatch({

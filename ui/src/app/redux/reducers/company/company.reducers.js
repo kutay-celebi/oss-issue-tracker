@@ -3,14 +3,11 @@ import {
     COMPANY_CLEAR_FORM,
     COMPANY_CLOSE_FORM,
     COMPANY_GET,
-    COMPANY_GET_FAIL,
     COMPANY_GET_PAGE,
-    COMPANY_GET_PAGE_FAIL,
     COMPANY_GET_PAGE_SUCCESS,
     COMPANY_GET_SUCCESS,
     COMPANY_OPEN_FORM,
     COMPANY_SAVE,
-    COMPANY_SAVE_FAIL,
     COMPANY_SAVE_SUCCESS
 } from "../../actions/company";
 
@@ -56,7 +53,7 @@ export const initCompanyQuery = () => {
 const initialState = {
     openForm   : false,
     wait       : false,
-    company    : {},
+    company    : initCompanyForm(),
     companyList: {}
 };
 
@@ -73,13 +70,6 @@ export const companyReducer = (state = initialState, action) => {
                 ...state,
                 wait       : false,
                 companyList: action.response
-            }
-        }
-        case COMPANY_GET_PAGE_FAIL: {
-            return {
-                ...state,
-                wait       : false,
-                companyList: {},
             }
         }
         case COMPANY_OPEN_FORM: {
@@ -115,12 +105,6 @@ export const companyReducer = (state = initialState, action) => {
                 wait   : false
             }
         }
-        case COMPANY_SAVE_FAIL : {
-            return {
-                ...state,
-                wait: false
-            }
-        }
         case COMPANY_GET: {
             return {
                 ...state,
@@ -133,12 +117,6 @@ export const companyReducer = (state = initialState, action) => {
                 company : action.company,
                 wait    : false,
                 openForm: true
-            }
-        }
-        case COMPANY_GET_FAIL: {
-            return {
-                ...state,
-                wait: false
             }
         }
         default : {

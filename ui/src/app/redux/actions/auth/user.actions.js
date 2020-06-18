@@ -1,15 +1,7 @@
-import {
-    CLEAR_ADD_USER_FORM,
-    CLOSE_USER_FORM,
-    FAIL_USER_PAGE,
-    OPEN_USER_FORM,
-    SET_USER,
-    SUCCESS_ADD_USER,
-    SUCCESS_USER_PAGE
-} from "./action.types";
+import {CLEAR_ADD_USER_FORM, CLOSE_USER_FORM, OPEN_USER_FORM, SET_USER, SUCCESS_ADD_USER, SUCCESS_USER_PAGE} from "./action.types";
 import {API_GET_USER_PAGE} from "../../../constants";
 import {enqueueSnackbar} from "../core";
-import apiClient from "../../../service/apiClient";
+import {apiClient} from "../../../service/apiClient";
 
 // todo api call support memoize.
 export const successUserPage = (query, response) => (dispatch) => {
@@ -26,23 +18,12 @@ export const getUserPage = (query) => async (dispatch) => {
                    .then((response) => {
                        dispatch(successUserPage(query, response.data));
                    })
-                   .catch((e) => {
-                       dispatch(enqueueSnackbar(e.response.data.message, {variant: "error"}));
-                       dispatch({
-                                    type: FAIL_USER_PAGE
-                                })
-                   });
 };
 
 export const saveUser = (user) => async (dispatch) => {
-    // todo add wait reducer.
-    // todo move api constant.
     await apiClient.post("user/save", user)
                    .then((response) => {
                        dispatch(successAddUser(response.data));
-                   })
-                   .catch((e) => {
-                       dispatch(enqueueSnackbar(e.response.data.message, {variant: "error"}));
                    })
 };
 
@@ -71,9 +52,11 @@ export const getUser = (username) => async (dispatch) => {
     // todo add wait reducer.
     // todo move api constant
     await apiClient.get("/user/get/" + username)
-                     .then((response) => {
-                         dispatch(setUser(response.data));
-                     })
+                   .then((response) => {
+                       if (response.status === 200) {
+                           dispatch(setUser(response.data))
+                       }
+                   })
 };
 
 // const _fetchUser = _.memoize(async (username, dispatch) => {

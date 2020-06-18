@@ -4,11 +4,10 @@ import {withStyles} from "@material-ui/core";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import UserQueryForm from "./UserQueryForm";
-import {clearAddUserForm, closeUserForm, getUser, getUserPage, openUserForm} from "../../../redux/actions/auth/user.actions";
+import {getUser, getUserPage, openUserForm} from "../../../redux/actions/auth/user.actions";
 import {withTranslation} from "react-i18next";
 import clsx from "clsx";
 import AddUserForm from "./AddUserForm";
-import {saveUser} from "../../../redux/actions/auth";
 import Button from "@material-ui/core/Button";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEdit} from "@fortawesome/free-solid-svg-icons";
@@ -28,7 +27,7 @@ class UserManagement extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            query    : initUserQuery()
+            query: initUserQuery()
         }
     }
 
@@ -69,11 +68,7 @@ class UserManagement extends Component {
                         {t("common:add-new")}
                     </Button>
 
-                    <AddUserForm handleAddUser={this.props.addUser}
-                                 userModel={this.props.user}
-                                 open={this.props.userFormOpen}
-                                 handleClear={this.props.clearUser}
-                                 handleFormClose={this.props.closeUserForm}/>
+                    <AddUserForm/>
 
                     <KzTable
                         columns={[
@@ -107,21 +102,15 @@ class UserManagement extends Component {
 
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
-                                  getUserPage  : getUserPage,
-                                  addUser      : saveUser,
-                                  clearUser    : clearAddUserForm,
-                                  getUser      : getUser,
-                                  openUserForm : openUserForm,
-                                  closeUserForm: closeUserForm
+                                  getUserPage : getUserPage,
+                                  getUser     : getUser,
+                                  openUserForm: openUserForm
                               }, dispatch)
 };
 
 const mapStateToProps = ({authReducers}) => {
     return {
-        user        : authReducers.user.user,
-        userQuery   : authReducers.user.query,
-        userList    : authReducers.user.userList,
-        userFormOpen: authReducers.user.userFormOpen,
+        userList: authReducers.user.userList,
     }
 };
 

@@ -10,7 +10,7 @@ import {API_GET_PRIVILEGE_PAGE} from "../../../constants";
 import {enqueueSnackbar} from "../../../redux/actions/core";
 import KzTooltip from "../../../../@kuartz/components/KzTooltip";
 import {DialogContent} from "@material-ui/core";
-import {AxiosInstance as apiClient} from "axios";
+import {apiClient} from "../../../service/apiClient";
 
 const PrivilegeSelectDialog = (props) => {
     const {t}                                                 = useTranslation();

@@ -1,7 +1,6 @@
 import {
     CLEAR_ADD_ROLE_FORM,
     CLOSE_ROLE_FORM,
-    FAIL_ROLE_PAGE,
     GET_ROLE_PAGE,
     OPEN_ROLE_FORM,
     SET_ROLE,
@@ -75,12 +74,6 @@ const roleReducer = (state = initialState, action) => {
                 ...initialState,
                 roleList: action.response,
                 wait    : false
-            }
-        }
-        case FAIL_ROLE_PAGE: {
-            return {
-                ...initialState,
-                wait: false
             }
         }
         case OPEN_ROLE_FORM : {
