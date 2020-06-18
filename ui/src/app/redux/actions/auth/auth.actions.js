@@ -1,8 +1,8 @@
 import {LOGIN_FAIL, LOGIN_SUCCESS, LOGOUT_SUCCESS} from "./action.types";
-import AuthService from "../../../service/authServiceImpl";
-import {PATH_HOME_PAGE} from "../../../constants";
+import {AUTH_PATH, AUTH_TOKEN_PATH, BASE_PATH, PATH_HOME_PAGE} from "../../../constants";
 import history from '../../../../@history'
 import {enqueueSnackbar} from "../core";
+import {AxiosInstance as axios} from "axios";
 
 export const loginSuccess = (response) => (dispatch) => {
     dispatch({
@@ -23,13 +23,26 @@ export const loginFail = (error) => (dispatch) => {
 };
 
 export const login = (username, password) => async (dispatch) => {
-    await AuthService.getToken(username, password)
-                     .then((response) => {
-                         dispatch(loginSuccess(response.data))
+    var urlencoded = new URLSearchParams();
+    urlencoded.append("username", username);
+    urlencoded.append("password", password);
+    urlencoded.append("grant_type", "password");
+    await axios.post(BASE_PATH + AUTH_PATH + AUTH_TOKEN_PATH,
+                     urlencoded,
+                     {
+                         headers: {
+                             "Content-Type" : "application/x-www-form-urlencoded",
+                             "Authorization": "Basic dGVzdDp0ZXN0" // todo basic token icin yapilari inceleyelim boyle hardcode vermeyelim.
+                         },
                      })
-                     .catch((e) => {
-                         dispatch(loginFail(e.response.data.message))
-                     });
+               .then((response) => {
+                   dispatch(loginSuccess(response.data))
+               })
+               .catch((e) => {
+                   dispatch(loginFail(e.response.data.message))
+               });
+    ;
+
 
 };
 

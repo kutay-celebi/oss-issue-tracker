@@ -12,10 +12,10 @@ import {
     COMPANY_SAVE_FAIL,
     COMPANY_SAVE_SUCCESS
 } from "./action.types";
-import AuthService from "../../../service/authServiceImpl";
 import {API_GET_COMPANY, API_GET_COMPANY_PAGE, API_SAVE_COMPANY_PAGE} from "../../../constants";
 import {enqueueSnackbar} from "../core";
 import _ from '@lodash';
+import {AxiosInstance as apiClient} from "axios";
 
 export const successCompanyPage = (query, response) => (dispatch) => {
     dispatch({
@@ -37,7 +37,7 @@ export const getCompanyPage = (query) => async (dispatch) => {
                  type: COMPANY_GET_PAGE
              });
 
-    await AuthService.postApi().post(API_GET_COMPANY_PAGE, query)
+    await apiClient.post(API_GET_COMPANY_PAGE, query)
                      .then((res) => {
                          dispatch(successCompanyPage(query, res.data))
                      })
@@ -68,7 +68,7 @@ export const saveCompanyForm = (company) => async (dispatch) => {
     dispatch({
                  type: COMPANY_SAVE
              });
-    await AuthService.postApi().post(API_SAVE_COMPANY_PAGE, company)
+    await apiClient.post(API_SAVE_COMPANY_PAGE, company)
                      .then((response) => {
                          dispatch(successSaveCompany(response));
                      })
@@ -98,7 +98,7 @@ export const getCompany = (id) => async (dispatch) => {
     dispatch({
                  type: COMPANY_GET
              });
-    await AuthService.getApi().get(API_GET_COMPANY + id)
+    await apiClient.get(API_GET_COMPANY + id)
                      .then(
                          (response) => {
                              dispatch(successGetCompany(response.data));
@@ -110,7 +110,7 @@ export const getCompany = (id) => async (dispatch) => {
 
 };
 const _fetchCompany     = _.memoize(async (id, dispatch) => {
-    await AuthService.getApi().get(API_GET_COMPANY + id)
+    await apiClient.get(API_GET_COMPANY + id)
                      .then(
                          (response) => {
                              dispatch(successGetCompany(response.data));

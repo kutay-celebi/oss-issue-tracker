@@ -10,9 +10,9 @@ import clsx from "clsx";
 import KzAutocomplete from "../../../../@kuartz/components/autocomplete/KzAutocomplete";
 import ListItemText from "@material-ui/core/ListItemText";
 import {initRoleQuery} from "../../../redux/reducers/auth/role.reducer";
-import AuthService from "../../../service/authServiceImpl";
 import {API_GET_ROLE_PAGE} from "../../../constants";
 import {enqueueSnackbar} from "../../../redux/actions/core";
+import {AxiosInstance as apiClient} from "axios";
 
 
 const UserRoleRelationForm = (props) => {
@@ -32,7 +32,7 @@ const UserRoleRelationForm = (props) => {
     const asyncAutocomplete = async (text) => {
         roleQuery.code = text;
         setRoleWait(true);
-        await AuthService.postApi().post(API_GET_ROLE_PAGE, roleQuery)
+        await apiClient.post(API_GET_ROLE_PAGE, roleQuery)
                          .then((response) => {
                              setRoleList(response.data);
                              setRoleWait(false);

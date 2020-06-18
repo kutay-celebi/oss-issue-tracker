@@ -73,7 +73,7 @@ const initialState = {
     wait        : false,
     userFormOpen: false,
     user        : initAddUserForm(),
-    userList    : {}
+    userList    : {content:[]}
 };
 
 const userReducer = (state = initialState, action) => {

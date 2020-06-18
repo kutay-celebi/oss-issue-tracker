@@ -6,11 +6,11 @@ import KzTable from "@kuartz/components/KzTable/KzTable";
 import {useTranslation} from "react-i18next";
 import {useDispatch} from "react-redux";
 import {initPrivilegeQuery} from "../../../redux/reducers/auth/role.reducer";
-import AuthService from "../../../service/authServiceImpl";
 import {API_GET_PRIVILEGE_PAGE} from "../../../constants";
 import {enqueueSnackbar} from "../../../redux/actions/core";
 import KzTooltip from "../../../../@kuartz/components/KzTooltip";
 import {DialogContent} from "@material-ui/core";
+import {AxiosInstance as apiClient} from "axios";
 
 const PrivilegeSelectDialog = (props) => {
     const {t}                                                 = useTranslation();
@@ -25,7 +25,7 @@ const PrivilegeSelectDialog = (props) => {
     }, [openPrivilegeQueryForm]);
 
     const getPrivilegePage = async (query) => {
-        await AuthService.postApi().post(API_GET_PRIVILEGE_PAGE, query)
+        await apiClient.post(API_GET_PRIVILEGE_PAGE, query)
                          .then((response) => {
                              setPrivilegePage(response.data);
                          })

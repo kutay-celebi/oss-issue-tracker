@@ -7,10 +7,9 @@ import {
     SUCCESS_ADD_USER,
     SUCCESS_USER_PAGE
 } from "./action.types";
-import AuthService from "../../../service/authServiceImpl";
 import {API_GET_USER_PAGE} from "../../../constants";
 import {enqueueSnackbar} from "../core";
-import _ from '@lodash';
+import apiClient from "../../../service/apiClient";
 
 // todo api call support memoize.
 export const successUserPage = (query, response) => (dispatch) => {
@@ -23,30 +22,28 @@ export const successUserPage = (query, response) => (dispatch) => {
 
 export const getUserPage = (query) => async (dispatch) => {
     // todo add wait reducer.
-    await AuthService.postApi().post(API_GET_USER_PAGE, query)
-                     .then(
-                         (response) => {
-                             dispatch(successUserPage(query, response.data));
-                         }
-                     )
-                     .catch((e) => {
-                         dispatch(enqueueSnackbar(e.response.data.message, {variant: "error"}));
-                         dispatch({
-                                      type: FAIL_USER_PAGE
-                                  })
-                     });
+    await apiClient.post(API_GET_USER_PAGE, query)
+                   .then((response) => {
+                       dispatch(successUserPage(query, response.data));
+                   })
+                   .catch((e) => {
+                       dispatch(enqueueSnackbar(e.response.data.message, {variant: "error"}));
+                       dispatch({
+                                    type: FAIL_USER_PAGE
+                                })
+                   });
 };
 
 export const saveUser = (user) => async (dispatch) => {
     // todo add wait reducer.
     // todo move api constant.
-    await AuthService.postApi().post("user/save", user).then(
-        (response) => {
-            dispatch(successAddUser(response.data));
-        }
-    ).catch((e) => {
-        dispatch(enqueueSnackbar(e.response.data.message, {variant: "error"}));
-    })
+    await apiClient.post("user/save", user)
+                   .then((response) => {
+                       dispatch(successAddUser(response.data));
+                   })
+                   .catch((e) => {
+                       dispatch(enqueueSnackbar(e.response.data.message, {variant: "error"}));
+                   })
 };
 
 export const successAddUser = (response) => (dispatch) => {
@@ -73,19 +70,19 @@ export const setUser = (user) => (dispatch) => {
 export const getUser = (username) => async (dispatch) => {
     // todo add wait reducer.
     // todo move api constant
-    await AuthService.getApi().get("/user/get/" + username)
+    await apiClient.get("/user/get/" + username)
                      .then((response) => {
                          dispatch(setUser(response.data));
                      })
 };
 
-const _fetchUser = _.memoize(async (username, dispatch) => {
-    await AuthService.getApi().get("/user/get/" + username).then(
-        response => {
-            dispatch(setUser(response.data));
-        }
-    )
-});
+// const _fetchUser = _.memoize(async (username, dispatch) => {
+//     await apiClient.get("/user/get/" + username).then(
+//         response => {
+//             dispatch(setUser(response.data));
+//         }
+//     )
+// });
 
 export const openUserForm = () => (dispatch) => {
     dispatch({
