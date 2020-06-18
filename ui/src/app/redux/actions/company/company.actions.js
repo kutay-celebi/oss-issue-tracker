@@ -2,20 +2,18 @@ import {
     COMPANY_CLEAR_FORM,
     COMPANY_CLOSE_FORM,
     COMPANY_GET,
-    COMPANY_GET_FAIL,
     COMPANY_GET_PAGE,
-    COMPANY_GET_PAGE_FAIL,
     COMPANY_GET_PAGE_SUCCESS,
     COMPANY_GET_SUCCESS,
     COMPANY_OPEN_FORM,
     COMPANY_SAVE,
-    COMPANY_SAVE_FAIL,
     COMPANY_SAVE_SUCCESS
 } from "./action.types";
-import AuthService from "../../../service/authServiceImpl";
 import {API_GET_COMPANY, API_GET_COMPANY_PAGE, API_SAVE_COMPANY_PAGE} from "../../../constants";
 import {enqueueSnackbar} from "../core";
 import _ from '@lodash';
+import {apiClient} from "../../../service/apiClient";
+
 
 export const successCompanyPage = (query, response) => (dispatch) => {
     dispatch({
@@ -25,25 +23,15 @@ export const successCompanyPage = (query, response) => (dispatch) => {
              })
 };
 
-export const failCompanyPage = (errorMessage) => (dispatch) => {
-    dispatch({
-                 type: COMPANY_GET_PAGE_FAIL
-             });
-    dispatch(enqueueSnackbar(errorMessage, {variant: "error"}))
-};
-
 export const getCompanyPage = (query) => async (dispatch) => {
     dispatch({
                  type: COMPANY_GET_PAGE
              });
 
-    await AuthService.postApi().post(API_GET_COMPANY_PAGE, query)
-                     .then((res) => {
-                         dispatch(successCompanyPage(query, res.data))
-                     })
-                     .catch((e) => {
-                         dispatch(failCompanyPage(e.response.data.message, {variant: "error"}))
-                     });
+    await apiClient.post(API_GET_COMPANY_PAGE, query)
+                   .then((res) => {
+                       dispatch(successCompanyPage(query, res.data))
+                   })
 };
 
 export const openCompanyForm = () => (dispatch) => {
@@ -68,13 +56,10 @@ export const saveCompanyForm = (company) => async (dispatch) => {
     dispatch({
                  type: COMPANY_SAVE
              });
-    await AuthService.postApi().post(API_SAVE_COMPANY_PAGE, company)
-                     .then((response) => {
-                         dispatch(successSaveCompany(response));
-                     })
-                     .catch((error) => {
-                         dispatch(failSaveCompany(error));
-                     });
+    await apiClient.post(API_SAVE_COMPANY_PAGE, company)
+                   .then((response) => {
+                       dispatch(successSaveCompany(response));
+                   })
 };
 
 export const successSaveCompany = (response) => (dispatch) => {
@@ -86,39 +71,24 @@ export const successSaveCompany = (response) => (dispatch) => {
 
 };
 
-export const failSaveCompany = (error) => (dispatch) => {
-    dispatch(enqueueSnackbar(error.response.data.message, {variant: "error"})); //todo generic error method.
-    dispatch({
-                 type: COMPANY_SAVE_FAIL,
-                 error
-             })
-};
-
 export const getCompany = (id) => async (dispatch) => {
     dispatch({
                  type: COMPANY_GET
              });
-    await AuthService.getApi().get(API_GET_COMPANY + id)
-                     .then(
-                         (response) => {
-                             dispatch(successGetCompany(response.data));
-                         })
-                     .catch(
-                         (error) => {
-                             dispatch(failGetCompany(error))
-                         });
+    await apiClient.get(API_GET_COMPANY + id)
+                   .then(
+                       (response) => {
+                           dispatch(successGetCompany(response.data));
+                       })
 
 };
-const _fetchCompany     = _.memoize(async (id, dispatch) => {
-    await AuthService.getApi().get(API_GET_COMPANY + id)
-                     .then(
-                         (response) => {
-                             dispatch(successGetCompany(response.data));
-                         })
-                     .catch(
-                         (error) => {
-                             dispatch(failGetCompany(error))
-                         });
+
+const _fetchCompany = _.memoize(async (id, dispatch) => {
+    await apiClient.get(API_GET_COMPANY + id)
+                   .then(
+                       (response) => {
+                           dispatch(successGetCompany(response.data));
+                       })
 });
 
 export const successGetCompany = (company) => (dispatch) => {
@@ -126,12 +96,4 @@ export const successGetCompany = (company) => (dispatch) => {
                  type: COMPANY_GET_SUCCESS,
                  company
              })
-};
-
-export const failGetCompany = (error) => (dispatch) => {
-    dispatch(enqueueSnackbar(error.response.data.message, {variant: "error"})); //todo generic error method.
-    dispatch({
-                 type: COMPANY_GET_FAIL,
-             })
-
 };

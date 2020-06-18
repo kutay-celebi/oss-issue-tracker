@@ -1,10 +1,10 @@
 import {combineReducers} from "redux";
-import storage           from 'redux-persist/lib/storage'
+import storage from 'redux-persist/lib/storage'
 
-import authReducer      from "./auth.reducer";
+import authReducer from "./auth.reducer";
 import {persistReducer} from "redux-persist";
-import roleReducer      from "./role.reducer";
-import userReducer      from "./user.reducer";
+import roleReducer from "./role.reducer";
+import userReducer from "./user.reducer";
 
 const rootPersistConfig = {
     key      : 'auth',

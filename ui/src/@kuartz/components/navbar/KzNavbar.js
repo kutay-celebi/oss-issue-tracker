@@ -32,10 +32,9 @@ class KzNavbar extends Component {
                         color="primary"
                         position="static"
                         elevation={0}
-                        className="flex flex-row items-center flex-shrink h-64 min-h-64 pl-20 pr-12">
-                    <div className="flex flex-1 pr-8">
-                        {/*    todo logo gelecek*/}
-                        logo
+                        className="flex flex-row items-center flex-shrink h-64 min-h-64 pl-2 pr-2">
+                    <div className="flex flex-1 flex-col items-center text-center max-w-xs">
+                        <img src={"/assets/images/logo.png"} style={{maxWidth: 40}}/>
                     </div>
 
                     {/*    todo toggle buton ve back button gelecek.*/}

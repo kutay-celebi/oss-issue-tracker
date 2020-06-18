@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import {makeStyles} from "@material-ui/core";
 import {useTranslation} from "react-i18next";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -13,6 +12,8 @@ import MainInformationForm from "./MainInformationForm";
 import UserContactForm from "./UserContactForm";
 import {useForm} from "react-hook-form";
 import UserCompanyInfoForm from "./UserCompanyInfoForm";
+import {useDispatch, useSelector} from "react-redux";
+import {clearAddUserForm, closeUserForm, saveUser} from "../../../redux/actions/auth";
 
 const useStyles = makeStyles((theme) => ({
     small: {
@@ -33,7 +34,9 @@ function a11yProps(index) {
 }
 
 const AddUserForm = (props) => {
-    const classes = useStyles();
+    const {user,userFormOpen} = useSelector(({authReducers }) => authReducers.user);
+    const dispatch = useDispatch();
+    const classes      = useStyles();
     const {t}     = useTranslation();
 
     // validation schema.
@@ -72,14 +75,18 @@ const AddUserForm = (props) => {
         setTabValue(newValue);
     };
 
+    const formSubmit = (data) => {
+        dispatch(saveUser({...user, ...data}));
+    };
+
     return (
-        <KzFormDialog open={props.open}
+        <KzFormDialog open={userFormOpen}
                       fullWidth
-                      onClose={props.handleFormClose}
+                      onClose={() => dispatch(closeUserForm())}
                       maxWidth={"lg"}
                       headerText={t("new-user")}
-                      onClear={props.handleClear}
-                      onSubmit={userForm.handleSubmit(props.handleAddUser)}>
+                      onClear={() => dispatch(clearAddUserForm())}
+                      onSubmit={userForm.handleSubmit(formSubmit)}>
             <DialogContent>
                 <Avatar src="/assets/images/add-user.png" className={classes.large}/>
                 <Tabs value={tabValue} onChange={handleTabChange} scrollButtons="on" variant="scrollable" className="mb-3">
@@ -92,17 +99,17 @@ const AddUserForm = (props) => {
                     {
                         tabValue === 0 ?
                             <div id="account" role="tabpanel">
-                                <MainInformationForm form={userForm} userModel={props.userModel}/>
+                                <MainInformationForm form={userForm} userModel={user}/>
                             </div>
                             : tabValue === 1 ?
                             <div id="contact" role="tabpanel">
-                                <UserContactForm form={userForm} userModel={props.userModel}/>
+                                <UserContactForm form={userForm} userModel={user}/>
                             </div>
                             // todo fixme
                             // : tabValue === 2 ?
-                            //     <UserRoleRelationForm form={userForm} userModel={props.userModel}/>
-                                : tabValue === 3 ?
-                                <UserCompanyInfoForm form={userForm} userModel={props.userModel}/>
+                            //     <UserRoleRelationForm form={userForm} user={user}/>
+                            : tabValue === 3 ?
+                                <UserCompanyInfoForm form={userForm} userModel={user}/>
                                 : null
                     }
                 </form>
@@ -115,12 +122,5 @@ AddUserForm.defaultProps = {
     open: false,
 };
 
-AddUserForm.propTypes = {
-    handleAddUser  : PropTypes.func.isRequired,
-    handleClear    : PropTypes.func.isRequired,
-    userModel      : PropTypes.object.isRequired,
-    handleFormClose: PropTypes.func.isRequired,
-    open           : PropTypes.bool.isRequired
-};
 
 export default AddUserForm;

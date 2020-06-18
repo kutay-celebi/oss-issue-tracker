@@ -1,6 +1,6 @@
 import {RESET_DEFAULT_SETTINGS, SET_INITIAL_SETTINGS} from "../../actions/core/action.types";
-import KzSettingsConfig                               from "../../../config/defaultUserPreference.js";
-import KzLayoutConfigs                                from "../../../layouts/KzLayoutConfigs";
+import KzSettingsConfig from "../../../config/defaultUserPreference.js";
+import KzLayoutConfigs from "../../../layouts/KzLayoutConfigs";
 
 
 import _ from "lodash";

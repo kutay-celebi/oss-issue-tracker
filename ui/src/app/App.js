@@ -8,8 +8,7 @@ import {create} from "jss";
 import {createGenerateClassName, jssPreset, StylesProvider, ThemeProvider} from "@material-ui/styles";
 import history from "../@history";
 import routes from "./config/routeConfig";
-import {PersistGate} from "redux-persist/lib/integration/react";
-import {persistor, store} from "./redux/persistor";
+import {store} from "./redux/persistor";
 import KzAuth from "../@kuartz/components/auth/KzAuth";
 import KzLayout from "../@kuartz/components/layout/KzLayout";
 import {createMuiTheme} from "@material-ui/core";
@@ -41,7 +40,7 @@ const App = () => {
             })}>
                 <Provider store={store}>
                     <Router history={history}>
-                        <PersistGate loading={null} persistor={persistor}>
+                        {/*<PersistGate loading={null} persistor={persistor}>*/}
                             <KzAuth>
                                 <MuiPickersUtilsProvider utils={MomentUtils}
                                                          libInstance={moment}
@@ -55,7 +54,7 @@ const App = () => {
                                     </ThemeProvider>
                                 </MuiPickersUtilsProvider>
                             </KzAuth>
-                        </PersistGate>
+                        {/*</PersistGate>*/}
                     </Router>
                 </Provider>
             </StylesProvider>

@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import RoleForm from "./RoleForm";
-import {clearRoleForm, closeRoleForm, getRole, getRolePage, openRoleForm, saveRole} from "../../../redux/actions/auth/role.actions";
+import {getRole, getRolePage, openRoleForm} from "../../../redux/actions/auth/role.actions";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEdit} from "@fortawesome/free-solid-svg-icons";
 import KzTable from "../../../../@kuartz/components/KzTable/KzTable";
@@ -18,7 +18,7 @@ class RoleDefinition extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            query    : initRoleQuery()
+            query: initRoleQuery()
         }
     }
 
@@ -58,11 +58,7 @@ class RoleDefinition extends Component {
                     <Button className="my-3" onClick={this.props.handleOpenForm}>
                         {t("add-new")}
                     </Button>
-                    <RoleForm roleModel={this.props.roleModel}
-                              openForm={this.props.openForm}
-                              clearForm={this.props.handleClearForm}
-                              saveAction={this.props.handleSaveForm}
-                              onClose={this.props.handleCloseForm}/>
+                    <RoleForm/>
 
                     <KzTable
                         columns={[
@@ -93,21 +89,15 @@ class RoleDefinition extends Component {
 
 const mapStateToProps = ({authReducers}) => {
     return {
-        roleModel: authReducers.role.roleModel,
-        query    : authReducers.role.roleQuery,
-        roleList : authReducers.role.roleList,
-        openForm : authReducers.role.roleFormOpen,
+        roleList: authReducers.role.roleList
     }
 };
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-                                  handleOpenForm : openRoleForm,
-                                  handleCloseForm: closeRoleForm,
-                                  handleClearForm: clearRoleForm,
-                                  handleSaveForm : saveRole,
-                                  getRolePage    : getRolePage,
-                                  getRole        : getRole,
+                                  handleOpenForm: openRoleForm,
+                                  getRolePage   : getRolePage,
+                                  getRole       : getRole,
                               }, dispatch)
 }
 

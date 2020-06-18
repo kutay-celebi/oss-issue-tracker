@@ -1,7 +1,6 @@
 import {
     CLEAR_ADD_ROLE_FORM,
     CLOSE_ROLE_FORM,
-    FAIL_ROLE_PAGE,
     GET_ROLE_PAGE,
     OPEN_ROLE_FORM,
     REMOVE_PRIVILEGE_RELATION,
@@ -9,20 +8,18 @@ import {
     SUCCESS_ADD_ROLE,
     SUCCESS_ROLE_PAGE
 } from "./action.types";
-import AuthService from "../../../service/authServiceImpl";
 import {API_ADD_ROLE_PRIVILEGE, API_GET_ROLE_PAGE, API_REMOVE_PRIVILEGE_RELATION} from "../../../constants";
 import {enqueueSnackbar} from "../core";
+import {apiClient} from "../../../service/apiClient";
 
 export const saveRole = (role) => async (dispatch) => {
     // todo add wait reducer.
     // todo move api constant.
-    await AuthService.postApi().post("role/save", role).then(
+    await apiClient.post("role/save", role).then(
         (response) => {
             dispatch(successAddRole(response.data));
         }
-    ).catch((e) => {
-        dispatch(enqueueSnackbar(e.response.data.message, {variant: "error"}));
-    })
+    )
 };
 
 export const successAddRole = (response) => (dispatch) => {
@@ -49,13 +46,10 @@ export const successRolePage = (query, response) => (dispatch) => {
 export const getRole = (id) => async (dispatch) => {
     // todo add wait reducer.
     // todo move api constant
-    await AuthService.getApi().get("/role/get/" + id)
-                     .then((response) => {
-                         dispatch(setRole(response.data));
-                     })
-                     .catch(
-                         error => dispatch(enqueueSnackbar(error.response.data.message, {variant: "error"})) //todo generic error method.
-                     )
+    await apiClient.get("/role/get/" + id)
+                   .then((response) => {
+                       dispatch(setRole(response.data));
+                   })
 };
 
 export const setRole = (role) => (dispatch) => {
@@ -70,20 +64,10 @@ export const getRolePage = (query) => async (dispatch) => {
                  type: GET_ROLE_PAGE,
              });
 
-    await AuthService.postApi().post(API_GET_ROLE_PAGE, query)
-                     .then((response) => {
-                         dispatch(successRolePage(query, response.data))
-                     })
-                     .catch((e) => {
-                         dispatch(failRolePage(e))
-                     });
-};
-
-export const failRolePage = (error) => (dispatch) => {
-    dispatch(enqueueSnackbar(error.response.data.message, {variant: "error"})); //todo generic error method.
-    dispatch({
-                 type: FAIL_ROLE_PAGE
-             })
+    await apiClient.post(API_GET_ROLE_PAGE, query)
+                   .then((response) => {
+                       dispatch(successRolePage(query, response.data))
+                   })
 };
 
 export const openRoleForm = () => (dispatch) => {
@@ -103,32 +87,26 @@ export const removePrivilegeRelation = (relationId, roleId) => (dispatch) => {
                  type: REMOVE_PRIVILEGE_RELATION
              });
 
-    AuthService.getApi().delete(API_REMOVE_PRIVILEGE_RELATION + relationId)
-               .then((response) => {
-                   dispatch(getRole(roleId));
-                   dispatch(enqueueSnackbar(response.data.message, {variant: "success",}));
-               })
-               .catch((error) => {
-                   dispatch(enqueueSnackbar(error.response.data.message, {variant: "error"})); //todo generic error method.
-               });
+    apiClient.delete(API_REMOVE_PRIVILEGE_RELATION + relationId)
+             .then((response) => {
+                 dispatch(getRole(roleId));
+                 dispatch(enqueueSnackbar(response.data.message, {variant: "success",}));
+             })
 };
 
-export const addPrivilegeToRole = (privilegeList,roleId) => (dispatch) => {
-    AuthService.postApi().post(API_ADD_ROLE_PRIVILEGE, privilegeList.map(p => p.id),
-                               {
-                                   params: {
-                                       "roleId": roleId
-                                   }
-                               })
-               .then(
-                   response => {
-                       dispatch(getRole(roleId));
-                       dispatch(enqueueSnackbar(response.data.message, {variant: "success",}));
-                   }
-               )
-               .catch((error) => {
-                   dispatch(enqueueSnackbar(error.response.data.message, {variant: "error"})); //todo generic error method.
-               })
+export const addPrivilegeToRole = (privilegeList, roleId) => (dispatch) => {
+    apiClient.post(API_ADD_ROLE_PRIVILEGE, privilegeList.map(p => p.id),
+                   {
+                       params: {
+                           "roleId": roleId
+                       }
+                   })
+             .then(
+                 response => {
+                     dispatch(getRole(roleId));
+                     dispatch(enqueueSnackbar(response.data.message, {variant: "success",}));
+                 }
+             )
 };
 
 

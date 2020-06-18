@@ -18,6 +18,12 @@ zuul:
     authz-service:
       path: /auth/**
       serviceId: authz-service
+  host:
+    connect-timeout-millis: 10000
+    socket-timeout-millis: 10000
+ribbon:
+  ConnectTimeout: 60000
+  ReadTimeout: 600000
 #security:
 #  oauth2:
 #    client:

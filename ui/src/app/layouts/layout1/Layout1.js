@@ -1,11 +1,14 @@
 import React, {useContext} from "react";
-import {renderRoutes}      from 'react-router-config'
-import AppContext          from "../../AppContext";
-import KzToolbar           from "../../../@kuartz/components/toolbar/KzToolbar";
-import makeStyles          from "@material-ui/core/styles/makeStyles";
-import clsx                from "clsx";
-import KzNavbarWrapper     from "../../../@kuartz/components/navbar/KzNavbarWrapper";
-import KzNotifier          from "../../../@kuartz/components/notifier/KzNotifier";
+import {renderRoutes} from 'react-router-config'
+import AppContext from "../../AppContext";
+import KzToolbar from "../../../@kuartz/components/toolbar/KzToolbar";
+import makeStyles from "@material-ui/core/styles/makeStyles";
+import clsx from "clsx";
+import KzNavbarWrapper from "../../../@kuartz/components/navbar/KzNavbarWrapper";
+import KzNotifier from "../../../@kuartz/components/notifier/KzNotifier";
+import Backdrop from "@material-ui/core/Backdrop";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import {useSelector} from "react-redux";
 
 const useStyles = makeStyles(theme => ({
     root          : {
@@ -56,7 +59,7 @@ const useStyles = makeStyles(theme => ({
         display      : 'flex',
         flexDirection: 'column',
         position     : 'relative',
-        zIndex       : 3,
+        // zIndex       : 3,
         overflow     : 'hidden',
         flex         : '1 1 auto',
 
@@ -70,8 +73,12 @@ const useStyles = makeStyles(theme => ({
         flexDirection               : 'column',
         width                       : '100%',
         '-webkit-overflow-scrolling': 'touch',
-        zIndex                      : 2
-    }
+        // zIndex                      : 2
+    },
+    backdrop      : {
+        zIndex: theme.zIndex.backdrop,
+        color : '#fff',
+    },
 }));
 
 const Layout1 = (props) => {
@@ -80,8 +87,8 @@ const Layout1 = (props) => {
     // todo routeslerin hepsi contexte gececek sekilde duzeltilmeli (navbar)
     const {routes}   = appContext;
 
-    const classes = useStyles(props);
-
+    const classes    = useStyles(props);
+    const {backdrop} = useSelector(({coreReducers}) => coreReducers.common);
 
     return (
         <div id="layoutRoot" className={clsx(classes.root)}>
@@ -93,6 +100,9 @@ const Layout1 = (props) => {
                         <div id="layoutContent" className={clsx(classes.content)}>
                             <React.Suspense fallback={<h1>Loaading</h1>}>
                                 <KzNotifier/>
+                                <Backdrop id="kz-backdrop" className={classes.backdrop} open={backdrop}>
+                                    <CircularProgress color="inherit"/>
+                                </Backdrop>
                                 {renderRoutes(routes)}
                             </React.Suspense>
                             {props.children}

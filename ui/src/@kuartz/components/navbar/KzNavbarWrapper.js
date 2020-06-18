@@ -1,11 +1,11 @@
-import React                                    from 'react';
-import {makeStyles}                             from "@material-ui/core";
-import {useDispatch, useSelector}               from "react-redux";
-import clsx                                     from "clsx";
-import Hidden                                   from "@material-ui/core/Hidden";
+import React from 'react';
+import {makeStyles} from "@material-ui/core";
+import {useDispatch, useSelector} from "react-redux";
+import clsx from "clsx";
+import Hidden from "@material-ui/core/Hidden";
 import {navbarOnMouseEnter, navbarOnMouseLeave} from "../../../app/redux/actions/core";
-import KzNavbar                                 from "./KzNavbar";
-import Drawer                                   from "@material-ui/core/Drawer";
+import KzNavbar from "./KzNavbar";
+import Drawer from "@material-ui/core/Drawer";
 
 const navbarWidth = 280;
 
@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
     wrapper        : {
         display                     : 'flex',
         flexDirection               : 'column',
-        zIndex                      : 4,
+        zIndex       : theme.zIndex.drawer,
         [theme.breakpoints.up('md')]: {
             width   : navbarWidth,
             minWidth: navbarWidth
@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
         width        : navbarWidth,
         minWidth     : navbarWidth,
         height       : '100%',
-        zIndex       : 4,
+        zIndex       : theme.zIndex.drawer,
         boxShadow    : theme.shadows[3],
         transition   : theme.transitions.create(['width', 'min-width'], {
             easing  : theme.transitions.easing.sharp,

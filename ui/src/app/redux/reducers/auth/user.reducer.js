@@ -1,7 +1,6 @@
 import {
     CLEAR_ADD_USER_FORM,
     CLOSE_USER_FORM,
-    FAIL_USER_PAGE,
     GET_USER_PAGE,
     OPEN_USER_FORM,
     SET_USER,
@@ -67,13 +66,13 @@ export const initUserQuery = () => {
             pageSize  : DEFAULT_QUERY_PAGE_SIZE
         }
     }
-}
+};
 
 const initialState = {
     wait        : false,
     userFormOpen: false,
     user        : initAddUserForm(),
-    userList    : {}
+    userList    : {content:[]}
 };
 
 const userReducer = (state = initialState, action) => {
@@ -91,12 +90,6 @@ const userReducer = (state = initialState, action) => {
                 wait    : false,
                 userList: action.response
             };
-        }
-        case FAIL_USER_PAGE: {
-            return {
-                ...state,
-                wait: false
-            }
         }
         case SUCCESS_ADD_USER : {
             return {
