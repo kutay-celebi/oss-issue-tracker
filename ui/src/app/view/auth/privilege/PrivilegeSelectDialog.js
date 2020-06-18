@@ -39,9 +39,6 @@ const PrivilegeSelectDialog = (props) => {
             setPrivilegeQuery(state => {
                 state.pageable.pageNumber = event
             });
-
-            getPrivilegePage(privlegeQuery);
-
         }
     };
 
