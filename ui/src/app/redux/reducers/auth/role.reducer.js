@@ -57,7 +57,7 @@ const initialState = {
     wait        : false,
     roleFormOpen: false,
     roleModel   : initRoleModel(),
-    roleList    : {},
+    roleList    : {content: []},
     roleQuery   : initRoleQuery()
 };
 

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import ListItem from "@material-ui/core/ListItem";
 import {Collapse, ListItemText, makeStyles} from "@material-ui/core";
 import KzNavItem from "./KzNavItem";
-import {ExpandLess, ExpandMore} from "@material-ui/icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 import {useTranslation} from "react-i18next";
@@ -17,7 +16,7 @@ const useStyles = makeStyles(theme => ({
 const KzNavCollapseItem = (props) => {
     const classes                 = useStyles();
     const [collapse, setCollapse] = React.useState(false);
-    const {t}  = useTranslation();
+    const {t}                     = useTranslation();
 
     const handleItemClick = () => {
         setCollapse(!collapse)
@@ -26,8 +25,8 @@ const KzNavCollapseItem = (props) => {
     return (
         <React.Fragment>
             <ListItem onClick={handleItemClick}
+                      key={props.item.id}
                       button
-                      activeClassName="active"
                       className={clsx("list-item")}>
                 {props.item.icon &&
                 <div className={clsx("w-10 ", classes.iconMargin)}><FontAwesomeIcon icon={props.item.icon} size="lg"/></div>}
@@ -41,7 +40,7 @@ const KzNavCollapseItem = (props) => {
                                 <React.Fragment>
                                     {
                                         item.type === "item" && (
-                                            <KzNavItem item={item} showText={props.showText}/>
+                                            <KzNavItem key={item.id} item={item} showText={props.showText}/>
                                         )
                                     }
                                 </React.Fragment>

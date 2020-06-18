@@ -1,12 +1,11 @@
-import React, {Component}   from "react";
-import {connect}            from "react-redux";
-import {withRouter}         from "react-router-dom";
-import AppContext           from "../../../app/AppContext";
-import {matchRoutes}        from "react-router-config";
-import KzUtils              from "../../KzUtils";
-import {PATH_LOGIN_ROOT}    from "../../../app/constants";
+import React, {Component} from "react";
+import {connect} from "react-redux";
+import {withRouter} from "react-router-dom";
+import AppContext from "../../../app/AppContext";
+import {matchRoutes} from "react-router-config";
+import {PATH_LOGIN_ROOT} from "../../../app/constants";
 import {bindActionCreators} from "redux";
-import {logout}             from "../../../app/redux/actions/auth";
+import {logout} from "../../../app/redux/actions/auth";
 
 
 class KzAuth extends Component {
@@ -27,36 +26,31 @@ class KzAuth extends Component {
         const {routes} = state;
 
         const matched = matchRoutes(routes, location.pathname)[0];
-
         return {
-            // ekrandaki yetki ile aktif kullanicinin yetkisi kontrol edilir.
-            accessGranted: matched ? KzUtils.hasPermission(matched.route.auth, props.authority) : true
+            accessGranted: (matched && matched.route.auth && matched.route.auth.length > 0) ?
+                props.authority ? props.authority.filter(auth => matched.route.auth.includes(auth.code)).length > 0 : false
+                : true
         };
     }
 
-    shouldComponentUpdate(nextProps, nextState, nextContext) {
-        return nextState.accessGranted !== this.state.accessGranted;
-    }
+    // fixme
+    // shouldComponentUpdate(nextProps, nextState, nextContext) {
+    //     return nextState.accessGranted !== this.state.accessGranted;
+    // }
 
-    componentDidMount() {
+    componentDidUpdate(prevProps, prevState, snapshot) {
         if (!this.state.accessGranted) {
-            this.redirectRoute();
-        }
-    }
-
-    componentDidUpdate() {
-        if (!this.state.accessGranted) {
-            this.redirectRoute();
+            this.redirectRoute()
         }
     }
 
 
     redirectRoute() {
-        const {location, history, userRole} = this.props;
+        const {location, history, authority} = this.props;
 
         // kullanici giris yapmadiysa henuz bir yetkisi yoktur.
         // login ekranina gonderilir.
-        if (!userRole || userRole.length === 0) {
+        if (!authority || authority.length === 0) {
             this.props.logout();
             history.push({
                              pathname: PATH_LOGIN_ROOT,
