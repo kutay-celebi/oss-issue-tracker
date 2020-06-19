@@ -17,8 +17,8 @@ Steps to reproduce the behavior:
 3. Scroll down to '....'
 4. See error
 
-## **Expected behavior**
-A clear and concise description of what you expected to happen.
+<!-- ## **Expected behavior** -->
+<!-- A clear and concise description of what you expected to happen. -->
 
 ## ** Logs, error etc. **
 
