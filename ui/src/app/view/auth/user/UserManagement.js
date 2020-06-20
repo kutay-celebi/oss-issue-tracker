@@ -82,7 +82,7 @@ class UserManagement extends Component {
                             {title: t("username"), field: "username"},
                             {title: t("email"), field: "email"},
                         ]}
-                        data={this.props.userList.content}
+                        data={this.props.userList.content ? this.props.userList.content : []}
                         onChangeRowsPerPage={this.handleRowPerPageChange}
                         onChangePage={this.handePageChange}
                         page={this.state.query.pageable.pageNumber}

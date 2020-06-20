@@ -11,8 +11,8 @@ import KzAutocomplete from "../../../../@kuartz/components/autocomplete/KzAutoco
 import ListItemText from "@material-ui/core/ListItemText";
 import {initRoleQuery} from "../../../redux/reducers/auth/role.reducer";
 import {API_GET_ROLE_PAGE} from "../../../constants";
-import {enqueueSnackbar} from "../../../redux/actions/core";
-import {AxiosInstance as apiClient} from "axios";
+import {apiClient} from "../../../service/apiClient";
+import {addRoleToUser, removeRoleToUser} from "../../../redux/actions/auth";
 
 
 const UserRoleRelationForm = (props) => {
@@ -27,49 +27,34 @@ const UserRoleRelationForm = (props) => {
     const roleQuery = initRoleQuery();
     const {t}       = useTranslation();
     const theme     = useTheme();
-    const tableRef  = React.createRef();
 
     const asyncAutocomplete = async (text) => {
         roleQuery.code = text;
         setRoleWait(true);
         await apiClient.post(API_GET_ROLE_PAGE, roleQuery)
-                         .then((response) => {
-                             setRoleList(response.data);
-                             setRoleWait(false);
-                         })
-                         .catch((error) => {
-                             dispatch(enqueueSnackbar(error.response.data.message, {variant: "error"})); //todo generic error method.
-                             setRoleWait(false);
-                         });
+                       .then((response) => {
+                           setRoleList(response.data);
+                           setRoleWait(false);
+                       }).catch((error) => {
+                setRoleWait(false);
+            });
     };
 
     const addRoleToList = (values) => {
-        const existRole = props.userModel.roleList;
-        const map       = values.map((o) => {
-            if (!existRole.some(er => er.role.code === o.code)) {
-                return Object.assign({}, {user: props.userUuid}, {role: o});
-            }
-        });
-
-        props.userModel.roleList = {...props.userModel.roleList,...map};
+        dispatch(addRoleToUser(values, props.userModel));
     };
 
     const handleRemoveRole = (role) => {
-        // const existRole   = props.fieldProps.value;
-        // const removedRole = existRole.filter((r) => {
-        //     return r.role.code !== role.role.code;
-        // });
-        // props.helper.setValue(removedRole);
+        dispatch(removeRoleToUser(role, props.userModel));
     };
 
     return (
-        <div>
+        <React.Fragment>
             <KzAutocomplete options={roleList.content}
                             containerClassName="mb-5"
                             loading={roleWait}
                             getOptionLabel={(option) => option.name}
-                            getOptionDisabled={(option) => props.userModel.roleList.some(
-                                e => e.role.code === option.code) || option.defaultRole}
+                            getOptionDisabled={(option) => option.defaultRole}
                             addButton
                             renderOption={(option) => (
                                 <React.Fragment>
@@ -101,8 +86,7 @@ const UserRoleRelationForm = (props) => {
                          search              : false,
                          toolbar             : false,
                      }}
-                     tableRef={tableRef}
-                     data={props.userModel.roleList}
+                     data={props.userModel?.roleList ? props.userModel.roleList : []}
                      actions={[
                          rowData => ({
                              icon   : () => <FontAwesomeIcon color={clsx(theme.palette.error.main)} icon={faTrashAlt} size="sm"/>,
@@ -110,14 +94,11 @@ const UserRoleRelationForm = (props) => {
                              hidden : rowData.role.defaultRole !== undefined && rowData.role.defaultRole === true
                          })
                      ]}/>
-        </div>
+        </React.Fragment>
     );
 };
 
 UserRoleRelationForm.propTypes = {
-    userUuid : PropTypes.string,
-    // fieldProps: PropTypes.any,
-    // helper    : PropTypes.any
     form     : PropTypes.any.isRequired,
     userModel: PropTypes.object.isRequired
 };

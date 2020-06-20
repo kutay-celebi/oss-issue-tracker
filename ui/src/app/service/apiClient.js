@@ -30,7 +30,7 @@ apiClient.interceptors.response.use(
     },
     error => {
         dispatch(closeBackdrop());
-        if (error.response.status === 401) {
+        if (error.response?.status && error.response.status === 401) {
             dispatch(logout());
             localStorage.removeItem("access_token");
             history.push({

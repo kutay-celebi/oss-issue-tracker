@@ -14,6 +14,7 @@ import {useForm} from "react-hook-form";
 import UserCompanyInfoForm from "./UserCompanyInfoForm";
 import {useDispatch, useSelector} from "react-redux";
 import {clearAddUserForm, closeUserForm, saveUser} from "../../../redux/actions/auth";
+import UserRoleRelationForm from "./UserRoleRelationForm";
 
 const useStyles = makeStyles((theme) => ({
     small: {
@@ -34,10 +35,10 @@ function a11yProps(index) {
 }
 
 const AddUserForm = (props) => {
-    const {user,userFormOpen} = useSelector(({authReducers }) => authReducers.user);
-    const dispatch = useDispatch();
-    const classes      = useStyles();
-    const {t}     = useTranslation();
+    const {user, userFormOpen} = useSelector(({authReducers}) => authReducers.user);
+    const dispatch             = useDispatch();
+    const classes              = useStyles();
+    const {t}                  = useTranslation();
 
     // validation schema.
     const validator = Yup.object().shape({
@@ -96,22 +97,22 @@ const AddUserForm = (props) => {
                     <Tab label={t("companyInfo")} {...a11yProps(3)}/>
                 </Tabs>
                 <form>
-                    {
-                        tabValue === 0 ?
-                            <div id="account" role="tabpanel">
-                                <MainInformationForm form={userForm} userModel={user}/>
-                            </div>
-                            : tabValue === 1 ?
-                            <div id="contact" role="tabpanel">
-                                <UserContactForm form={userForm} userModel={user}/>
-                            </div>
-                            // todo fixme
-                            // : tabValue === 2 ?
-                            //     <UserRoleRelationForm form={userForm} user={user}/>
-                            : tabValue === 3 ?
-                                <UserCompanyInfoForm form={userForm} userModel={user}/>
-                                : null
-                    }
+                    <div id="account" role="tabpanel" hidden={tabValue !== 0}>
+                        <MainInformationForm form={userForm} userModel={user}/>
+                    </div>
+
+                    <div id="contact" role="tabpanel" hidden={tabValue !== 1}>
+                        <UserContactForm form={userForm} userModel={user}/>
+                    </div>
+
+                    <div id="roleRelation" role="tabpanel" hidden={tabValue !== 2}>
+                        <UserRoleRelationForm form={userForm} userModel={user}/>
+                    </div>
+
+                    <div id="companyInfo" role="tabpanel" hidden={tabValue !== 3}>
+                        <UserCompanyInfoForm form={userForm} userModel={user}/>
+                    </div>
+
                 </form>
             </DialogContent>
         </KzFormDialog>

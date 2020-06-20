@@ -26,12 +26,14 @@ public interface UserRestService {
     KuartzResponse<UserModel> getUserByUsernameOrEmail(@NotBlank @PathVariable("usernameOrEmail") String usernameOrEmail);
 
     @RequestMapping(value = "/get/page",
+                    consumes = {MediaType.APPLICATION_JSON_VALUE},
                     method = RequestMethod.POST,
                     produces = {MediaType.APPLICATION_JSON_VALUE})
     KuartzResponse<KzPage<UserModel>> getPage(@Valid UserQueryModel queryModel);
 
     @RequestMapping(value = "/save",
                     method = RequestMethod.POST,
+                    consumes = {MediaType.APPLICATION_JSON_VALUE},
                     produces = {MediaType.APPLICATION_JSON_VALUE})
     KuartzResponse<UserModel> add(@Valid UserModel user);
 }

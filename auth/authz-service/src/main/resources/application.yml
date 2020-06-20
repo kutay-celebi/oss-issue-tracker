@@ -35,16 +35,24 @@ kuartz:
       data-source:
         - yetki_init.sql
         - uaa_init.sql
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: FULL
+
 logging:
+  com.kuartz.core.auth.client:
+    UserRestService: debug
   org.hibernate.SQL:
     level:
       -debug
   level:
+    - debug
     - error
     - warn
     - info
-  # file: authz.log
-
+  file: authz.log
 eureka:
   client:
     serviceUrl:

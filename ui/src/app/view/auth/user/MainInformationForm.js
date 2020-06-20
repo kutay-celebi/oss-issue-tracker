@@ -38,7 +38,7 @@ const MainInformationForm = props => {
                 <KzTextField label={t("name")}
                              fullWidth
                              name={"person.name"}
-                             defaultValue={props.userModel.person.name}
+                             defaultValue={props.userModel.person?.name}
                              inputRef={register}/>
                 <KzErrorMessage errors={errors} field={"person.name"}/>
             </Grid>
@@ -46,7 +46,7 @@ const MainInformationForm = props => {
                 <KzTextField label={t("surname")}
                              name={"person.lastName"}
                              fullWidth
-                             defaultValue={props.userModel.person.lastName}
+                             defaultValue={props.userModel.person?.lastName}
                              inputRef={register}/>
                 <KzErrorMessage errors={errors} field={"person.lastName"}/>
             </Grid>
@@ -57,7 +57,7 @@ const MainInformationForm = props => {
                           onChange={event => setValue("person.gender", event.target.value)}
                           variant="outlined"
                           fullWidth
-                          defaultValue={props.userModel.person.gender}
+                          defaultValue={props.userModel.person?.gender}
                           ref={register}/>
                 <KzErrorMessage errors={errors} field={"gender"}/>
             </Grid>
@@ -67,7 +67,7 @@ const MainInformationForm = props => {
                                       name={"person.birthday"}
                                       maxDate={new Date()}
                                       inputRef={register}
-                                      defaultValue={props.userModel.person.birthday}
+                                      defaultValue={props.userModel.person?.birthday}
                                       onChange={(date, value) => {
                                           setValue("person.birthday", date)
                                       }}

@@ -18,7 +18,7 @@ const UserQueryForm = (props) => {
             <Grid container spacing={2}>
                 <Grid item>
                     <KzTextField label={t("username")}
-                                 name={"userName"}
+                                 name={"username"}
                                  inputRef={register}/>
                 </Grid>
 
