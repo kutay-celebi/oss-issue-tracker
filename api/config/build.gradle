@@ -1,0 +1,38 @@
+group 'com.kuartz.microservices.core.config'
+archivesBaseName = 'kuartz-microservices-config'
+version '0.1'
+
+sourceCompatibility = 1.8
+
+dependencies {
+
+    compile(
+            [group: 'org.springframework.boot', name: 'spring-boot-starter-security'],
+            [group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'],
+            [group: 'org.springframework.cloud', name: 'spring-cloud-config-server']
+    )
+
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+}
+
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}
+
+docker {
+    springBootApplication {
+        baseImage = 'openjdk:8-alpine'
+        ports = [8888, 8888]
+        jvmArgs = ['-Dspring.profiles.active=docker', '-Xmx2048m']
+    }
+
+}
+
+dockerBuildImage {
+    Map args = new HashMap()
+    args.put('--rm','true')
+}

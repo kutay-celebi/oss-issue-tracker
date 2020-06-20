@@ -1,0 +1,52 @@
+spring:
+  application:
+    name: kuartz-gateway
+server:
+  port: 8765
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: ${REGISTRY_SERVICE_URL:http://localhost:8761/eureka}
+    fetch-registry: true
+    register-with-eureka: true
+
+zuul:
+  sensitive-headers:
+  routes:
+    authz-service:
+      path: /auth/**
+      serviceId: authz-service
+  host:
+    connect-timeout-millis: 10000
+    socket-timeout-millis: 10000
+ribbon:
+  ConnectTimeout: 60000
+  ReadTimeout: 600000
+#security:
+#  oauth2:
+#    client:
+#      client-id: test
+#      user-authorization-uri: ${AUTH_AUTHORIZATION_URL:http://localhost:9999/oauth/authorization}
+#      access-token-uri: ${AUTH_ACCESS_TOKEN_URI:http://localhost:9999/oauth/token}
+#      client-secret: test
+#      grant-type: password
+#    resource:
+#      token-info-uri: ${AUTH_RESOURCE_TOKEN_URI:http://localhost:9999/oauth/check_token}
+#      id: gateway
+---
+spring:
+  profiles: docker
+  application:
+    name: kuartz-gateway
+eureka:
+  # Register our microservices to Eureka using hostnames in a Docker environment will not work, they will all get
+  # one and the same hostname. Instead we configure them to use its IP address during registration with Eureka.
+  instance:
+    preferIpAddress: true
+  client:
+    serviceUrl:
+      defaultZone: ${REGISTRY_SERVICE_URL}
+server:
+  port: 8765

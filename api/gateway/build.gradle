@@ -1,0 +1,28 @@
+group 'com.kuartz.microservices.core.gateway'
+version '1.0'
+sourceCompatibility = 1.8
+
+jar {
+    enabled = true
+}
+
+dependencies {
+    compile(
+            [group: 'org.springframework.cloud', name: 'spring-cloud-starter'],
+            [group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-zuul'],
+//            [group: 'org.springframework.cloud', name: 'spring-cloud-starter-sleuth'], todo suanlik pasif.
+            [group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client'],
+//            [group: 'org.springframework.cloud', name: 'spring-cloud-starter-oauth2'],
+//            [group: 'com.kuartz.core.auth', name: 'kuartz-auth-core', version: "${kuartzAuthCoreVersion}"],
+    )
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+}
+
+docker {
+    springBootApplication {
+        baseImage = "openjdk:8-alpine"
+        ports = [8765, 8765]
+        jvmArgs = ['-Dspring.profiles.active=docker', '-Xmx1024m']
+    }
+}
+

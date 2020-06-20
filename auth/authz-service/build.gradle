@@ -1,0 +1,50 @@
+group 'com.kuartz.auth'
+version "${authzServerVersion}"
+sourceCompatibility = 1.8
+
+bootJar {
+    enabled = true
+}
+
+buildscript {
+
+    dependencies {
+        classpath "com.kuartz.core.plugin.gradle:kuartz-gradle-plugin:${kuartzGradlePluginVersion}"
+        classpath "com.bmuschko:gradle-docker-plugin:${dockerPluginVersion}"
+    }
+}
+
+apply plugin: "com.kuartz.core.plugin.gradle"
+apply plugin: "com.bmuschko.docker-spring-boot-application"
+
+dependencies {
+    compile(
+            project(':kuartz-auth-client'),
+
+            // kuartz
+            [group: 'com.kuartz.core.data.jpa', name: 'kuartz-data-jpa', version: "${kuartzDataJpaVersion}"],
+            [group: 'com.kuartz.core.auth', name: 'kuartz-auth-core', version: "${kuartzAuthCoreVersion}"],
+            [group: 'com.kuartz.core.service', name: 'kuartz-core-service', version: "${kuartzServiceVersion}"],
+
+            // boot
+            [group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'],
+//            [group: 'org.springframework.boot', name: 'spring-boot-starter-web'],
+
+            [group: 'io.springfox', name: 'springfox-swagger2', version: "${swaggerVersion}"],
+            [group: 'io.springfox', name: 'springfox-swagger-ui', version: "${swaggerVersion}"],
+    )
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
+    // todo will be able.
+    //    compile("org.springframework.cloud:spring-cloud-config-client:${project.cloudVersion}")
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+docker {
+    springBootApplication {
+        baseImage = "openjdk:8-alpine"
+        ports = [9090, 8080]
+        jvmArgs = ['-Dspring.profiles.active=docker', '-Xmx1024m']
+    }
+}

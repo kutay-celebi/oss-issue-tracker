@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: kuartz-registry
+server:
+  port: 8761
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+---
+spring:
+  profiles: docker
+  application:
+    name: registry
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: false
+    fetch-registry: false

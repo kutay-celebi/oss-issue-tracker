@@ -1,0 +1,50 @@
+version: '2'
+services:
+  registry:
+    container_name: registry
+    image: gmsoftdocker/kuartz-registry:1.0
+    #    networks:
+    #      - spring-cloud-network
+    environment:
+      REGISTRY_SERVICE_URL: http://registry:8761/eureka
+    ports:
+      - "8761:8761"
+    networks:
+      - test
+  gateway:
+    container_name: gateway
+    image: gmsoftdocker/kuartz-gateway:1.0
+    restart: always
+    environment:
+      AUTH_AUTHORIZATION_URL: http://auth:9999/oauth/authorization
+      AUTH_ACCESS_TOKEN_URI: http://auth:9999/oauth/token
+      AUTH_RESOURCE_TOKEN_URI: http://auth:9999/oauth/check_token
+      REGISTRY_SERVICE_URL: http://registry:8761/eureka
+    ports:
+      - "8765:8765"
+    links:
+      - registry
+    networks:
+      - test
+  auth:
+    container_name: authorization
+    image: gmsoftdocker/kuartz-auth-server:1.0
+    restart: always
+    environment:
+      DATASOURCE_URL: jdbc:postgresql://postgresql:5432/mydb
+      DATASOURCE_USERNAME: kuartz
+      DATASOURCE_PASS: k01.
+      REGISTRY_SERVICE_URL: http://registry:8761/eureka
+      DDL_AUTO: create-drop
+    ports:
+      - "9090:9090"
+    links:
+      - registry
+    networks:
+      - test
+      - db_test
+networks:
+  test:
+    driver: bridge
+  db_test:
+    external: true

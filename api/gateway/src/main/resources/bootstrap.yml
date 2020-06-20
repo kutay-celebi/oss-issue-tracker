@@ -1,0 +1,12 @@
+#spring:
+#  application:
+#    name: gateway
+#  cloud:
+#    config:
+#      #      docker containerine alınmalı
+#      #      uri: http://config:8888
+#      uri: http://127.0.0.1:8888
+#      fail-fast: true
+#      #      password: ${CONFIG_SERVICE_PASSWORD}
+#      password: 'test'
+#      username: user
