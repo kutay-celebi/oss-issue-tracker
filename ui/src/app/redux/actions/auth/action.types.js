@@ -11,7 +11,6 @@ export const LOGOUT_SUCCESS = "AUTH_LOGOUT_SUCCESS";
 export const GET_USER_PAGE     = "USER_GET_PAGE";
 export const SUCCESS_USER_PAGE = "USER_SUCCESS_OAGE";
 
-export const ADD_USER            = "USER_ADD_USER";
 export const SUCCESS_ADD_USER    = "USER_SUCCESS_ADD_USER";
 export const CLEAR_ADD_USER_FORM = "USER_CLEAR_ADD_USER_FORM";
 

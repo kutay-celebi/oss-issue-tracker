@@ -2,6 +2,7 @@ import {CLEAR_ADD_USER_FORM, CLOSE_USER_FORM, OPEN_USER_FORM, SET_USER, SUCCESS_
 import {API_GET_USER_PAGE} from "../../../constants";
 import {enqueueSnackbar} from "../core";
 import {apiClient} from "../../../service/apiClient";
+import {initUserRoleRelationModel} from "../../reducers/auth/user.reducer";
 
 // todo api call support memoize.
 export const successUserPage = (query, response) => (dispatch) => {
@@ -78,6 +79,29 @@ export const closeUserForm = () => (dispatch) => {
                  type: CLOSE_USER_FORM
              })
 };
+
+export const addRoleToUser = (roleList, userModel) => (dispatch) => {
+
+    const roleUserMap = roleList.map(role => {
+        let rel  = initUserRoleRelationModel();
+        rel.role = role;
+        rel.user = userModel.uuid;
+        return rel;
+    });
+
+    userModel.roleList = [...roleUserMap, ...userModel.roleList];
+
+    dispatch(saveUser(userModel));
+};
+
+export const removeRoleToUser = (roleModel, userModel) => (dispatch) => {
+    userModel.roleList = userModel.roleList.filter(value => {
+        return value.uuid !== roleModel.uuid
+    });
+    dispatch(saveUser(userModel));
+};
+
+
 
 
 

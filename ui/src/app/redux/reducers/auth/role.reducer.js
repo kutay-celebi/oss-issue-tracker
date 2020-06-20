@@ -27,7 +27,6 @@ export const initRoleModel = () => {
 
 export const initRoleQuery = () => {
     return {
-        name    : "",
         code    : "",
         pageable: {
             pageNumber: DEFAULT_QUERY_PAGE_NUMBER,

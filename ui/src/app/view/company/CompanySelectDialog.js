@@ -9,14 +9,16 @@ import {useDispatch, useSelector} from "react-redux";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheck} from "@fortawesome/free-solid-svg-icons";
 import {getCompanyPage} from "../../redux/actions/company";
+import {initCompanyQuery} from "../../redux/reducers/company/company.reducers";
 
 const CompanySelectDialog = (props) => {
     const {t} = useTranslation("company");
 
     const [openCompanyQueryForm, setOpenCompanyForm] = useState(false);
 
-    const dispatch             = useDispatch();
-    const {query, companyList} = useSelector(({companyReducers}) => companyReducers.company);
+    const dispatch      = useDispatch();
+    const {companyList} = useSelector(({companyReducers}) => companyReducers.company);
+    const query         = initCompanyQuery();
 
     const handePageChange = (page) => {
         const currentPage = query.pageable.pageNumber;

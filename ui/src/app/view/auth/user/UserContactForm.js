@@ -15,7 +15,7 @@ const UserContactForm = props => {
                 <KzTextField label={t("adress")}
                              inputRef={register}
                              name={"person.contact.adress"}
-                             defaultValue={props.userModel.person.contact.adress}
+                             defaultValue={props.userModel.person?.contact?.adress}
                              multiline
                              rows={4}
                              fullWidth/>
@@ -24,7 +24,7 @@ const UserContactForm = props => {
                 <KzMaskedInput label={t("gsm1")}
                                inputRef={register}
                                name={"person.contact.gsm1"}
-                               defaultValue={props.userModel.person.contact.gsm1}
+                               defaultValue={props.userModel.person?.contact?.gsm1}
                                fullWidth
                                maskProps={{
                                    allowEmptyFormatting: true,
@@ -38,7 +38,7 @@ const UserContactForm = props => {
                 <KzMaskedInput label={t("gsm2")}
                                inputRef={register}
                                name={"person.contact.gsm2"}
-                               defaultValue={props.userModel.person.contact.gsm2}
+                               defaultValue={props.userModel.person?.contact?.gsm2}
                                fullWidth
                                maskProps={{
                                    allowEmptyFormatting: true,
@@ -52,7 +52,7 @@ const UserContactForm = props => {
                 <KzMaskedInput label={t("tel")}
                                inputRef={register}
                                name={"person.contact.tel"}
-                               defaultValue={props.userModel.person.contact.tel}
+                               defaultValue={props.userModel.person?.contact?.tel}
                                fullWidth
                                maskProps={{
                                    allowEmptyFormatting: true,
@@ -66,7 +66,7 @@ const UserContactForm = props => {
                 <KzTextField label={t("mail")}
                              inputRef={register}
                              name={"person.contact.mail"}
-                             defaultValue={props.userModel.person.contact.mail}
+                             defaultValue={props.userModel.person?.contact?.mail}
                              fullWidth/>
             </Grid>
 
@@ -74,7 +74,7 @@ const UserContactForm = props => {
                 <KzTextField label={t("web")}
                              inputRef={register}
                              name={"person.contact.web"}
-                             defaultValue={props.userModel.person.contact.web}
+                             defaultValue={props.userModel.person?.contact?.web}
                              fullWidth/>
             </Grid>
 

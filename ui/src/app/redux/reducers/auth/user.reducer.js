@@ -68,11 +68,24 @@ export const initUserQuery = () => {
     }
 };
 
+export const initUserRoleRelationModel = () => {
+    return {
+        uuid     : null,
+        id       : null,
+        createdAt: null,
+        updatedAt: null,
+        deletedAt: null,
+        user     : {},
+        role    : {},
+        deleted  : null,
+    }
+};
+
 const initialState = {
     wait        : false,
     userFormOpen: false,
     user        : initAddUserForm(),
-    userList    : {content:[]}
+    userList    : {content: []}
 };
 
 const userReducer = (state = initialState, action) => {
@@ -107,7 +120,7 @@ const userReducer = (state = initialState, action) => {
         case SET_USER: {
             return {
                 ...state,
-                user        : action.user,
+                user        : {...state.user, ...action.user},
                 userFormOpen: true
             };
         }
