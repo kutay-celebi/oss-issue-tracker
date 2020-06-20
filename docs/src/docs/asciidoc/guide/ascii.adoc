@@ -1,0 +1,38 @@
+== Ascii for documentation
+
+NOTE: Note example
+
+TIP: Tip example
+
+IMPORTANT: important example
+
+WARNING: Warning example
+
+CAUTION: Caution example
+
+*bold* text
+
+_italic_ text
+
+`monospace` text
+
+#highlighted text#
+
+'''
+
+=== List
+
+. Item
+.. Item
+... Item
+.... Item +
+
+=== Checked
+
+* [x] checked
+
+Relative link: link:ascii.html[Relative]
+
+//[caption="Internal image ",link=https://www.flickr.com/photos/javh/5448336655]
+
+image::../images/test.png[test]
