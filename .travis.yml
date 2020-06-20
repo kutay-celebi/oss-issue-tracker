@@ -1,7 +1,6 @@
 jobs:
   include:
-    -
-      name: auth-build
+    - name: auth-build
       language: java
       sudo: required
       before_script:
@@ -10,8 +9,7 @@ jobs:
         - chmod +x gradle/wrapper/gradle-wrapper.jar
       script:
         - "./gradlew build"
-    -
-      name: api-build
+    - name: api-build
       language: java
       sudo: required
       before_script:
@@ -20,6 +18,19 @@ jobs:
         - chmod +x gradle/wrapper/gradle-wrapper.jar
       script:
         - "./gradlew build"
+    - name: build-docs
+      branches:
+        only:
+          - master
+      sudo: required
+      before_script:
+        - "cd docs"
+        - chmod +x gradlew
+        - chmod +x gradle/wrapper/gradle-wrapper.jar
+      script:
+        - gradlew asciidoctor
+        - gradlew copyOutput --project-cache-dir=../cache
+
 #notifications:
 #  email:
 #    - mail@kutaycelebi.com
