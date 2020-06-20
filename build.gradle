@@ -1,0 +1,29 @@
+group 'com.kuartz.docs'
+version '1.0-SNAPSHOT'
+
+buildscript {
+
+    repositories {
+        mavenCentral()
+        jcenter()
+
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        mavenLocal()
+    }
+
+    dependencies {
+        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.3'
+    }
+}
+
+apply plugin: 'org.asciidoctor.gradle.asciidoctor'
+
+asciidoctor {
+    sourceDir = file('src/main/doc')
+    outputDir  file("${projectDir}/docs")
+    attributes = [
+            'rootdir': "${rootDir}",
+    ]
+}
