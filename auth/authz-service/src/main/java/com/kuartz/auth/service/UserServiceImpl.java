@@ -7,6 +7,7 @@ import com.kuartz.auth.entity.UserEntity;
 import com.kuartz.auth.entity.UserRoleEntity;
 import com.kuartz.auth.entity.query.UserEntityQuery;
 import com.kuartz.auth.repository.UserRepository;
+import com.kuartz.core.auth.dto.ChangePasswordModel;
 import com.kuartz.core.auth.dto.RegisterModel;
 import com.kuartz.core.auth.dto.RoleModel;
 import com.kuartz.core.auth.dto.UserModel;
@@ -15,6 +16,7 @@ import com.kuartz.core.common.converter.KuartzModelConverter;
 import com.kuartz.core.common.domain.KzPage;
 import com.kuartz.core.common.exception.ExceptionMessage;
 import com.kuartz.core.common.exception.KzException;
+import com.kuartz.core.common.model.KzMessageModel;
 import com.kuartz.core.common.util.KzUtil;
 import com.kuartz.core.data.jpa.TransactionalRollback;
 import com.kuartz.core.service.KuartzService;
@@ -120,6 +122,24 @@ public class UserServiceImpl extends KuartzService implements UserService {
         }
         UserEntity saved = userRepository.saveFlush(entity);
         return KuartzModelConverter.convert(saved, UserModel.class);
+    }
+
+    @Override
+    public KzMessageModel changePassword(ChangePasswordModel changePasswordModel) throws KzException {
+        UserModel user = getUserByUsernameOrEmail(changePasswordModel.getUsername());
+
+        if (user == null){
+            throw new KzException(new ExceptionMessage(getMessage("auth_user_notFound")));
+        }
+
+        if (!passwordEncoder.matches(changePasswordModel.getOldPassword(), user.getPassword())) {
+            throw new KzException(new ExceptionMessage(getMessage("auth_user_oldPasswordWrong")));
+        }
+
+        user.setPassword(passwordEncoder.encode(changePasswordModel.getPassword()));
+        userRepository.saveFlush(KuartzModelConverter.convert(user, UserEntity.class));
+
+        return KzMessageModel.succeed().addMessage(getMessage("auth_user_passwordChanged"));
     }
 
 }

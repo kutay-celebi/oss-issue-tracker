@@ -1,10 +1,12 @@
 package com.kuartz.auth.service;
 
+import com.kuartz.core.auth.dto.ChangePasswordModel;
 import com.kuartz.core.auth.dto.RegisterModel;
 import com.kuartz.core.auth.dto.UserModel;
 import com.kuartz.core.auth.dto.query.UserQueryModel;
 import com.kuartz.core.common.domain.KzPage;
 import com.kuartz.core.common.exception.KzException;
+import com.kuartz.core.common.model.KzMessageModel;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.validation.annotation.Validated;
 
@@ -20,4 +22,6 @@ public interface UserService extends UserDetailsService {
     KzPage<UserModel> getPage(@Valid UserQueryModel queryModel);
 
     UserModel add(@Valid UserModel user);
+
+    KzMessageModel changePassword(@Valid ChangePasswordModel changePasswordModel) throws KzException;
 }

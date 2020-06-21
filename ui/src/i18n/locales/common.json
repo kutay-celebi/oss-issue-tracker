@@ -36,7 +36,13 @@
     "uaa"               : "User Account and Authentication",
     "roleDefinition"    : "Rol Definition",
     "userDefinition"    : "User Definition",
-    "companyDefinition" : "Company Definition"
+    "companyDefinition" : "Company Definition",
+    "password"          : "Password",
+    "oldPassword"       : "Old Password",
+    "login"             : "Login",
+    "changePassword"    : "Forgot Password",
+    "requestPassword"   : "Request New Password",
+    "cancel"            : "Cancel"
   },
   "tr": {
     "homepage"          : "Anasayfa",
@@ -76,6 +82,12 @@
     "uaa"               : "Kullanıcı ve Yetkilendirme",
     "userDefinition"    : "Kullanıcı Tanımlama",
     "companyDefinition" : "Kuruluş Tanımlama",
-    "roleDefinition"    : "Rol Tanımlama"
+    "roleDefinition"    : "Rol Tanımlama",
+    "password"          : "Password",
+    "oldPassword"       : "Old Password",
+    "login"             : "Giriş Yap",
+    "changePassword"    : "Şifremi Unuttum",
+    "requestPassword"   : "Şifre Talep Et",
+    "cancel"            : "Vazgeç"
   }
 }
