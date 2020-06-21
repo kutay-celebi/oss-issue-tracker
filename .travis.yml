@@ -28,8 +28,8 @@ jobs:
         - chmod +x gradlew
         - chmod +x gradle/wrapper/gradle-wrapper.jar
       script:
-        - ./gradlew asciidoctor
-        - ./gradlew copyOutput --project-cache-dir=../cache
+        - "./gradlew asciidoctor"
+        - "./gradlew copyOutput --project-cache-dir=../cache"
 
 #notifications:
 #  email:
