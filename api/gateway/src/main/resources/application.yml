@@ -13,9 +13,12 @@ eureka:
     register-with-eureka: true
 
 zuul:
-  sensitive-headers:
+  Servlet30WrapperFilter:
+    pre:
+      disable:true
   routes:
     authz-service:
+      sensitive-headers:
       path: /auth/**
       serviceId: authz-service
   host:
