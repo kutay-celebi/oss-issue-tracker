@@ -66,6 +66,7 @@ const LoginForm = (props) => {
     const {t}                                     = useTranslation();
 
     const [renderForgot, setRenderForgot] = useState(false);
+    const [rememberMe,setRememberMe]                       = useState(true);
 
     const handleForgotForm = (data) => {
 
@@ -87,6 +88,7 @@ const LoginForm = (props) => {
                     label="Username"
                     autoFocus
                     name="username"
+                    defaultValue="kcelebi"
                     inputRef={register}
                     variant="outlined"
                     required
@@ -97,6 +99,7 @@ const LoginForm = (props) => {
                     className="mb-16"
                     label="Password"
                     name="password"
+                    defaultValue="123"
                     inputRef={register}
                     type="password"
                     required
@@ -110,8 +113,8 @@ const LoginForm = (props) => {
                             control={
                                 <Checkbox
                                     name="remember"
-                                    // checked={remember}
-                                    // onChange={this.handleChange}
+                                    checked={rememberMe}
+                                    onChange={() => setRememberMe(!rememberMe)}
                                 />
                             }
                             label="Remember Me"
@@ -129,7 +132,7 @@ const LoginForm = (props) => {
                         aria-label="LOG IN"
                         type="submit"
                         onClick={handleSubmit(data => {
-                            dispatch(login(data.username, data.password))
+                            dispatch(login(data.username, data.password, rememberMe))
                         })}>
                     {t("login")}
                 </Button>

@@ -29,13 +29,9 @@ public class KuartzClientDetailsProvider implements ClientDetailsService {
 
 
         String resourceIds = client.getReourceList().stream().map(ResourceModel::getResourceName).collect(Collectors.joining(","));
-        String scopes = String.join(",", client.getScope());
-        String grantTypes = String.join(",", client.getAuthorizedGrantTypes());
-        String authorities = String.join(",", client.getAuthorities());
-        String redirectUris = String.join(",", client.getRegisteredRedirectUri());
-
-
-        BaseClientDetails base = new BaseClientDetails(client.getClientId(), resourceIds, scopes, grantTypes, authorities, redirectUris);
+        BaseClientDetails base = new BaseClientDetails(client.getClientId(), resourceIds, client.getScope(),
+                                                       client.getAuthorizedGrantTypes(), client.getAuthorities(),
+                                                       client.getRegisteredRedirectUri());
         base.setClientSecret(client.getClientSecret());
         base.setAccessTokenValiditySeconds(client.getAccessTokenValiditySeconds());
         base.setRefreshTokenValiditySeconds(client.getRefreshTokenValiditySeconds());
@@ -46,7 +42,6 @@ public class KuartzClientDetailsProvider implements ClientDetailsService {
             base.setAdditionalInformation(additionalInformation);
         }
         base.setScope(StringUtils.commaDelimitedListToSet(client.getScope()));
-
         return base; // FIXME: @kutay-celebi 07.03.2020 entered 3-4 times. explore why?
     }
 }

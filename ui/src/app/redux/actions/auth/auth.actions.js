@@ -4,15 +4,14 @@ import history from '../../../../@history'
 import {enqueueSnackbar} from "../core";
 import axios from "axios";
 
-export const loginSuccess = (response) => (dispatch) => {
+export const loginSuccess = (response, rememberMe) => (dispatch) => {
     dispatch({
                  type   : LOGIN_SUCCESS,
                  payload: {
-                     response
+                     response,
+                     rememberMe: rememberMe
                  }
              });
-
-    history.push(PATH_HOME_PAGE);
 };
 
 export const loginFail = (error) => (dispatch) => {
@@ -22,7 +21,28 @@ export const loginFail = (error) => (dispatch) => {
     }
 };
 
-export const login = (username, password) => async (dispatch) => {
+export const refreshToken = () => (dispatch) => {
+    var urlencoded = new URLSearchParams();
+    urlencoded.append("grant_type", "refresh_token");
+    axios.post(BASE_PATH + AUTH_PATH + AUTH_TOKEN_PATH, urlencoded,
+                     {
+                         headers        : {
+                             "Content-Type": "application/x-www-form-urlencoded",
+                             "Authorization": "Basic dGVzdDp0ZXN0", // todo basic token icin yapilari inceleyelim boyle hardcode vermeyelim.
+                         },
+                         params:{
+                             "refresh_token" : localStorage.getItem("refresh_token")
+                         }
+                     })
+               .then((response) => {
+                   dispatch(loginSuccess(response.data, true))
+               })
+               .catch((e) => {
+                   dispatch(loginFail(e.response.data.message))
+               });
+};
+
+export const login = (username, password, rememberMe) => async (dispatch) => {
     var urlencoded = new URLSearchParams();
     urlencoded.append("username", username);
     urlencoded.append("password", password);
@@ -36,14 +56,12 @@ export const login = (username, password) => async (dispatch) => {
                          },
                      })
                .then((response) => {
-                   dispatch(loginSuccess(response.data))
+                   dispatch(loginSuccess(response.data, rememberMe));
+                   history.push(PATH_HOME_PAGE);
                })
                .catch((e) => {
                    dispatch(loginFail(e.response.data.message))
                });
-    ;
-
-
 };
 
 export const logout = () => (dispatch) => {
