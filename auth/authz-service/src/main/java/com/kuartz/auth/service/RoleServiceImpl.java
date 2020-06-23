@@ -70,9 +70,9 @@ public class RoleServiceImpl extends KuartzService implements RoleService {
     }
 
     @Override
-    public Boolean delete(Long id) {
+    public KzMessageModel delete(Long id) {
         repository.deleteById(id);
-        return Boolean.TRUE;
+        return KzMessageModel.succeed().addMessage(getMessage("delete_success", 1));
     }
 
     @Override
@@ -106,13 +106,12 @@ public class RoleServiceImpl extends KuartzService implements RoleService {
             }
             savedEntity = rolePrivilegeRepository.saveAllFlush(relationList);
         }
-        return KzMessageModel.succeed().addMessage(
-                messageSource.getMessage("rowEffect", KzUtil.createArray(savedEntity.size()), request.getLocale()));
+        return KzMessageModel.succeed().addMessage(getMessage("rowEffect", savedEntity.size()));
     }
 
     @Override
     public KzMessageModel removePrivilegeFromRole(Long relationId) {
         rolePrivilegeRepository.deleteById(relationId);
-        return KzMessageModel.succeed().addMessage(messageSource.getMessage("delete_success", KzUtil.createArray(1), request.getLocale()));
+        return KzMessageModel.succeed().addMessage(getMessage("delete_success", 1));
     }
 }

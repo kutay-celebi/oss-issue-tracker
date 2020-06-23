@@ -9,6 +9,7 @@ export const API_GET_ROLE_PAGE = "/role/page";
 export const API_ADD_ROLE_PRIVILEGE = "/role/addPrivilegeList";
 export const API_REMOVE_PRIVILEGE_RELATION = "/role/removePrivilegeRelation/";
 export const API_GET_PRIVILEGE_PAGE = "/privilege/page";
+export const API_DELETE_ROLE = "/role/delete/";
 
 export const API_GET_USER_PAGE = "/user/get/page";
 

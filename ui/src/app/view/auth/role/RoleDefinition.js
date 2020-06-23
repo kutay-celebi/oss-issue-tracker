@@ -7,9 +7,9 @@ import Button from "@material-ui/core/Button";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import RoleForm from "./RoleForm";
-import {getRole, getRolePage, openRoleForm} from "../../../redux/actions/auth/role.actions";
+import {deleteRole, getRole, getRolePage, openRoleForm} from "../../../redux/actions/auth/role.actions";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEdit} from "@fortawesome/free-solid-svg-icons";
+import {faEdit, faTrash} from "@fortawesome/free-solid-svg-icons";
 import KzTable from "../../../../@kuartz/components/KzTable/KzTable";
 import {initRoleQuery} from "../../../redux/reducers/auth/role.reducer";
 
@@ -77,7 +77,12 @@ class RoleDefinition extends Component {
                             {
                                 icon   : () => <FontAwesomeIcon icon={faEdit}/>,
                                 onClick: (event, rowData) => this.props.getRole(rowData.id)
-                            }
+                            },
+                            rowData =>  ({
+                                icon   : () => <FontAwesomeIcon icon={faTrash}/>,
+                                disabled: rowData.defaultRole,
+                                onClick: (event, rowData) => this.props.deleteRole(rowData.id, this.state.query)
+                            })
                         ]}/>
 
                 </KzFormFrame>
@@ -98,6 +103,7 @@ function mapDispatchToProps(dispatch) {
                                   handleOpenForm: openRoleForm,
                                   getRolePage   : getRolePage,
                                   getRole       : getRole,
+                                  deleteRole    : deleteRole
                               }, dispatch)
 }
 
