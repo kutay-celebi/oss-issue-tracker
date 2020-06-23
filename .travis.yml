@@ -18,11 +18,13 @@ jobs:
         - chmod +x gradle/wrapper/gradle-wrapper.jar
       script:
         - "./gradlew build"
-    - name: build-docs
+    - stage: docs-deployment
       branches:
         only:
           - master
       sudo: required
+      before_install:
+        - gem install bundler
       before_script:
         - "cd docs"
         - chmod +x gradlew
@@ -30,9 +32,14 @@ jobs:
       script:
         - "./gradlew asciidoctor"
         - "./gradlew copyOutput --project-cache-dir=../cache"
-      after_success:
-        - ./push.sh
-
+      deploy:
+        - provider: pages
+          skip_cleanup: true
+          local_dir: docs/build/docs/asciidoc/
+          github_token: $GITHUB_TOKEN
+          target_branch: gh-pages
+          on:
+            branch: master
 #notifications:
 #  email:
 #    - mail@kutaycelebi.com
