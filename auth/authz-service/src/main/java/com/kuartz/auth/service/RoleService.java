@@ -17,7 +17,7 @@ public interface RoleService {
 
     KzPage<RoleModel> getPage(@Valid RoleQueryModel queryModel);
 
-    Boolean delete(@NotNull @Positive Long id);
+    KzMessageModel delete(@NotNull @Positive Long id);
 
     RoleModel save(@Valid RoleModel roleModel);
 

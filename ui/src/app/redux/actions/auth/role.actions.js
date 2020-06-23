@@ -8,7 +8,7 @@ import {
     SUCCESS_ADD_ROLE,
     SUCCESS_ROLE_PAGE
 } from "./action.types";
-import {API_ADD_ROLE_PRIVILEGE, API_GET_ROLE_PAGE, API_REMOVE_PRIVILEGE_RELATION} from "../../../constants";
+import {API_ADD_ROLE_PRIVILEGE, API_DELETE_ROLE, API_GET_ROLE_PAGE, API_REMOVE_PRIVILEGE_RELATION} from "../../../constants";
 import {enqueueSnackbar} from "../core";
 import {apiClient} from "../../../service/apiClient";
 
@@ -94,6 +94,7 @@ export const removePrivilegeRelation = (relationId, roleId) => (dispatch) => {
              })
 };
 
+
 export const addPrivilegeToRole = (privilegeList, roleId) => (dispatch) => {
     apiClient.post(API_ADD_ROLE_PRIVILEGE, privilegeList.map(p => p.id),
                    {
@@ -108,5 +109,22 @@ export const addPrivilegeToRole = (privilegeList, roleId) => (dispatch) => {
                  }
              )
 };
+
+/**
+ *
+ * @param roleId number
+ * @param query role query
+ *
+ * @returns {function(...[any]=)}
+ */
+export const deleteRole = (roleId, query) => async (dispatch) => {
+    apiClient.delete(API_DELETE_ROLE + roleId)
+             .then(
+                 response => {
+                     dispatch(enqueueSnackbar(response.data.message, {variant: "success",}));
+                     dispatch(getRolePage(query))
+                 }
+             )
+}
 
 

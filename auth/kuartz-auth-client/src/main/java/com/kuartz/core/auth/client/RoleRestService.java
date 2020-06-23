@@ -45,7 +45,7 @@ public interface RoleRestService {
     @RequestMapping(value = "/delete/{id}",
                     method = RequestMethod.DELETE,
                     produces = {MediaType.APPLICATION_JSON_VALUE})
-    KuartzResponse<Boolean> delete(@NotNull @Positive @PathVariable("id") Long id);
+    KuartzResponse<KzMessageModel> delete(@NotNull @Positive @PathVariable("id") Long id);
 
     @RequestMapping(value = "/get/{id}",
                     method = RequestMethod.GET,
