@@ -1,10 +1,11 @@
-import React                 from 'react';
+import React from 'react';
 import {makeStyles, Toolbar} from "@material-ui/core";
-import AppBar                from "@material-ui/core/AppBar";
-import Hidden                from "@material-ui/core/Hidden";
-import KzToggleNavbarButton  from "../navbar/KzToggleNavbarButton";
-import KzUserInfo            from "../userinfo/KzUserInfo";
-import {useSelector}         from "react-redux";
+import AppBar from "@material-ui/core/AppBar";
+import Hidden from "@material-ui/core/Hidden";
+import KzToggleNavbarButton from "../navbar/KzToggleNavbarButton";
+import KzUserInfo from "../userinfo/KzUserInfo";
+import {useSelector} from "react-redux";
+import KzLanguageSelector from "../KzLanguageSelector/KzLanguageSelector";
 
 const useStyles = makeStyles(theme => ({
     separator: {
@@ -32,11 +33,10 @@ const KzToolbar = (props) => {
                     <KzToggleNavbarButton/>
                 </Hidden>
             </Toolbar>
-
             {
-
                     <Toolbar className={"p-0 flex-1"}>
                         <KzUserInfo/>
+                        <KzLanguageSelector/>
                     </Toolbar>
 
             }
