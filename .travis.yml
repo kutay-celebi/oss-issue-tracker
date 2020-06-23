@@ -1,7 +1,7 @@
 jobs:
   include:
     - stage: micro-services-build
-    - name: auth-build
+      name: auth-build
       language: java
       sudo: required
       before_script:
