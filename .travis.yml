@@ -30,6 +30,8 @@ jobs:
       script:
         - "./gradlew asciidoctor"
         - "./gradlew copyOutput --project-cache-dir=../cache"
+      after_success:
+        - ./push.sh
 
 #notifications:
 #  email:
