@@ -9,4 +9,5 @@ Kutay Çelebi
 :toc: left
 :stylesheet: stylesheet.css
 
+include::guide/namingConvention.adoc[]
 include::guide/ascii.adoc[]
