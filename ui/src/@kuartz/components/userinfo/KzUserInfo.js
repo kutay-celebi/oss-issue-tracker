@@ -1,12 +1,12 @@
-import React                      from 'react';
+import React from 'react';
 // import PropTypes       from 'prop-types';
-import Menu                       from '@material-ui/core/Menu';
-import MenuItem                   from '@material-ui/core/MenuItem';
-import Avatar                     from "@material-ui/core/Avatar";
-import clsx                       from "clsx";
-import {makeStyles}               from "@material-ui/core";
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Avatar from "@material-ui/core/Avatar";
+import clsx from "clsx";
+import {makeStyles} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
-import {logout}                   from "../../../app/redux/actions/auth";
+import {logout} from "../../../app/redux/actions/auth";
 
 const useStyles = makeStyles(theme => ({
     avatarHover: {
@@ -15,7 +15,6 @@ const useStyles = makeStyles(theme => ({
             duration: theme.transitions.duration.complex
         }),
         '&:hover' : {
-            // color    : "rgba(0, 0, 0, 0.3)",
             boxShadow: ".1em .1em 3em rgba(200, 200, 200, 0.5)",
         }
     },
@@ -47,7 +46,7 @@ const KzUserInfo = props => {
 
 
     return (
-        <div className='w-full'>
+        <div className='w-full px-5'>
             {/*alt'a kullanici photo basilacak..*/}
 
             <Avatar alt={user.username}
