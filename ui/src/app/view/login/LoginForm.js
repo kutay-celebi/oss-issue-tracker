@@ -1,10 +1,19 @@
-import React          from "react";
-import * as PropTypes from "prop-types";
-import {Button}       from "@material-ui/core";
-import makeStyles     from "@material-ui/core/styles/makeStyles";
-import clsx           from "clsx";
-import {useFormik}    from "formik";
-import KzTextField    from "../../../@kuartz/components/TextInput/KzTextField";
+import React, {useEffect, useState} from "react";
+import {Button} from "@material-ui/core";
+import makeStyles from "@material-ui/core/styles/makeStyles";
+import KzTextField from "../../../@kuartz/components/TextInput/KzTextField";
+import FormControl from "@material-ui/core/FormControl";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import {useForm} from "react-hook-form";
+import Link from "@material-ui/core/Link";
+import {useTranslation} from "react-i18next";
+import {useDispatch} from "react-redux";
+import {login} from "../../redux/actions/auth";
+import axios from "axios";
+import {AUTH_PATH, BASE_PATH} from "../../constants";
+import {enqueueSnackbar} from "../../redux/actions/core";
+import Grid from "@material-ui/core/Grid";
 
 
 const useStyles = makeStyles(theme => ({
@@ -48,44 +57,149 @@ const validate = (values) => {
 };
 
 const LoginForm = (props) => {
-    const classes = useStyles();
-    // const { values, submitForm } = useFormikContext();
-    const formik  = useFormik({
-                                  initialValues   : {
-                                      username: "kcelebi",
-                                      password: "test"
-                                  },
-                                  validate,
-                                  validateOnChange: true,
-                                  validateOnBlur  : true,
-                                  onSubmit        : values => props.handleForm(values),
-                              });
-    return (
-        <div id="form-div1" className={clsx(classes.root, 'max-w-lg')}>
-            <div id="form-div2" className={clsx(classes.contentWrapper)}>
-                <div id="form-div3" className={clsx(classes.content)}>
-                    <form onSubmit={formik.handleSubmit}
-                          className={clsx(classes.form, 'flex flex-1 flex-col py-20')}>
-                        <KzTextField label={"Username"}
-                                     value={formik.values.username}
-                                     helperText={formik.errors.username}
-                                     onChange={formik.handleChange("username")}/>
-                        <KzTextField label={"Password"}
-                                     type="password"
-                                     value={formik.values.password}
-                                     onChange={formik.handleChange("password")}/>
-                        <Button type="submit" variant="outlined">
-                            Giriş
-                        </Button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    );
-};
 
-LoginForm.propTypes = {
-    handleForm: PropTypes.func
+    useEffect(() => {
+    }, [props.render]);
+
+    const {register, handleSubmit, errors, watch} = useForm({mode: 'onChange'});
+    const dispatch                                = useDispatch();
+    const {t}                                     = useTranslation();
+
+    const [renderForgot, setRenderForgot] = useState(false);
+    const [rememberMe,setRememberMe]                       = useState(true);
+
+    const handleForgotForm = (data) => {
+
+        axios.post(BASE_PATH + AUTH_PATH + "/user/changePassword", data)
+             .then(response => {
+                 dispatch(enqueueSnackbar(response.data.message, {variant: "success",}));
+             })
+             .catch(error => dispatch(enqueueSnackbar(error, {variant: "error"})));
+
+    };
+
+    return (
+        !renderForgot ?
+
+            <form name="loginForm" noValidate className="flex flex-col justify-center w-full">
+
+                <KzTextField
+                    className="mb-16"
+                    label="Username"
+                    autoFocus
+                    name="username"
+                    defaultValue="kcelebi"
+                    inputRef={register}
+                    variant="outlined"
+                    required
+                    fullWidth
+                />
+
+                <KzTextField
+                    className="mb-16"
+                    label="Password"
+                    name="password"
+                    defaultValue="123"
+                    inputRef={register}
+                    type="password"
+                    required
+                    fullWidth
+                />
+
+                <div className="flex items-center justify-between">
+
+                    <FormControl>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    name="remember"
+                                    checked={rememberMe}
+                                    onChange={() => setRememberMe(!rememberMe)}
+                                />
+                            }
+                            label="Remember Me"
+                        />
+                    </FormControl>
+
+                    <Link className="font-medium" onClick={() => setRenderForgot(true)}>
+                        {t("changePassword")}
+                    </Link>
+                </div>
+
+                <Button variant="contained"
+                        color="primary"
+                        className="w-224 mx-auto mt-16"
+                        aria-label="LOG IN"
+                        type="submit"
+                        onClick={handleSubmit(data => {
+                            dispatch(login(data.username, data.password, rememberMe))
+                        })}>
+                    {t("login")}
+                </Button>
+
+            </form>
+
+            :
+
+            <form name="forgotForm" noValidate className="flex flex-col justify-center w-full">
+
+                <KzTextField
+                    className="mb-16"
+                    label={t("username")}
+                    autoFocus
+                    name="username"
+                    inputRef={register}
+                    variant="outlined"
+                    required
+                    fullWidth
+                />
+
+                <KzTextField
+                    className="mb-16"
+                    label={t("password")}
+                    autoFocus
+                    type="password"
+                    name="oldPassword"
+                    inputRef={register}
+                    variant="outlined"
+                    required
+                    fullWidth
+                />
+
+                <KzTextField
+                    className="mb-16"
+                    label={t("oldPassword")}
+                    name="password"
+                    inputRef={register}
+                    type="password"
+                    variant="outlined"
+                    required
+                    fullWidth/>
+
+                <Grid container spacing={2} direction="row">
+                    <Grid item xs={6} md={6} lg={6} xl={6}>
+                        <Button variant="contained"
+                                className="w-full mt-16 bg-red-500 text-white"
+                                onClick={() => setRenderForgot(false)}>
+                            {t("cancel")}
+                        </Button>
+                    </Grid>
+                    <Grid item xs={6} md={6} lg={6} xl={6}>
+                        <Button variant="contained"
+                                color="primary"
+                                className="w-full mt-16"
+                                onClick={handleSubmit(data => {
+                                    handleForgotForm(data)
+                                })}>
+                            {t("requestPassword")}
+                        </Button>
+                    </Grid>
+                </Grid>
+                <div id="forgot-password-container">
+                </div>
+
+            </form>
+    );
 };
 
 export default LoginForm

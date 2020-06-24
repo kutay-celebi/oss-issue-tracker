@@ -32,5 +32,8 @@ export const CLOSE_ROLE_FORM = "CLOSE_ROLE_FORM";
 export const SUCCESS_ADD_ROLE    = "SUCCESS_ADD_ROLE";
 export const CLEAR_ADD_ROLE_FORM = "CLEAR_ROLE_FORM";
 
+export const DELETE_ROLE_SUCCESS = "DELETE_ROLE_SUCCESS";
+
+
 export const SET_ROLE = "SET_ROLE";
 //endregion

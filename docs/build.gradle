@@ -1,0 +1,23 @@
+
+plugins {
+    id 'org.asciidoctor.jvm.convert' version '3.1.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+apply plugin: 'java'
+
+group 'com.kuartz.docs'
+version '1.0-SNAPSHOT'
+
+asciidoctor {
+    baseDirFollowsSourceFile()
+}
+
+
+task copyOutput(type: Copy, dependsOn: ["asciidoctor"]) {
+    from "$project.buildDir/docs"
+    into "$project.projectDir"
+}

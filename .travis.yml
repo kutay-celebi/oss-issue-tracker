@@ -1,6 +1,6 @@
 jobs:
   include:
-    -
+    - stage: micro-services-build
       name: auth-build
       language: java
       sudo: required
@@ -10,8 +10,7 @@ jobs:
         - chmod +x gradle/wrapper/gradle-wrapper.jar
       script:
         - "./gradlew build"
-    -
-      name: api-build
+    - name: api-build
       language: java
       sudo: required
       before_script:
@@ -20,6 +19,28 @@ jobs:
         - chmod +x gradle/wrapper/gradle-wrapper.jar
       script:
         - "./gradlew build"
+    - stage: docs-deployment
+      branches:
+        only:
+          - master
+      sudo: required
+      before_install:
+        - gem install bundler
+      before_script:
+        - "cd docs"
+        - chmod +x gradlew
+        - chmod +x gradle/wrapper/gradle-wrapper.jar
+      script:
+        - "./gradlew asciidoctor"
+        - "./gradlew copyOutput --project-cache-dir=../cache"
+      deploy:
+        - provider: pages
+          skip_cleanup: true
+          local_dir: docs/build/docs/asciidoc/
+          github_token: $GITHUB_TOKEN
+          target_branch: gh-pages
+          on:
+            branch: master
 #notifications:
 #  email:
 #    - mail@kutaycelebi.com

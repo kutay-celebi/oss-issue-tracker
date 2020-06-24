@@ -45,7 +45,7 @@ public class RoleRestController implements RoleRestService {
 
     @PreAuthorize(UAAPrivilegeConstants.ROLE_FULL)
     @Override
-    public KuartzResponse<Boolean> delete(@PathVariable("id") Long id) {
+    public KuartzResponse<KzMessageModel> delete(@PathVariable("id") Long id) {
         return new KuartzResponse<>(roleService.delete(id));
     }
 

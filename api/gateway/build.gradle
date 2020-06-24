@@ -8,12 +8,13 @@ jar {
 
 dependencies {
     compile(
+            [group: 'commons-io', name: 'commons-io', version: '2.6'],
             [group: 'org.springframework.cloud', name: 'spring-cloud-starter'],
+            [group: 'com.kuartz.core.common', name: 'kuartz-core-common', version: "${kuartzCommonVersion}"],
             [group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-zuul'],
 //            [group: 'org.springframework.cloud', name: 'spring-cloud-starter-sleuth'], todo suanlik pasif.
             [group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client'],
 //            [group: 'org.springframework.cloud', name: 'spring-cloud-starter-oauth2'],
-//            [group: 'com.kuartz.core.auth', name: 'kuartz-auth-core', version: "${kuartzAuthCoreVersion}"],
     )
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
 }
