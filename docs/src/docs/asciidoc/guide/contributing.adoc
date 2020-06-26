@@ -1,0 +1,76 @@
+== Contributing Guide
+
+=== Getting Started
+
+. Fork the repository on GitHub
+. Clone the forked repository to your machine
+. Install the core development tools.
+.. JDK 8
+.. Gradle > 6.0.0
+.. Docker
+.. Install Node JS (If you want to work on the frontend)
+
+Before developing for the Kuartz Issue Tracker, you need to know about the project.
+To do this, you can start by working on simple issues first.
+These simple issues are tagged with the `newbie` tag.
+
+=== Building And Debugging
+
+The build flow for java is via Gradle.
+Microservice architecture is used throughout the project.
+So you can build each module individually.
+For example, if you want to build the gateway module, you can use the gradle command below.
+
+// todo add intellij guide
+
+----
+gradle gradle gateway:build
+----
+
+// todo add module dependency
+// todo add local docker db
+// todo describe more
+
+=== Code Style
+
+There are no code standards, but too many changes in a branch, it puts reviewers in a difficult situation.
+For this, we kindly request you to use the config file for Intellij IDEA in the formatter folder in the project.
+If there are many unnecessary changes in a branch, these changes will probably not be approved in the pull request.
+We want you to consider this situation.
+
+You should not forget that many contributors are processing code in open source code projects.
+So it is very important to leave documentation in the written code.
+When the reviewer requests you to leave documentation, please consider this request.
+If you have made a structural change, do not forget to manipulate them into the `docs` module.
+
+=== Branch & Commit Message Format
+
+We use the branch modeling type proposed by link:https://nvie.com/posts/a-successful-git-branching-model/[Vincent Driessen].
+Accordingly, the types of branches can be as follows.
+
+. feature/
+. hotfix/
+. bugfix/
+
+Just open a branch for each feature, bugfix, hotfix and don't forget to use issue number in branch names.
+
+TIP: feature/kuartz-40
+
+
+Do not forget to tag issue as [Kuartz-<issue number>] (ex. `[kuartz-49]`) before each commit message.
+
+TIP: [kuartz-49] add item to navbar
+
+.You should stay away from the following items in commit messages.
+[CAUTION]
+===============================
+. Do not use capital letters
+. Do not use (.) dot
+. Use the imperative, present tense.
+===============================
+
+=== Pull Request
+
+Fill in the Pull Request description according to the proposed template in the repository.
+Use link:https://help.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue[keywords] provided by GitHub.
+Pull requests will merge after 1 approval.
