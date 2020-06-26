@@ -1,4 +1,4 @@
-group 'com.kuartz.api.issue.tracker.service'
+group 'com.kuartz.api.issuetracker.service'
 version "${issueTrackerServiceVersion}"
 sourceCompatibility = 1.8
 
@@ -19,13 +19,16 @@ apply plugin: "com.bmuschko.docker-spring-boot-application"
 
 dependencies {
     compile(
-            project(':kuartz-auth-client'),
+            project(':issue-tracker-common'),
 
             // kuartz
             [group: 'com.kuartz.core.data.jpa', name: 'kuartz-data-jpa', version: "${kuartzDataJpaVersion}"],
             [group: 'com.kuartz.core.auth', name: 'kuartz-auth-core', version: "${kuartzAuthCoreVersion}"],
             [group: 'com.kuartz.core.service', name: 'kuartz-core-service', version: "${kuartzServiceVersion}"],
+            [group: 'com.kuartz.core.cloud', name: 'kuartz-cloud-core', version: "${kuartzCloudVersion}"],
 
+            // boot
+            [group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'],
 
             [group: 'io.springfox', name: 'springfox-swagger2', version: "${swaggerVersion}"],
             [group: 'io.springfox', name: 'springfox-swagger-ui', version: "${swaggerVersion}"],

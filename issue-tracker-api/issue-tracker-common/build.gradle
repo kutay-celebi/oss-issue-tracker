@@ -1,4 +1,4 @@
-group 'com.kuartz.api.issue.tracker.common'
+group 'com.kuartz.api.issuetracker.common'
 version "${issueTrackerCommonVersion}"
 sourceCompatibility = 1.8
 
@@ -22,7 +22,6 @@ dependencies {
             // kuartz
             [group: 'com.kuartz.core.feign', name: 'kuartz-core-feign', version: "${kuartzFeignVersion}"],
             [group: 'com.kuartz.core.rest', name: 'kuartz-core-rest', version: "${kuartzRestVersion}"],
-            [group: 'com.kuartz.core.cloud', name: 'kuartz-cloud-core', version: "${kuartzCloudVersion}"],
             [group: 'com.kuartz.core.common', name: 'kuartz-core-common', version: "${kuartzCommonVersion}"],
     )
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
