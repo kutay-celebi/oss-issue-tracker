@@ -1,0 +1,4 @@
+rootProject.name = 'issue-tracker-api'
+include ':issue-tracker-common'
+include ':issue-tracker-service'
+

@@ -57,36 +57,4 @@ publishing {
             }
         }
     }
-
-    publications {
-        mavenJava(MavenPublication) {
-            artifactId = 'kuartz-auth-client'
-            from components.java
-            artifact sourcesJar
-            artifact javadocJar
-            pom {
-                name = 'Kuart Auth Client'
-                description = 'Kuartz UAA Client Library'
-//                 url = 'http://10.10.14.35:8081/repository/maven-public/'
-                licenses {
-                    license {
-                        name = 'The Apache License, Version 2.0'
-                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-                developers {
-                    developer {
-                        id = 'celebikutay'
-                        name = 'Kutay Çelebi'
-                        email = 'mail@kutaycelebi.com'
-                    }
-                    developer {
-                        id = 'azizerel'
-                        name = 'Aziz Erel'
-                        email = 'azizerel69@gmail.com'
-                    }
-                }
-            }
-        }
-    }
 }

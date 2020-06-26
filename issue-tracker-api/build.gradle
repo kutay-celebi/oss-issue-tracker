@@ -1,7 +1,11 @@
+group 'com.kuartz.api.issue.tracker'
+version '0.1.0'
+
 buildscript {
     repositories {
         mavenCentral()
         jcenter()
+
         maven {
             url "https://plugins.gradle.org/m2/"
         }

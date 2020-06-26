@@ -23,16 +23,16 @@ jar {
     enabled = true
 }
 
-docker {
-    springBootApplication {
-        baseImage = 'openjdk:8-alpine'
-        ports = [8888, 8888]
-        jvmArgs = ['-Dspring.profiles.active=docker', '-Xmx2048m']
-    }
-
-}
-
-dockerBuildImage {
-    Map args = new HashMap()
-    args.put('--rm','true')
-}
+//docker {
+//    springBootApplication {
+//        baseImage = 'openjdk:8-alpine'
+//        ports = [8888, 8888]
+//        jvmArgs = ['-Dspring.profiles.active=docker', '-Xmx2048m']
+//    }
+//
+//}
+//
+//dockerBuildImage {
+//    Map args = new HashMap()
+//    args.put('--rm','true')
+//}
