@@ -1,4 +1,4 @@
 rootProject.name = 'auth'
 
-include ':authz-service'
-include ':kuartz-auth-client'
+include ':auth-service'
+include ':auth-common'
