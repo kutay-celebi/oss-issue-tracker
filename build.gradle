@@ -16,6 +16,7 @@ buildscript {
 }
 
 subprojects {
+
     def gprusr
     def gprkey
     def githubProperties = new Properties()
@@ -52,6 +53,10 @@ subprojects {
     apply plugin: 'maven'
     apply plugin: "io.spring.dependency-management"
     apply plugin: 'org.springframework.boot'
+
+    bootJar {
+        enabled = false
+    }
 
     dependencyManagement {
         imports {

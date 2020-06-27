@@ -1,7 +1,8 @@
 rootProject.name = 'kuartz-issue-tracker'
+
 include 'docs'
 
-include ':issue-tracker-api'
+include 'issue-tracker-api'
 project(':issue-tracker-api').projectDir = new File('issue-tracker-api')
 include ':issue-tracker-api:common'
 project(':issue-tracker-api:common').projectDir = new File('issue-tracker-api/issue-tracker-common')
