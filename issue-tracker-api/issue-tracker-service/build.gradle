@@ -19,7 +19,7 @@ apply plugin: "com.bmuschko.docker-spring-boot-application"
 
 dependencies {
     compile(
-            project(':issue-tracker-common'),
+            project(':issue-tracker-api:common'),
 
             // kuartz
             [group: 'com.kuartz.core.data.jpa', name: 'kuartz-data-jpa', version: "${kuartzDataJpaVersion}"],

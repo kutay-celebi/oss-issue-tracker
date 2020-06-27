@@ -1,0 +1,23 @@
+rootProject.name = 'kuartz-issue-tracker'
+include 'docs'
+
+include ':issue-tracker-api'
+project(':issue-tracker-api').projectDir = new File('issue-tracker-api')
+include ':issue-tracker-api:common'
+project(':issue-tracker-api:common').projectDir = new File('issue-tracker-api/issue-tracker-common')
+include ':issue-tracker-api:service'
+project(':issue-tracker-api:service').projectDir = new File('issue-tracker-api/issue-tracker-service')
+
+include 'auth'
+include ':auth:common'
+project(':auth:common').projectDir = new File('auth/auth-common')
+include ':auth:service'
+project(':auth:service').projectDir = new File('auth/auth-service')
+
+include 'api'
+include ':api:gateway'
+project(':api:gateway').projectDir = new File('api/gateway')
+include ':api:registry-first'
+project(':api:registry-first').projectDir = new File('api/registry-first')
+
+
