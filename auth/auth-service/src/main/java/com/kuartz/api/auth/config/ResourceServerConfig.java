@@ -1,8 +1,8 @@
 package com.kuartz.api.auth.config;
 
-import com.kuartz.api.auth.handler.KuartzAccessDeniedHandler;
-import com.kuartz.api.auth.handler.KuartzAuthenticationEntryPoint;
-import com.kuartz.api.auth.handler.KuartzAuthenticationFailureHandler;
+import com.kuartz.core.auth.handler.KuartzAccessDeniedHandler;
+import com.kuartz.core.auth.handler.KuartzAuthenticationEntryPoint;
+import com.kuartz.core.auth.handler.KuartzAuthenticationFailureHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -47,7 +47,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
             .accessDeniedHandler(accessDeniedHandler)
             // TODO: @kutay-celebi 07.03.2020 will be able
             //.and().cors().configurationSource(corsFilter()).and().csrf().disable();
-        .and().cors().disable().csrf().disable();
+            .and().cors().disable().csrf().disable();
     }
 
     @Override

@@ -2,7 +2,7 @@ group 'com.kuartz.api.issuetracker.common'
 version "${issueTrackerCommonVersion}"
 sourceCompatibility = 1.8
 
-bootJar {
+jar {
     enabled = true
 }
 

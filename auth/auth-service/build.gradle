@@ -20,6 +20,7 @@ apply plugin: "com.bmuschko.docker-spring-boot-application"
 dependencies {
     compile(
             project(':auth-common'),
+            project(':issue-tracker-common'),
 
             // kuartz
             [group: 'com.kuartz.core.data.jpa', name: 'kuartz-data-jpa', version: "${kuartzDataJpaVersion}"],
@@ -34,9 +35,6 @@ dependencies {
             [group: 'io.springfox', name: 'springfox-swagger-ui', version: "${swaggerVersion}"],
     )
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
-
-    // todo will be able.
-    //    compile("org.springframework.cloud:spring-cloud-config-client:${project.cloudVersion}")
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }

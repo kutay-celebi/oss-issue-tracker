@@ -1,11 +1,11 @@
 package com.kuartz.api.auth.config;
 
 import com.kuartz.api.auth.config.property.AuthzProperties;
-import com.kuartz.api.auth.handler.KuartzAccessDeniedHandler;
-import com.kuartz.api.auth.handler.KuartzAuthenticationEntryPoint;
-import com.kuartz.api.auth.handler.KuartzResponseExceptionTranslator;
 import com.kuartz.api.auth.provider.KuartzClientDetailsProvider;
 import com.kuartz.api.auth.provider.KuartzJwtAccessTokenConverter;
+import com.kuartz.core.auth.handler.KuartzAccessDeniedHandler;
+import com.kuartz.core.auth.handler.KuartzAuthenticationEntryPoint;
+import com.kuartz.core.auth.handler.KuartzResponseExceptionTranslator;
 import com.kuartz.core.env.factory.YamlPropertyFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -35,12 +35,6 @@ public class AuthzServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
     private AuthenticationManager authManager;
-
-    //@Autowired
-    //private TokenStore tokenStore;
-
-    //@Autowired
-    //private JwtAccessTokenConverter accessTokenConverter;
 
     @Autowired
     private KuartzClientDetailsProvider kuartzClientDetailsProvider;

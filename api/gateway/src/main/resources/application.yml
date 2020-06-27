@@ -21,6 +21,10 @@ zuul:
       sensitive-headers:
       path: /auth/**
       serviceId: authz-service
+    issue-tracker-service:
+      sensitive-headers:
+      path: /kit/**
+      serviceId: issue-tracker-service
   host:
     connect-timeout-millis: 10000
     socket-timeout-millis: 10000
