@@ -3,7 +3,7 @@ package com.kuartz.api.auth.client;
 import com.kuartz.api.auth.dto.PrivilegeModel;
 import com.kuartz.api.auth.dto.query.PrivilegeQueryModel;
 import com.kuartz.core.common.domain.KzPage;
-import com.kuartz.core.rest.model.KuartzResponse;
+import com.kuartz.core.common.model.KuartzResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;

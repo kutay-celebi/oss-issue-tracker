@@ -5,7 +5,7 @@ import com.kuartz.api.auth.dto.CompanyModel;
 import com.kuartz.api.auth.dto.query.CompanyQueryModel;
 import com.kuartz.api.auth.service.CompanyService;
 import com.kuartz.core.common.domain.KzPage;
-import com.kuartz.core.rest.model.KuartzResponse;
+import com.kuartz.core.common.model.KuartzResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;

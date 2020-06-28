@@ -18,11 +18,11 @@ zuul:
       disable:true
   routes:
     authz-service:
-      sensitive-headers:
+      sensitive-headers: Cookie,Set-Cookie
       path: /auth/**
       serviceId: authz-service
     issue-tracker-service:
-      sensitive-headers:
+      sensitive-headers: Cookie,Set-Cookie
       path: /kit/**
       serviceId: issue-tracker-service
   host:

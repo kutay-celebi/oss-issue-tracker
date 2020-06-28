@@ -6,14 +6,12 @@ import com.kuartz.api.auth.provider.KuartzJwtAccessTokenConverter;
 import com.kuartz.core.auth.handler.KuartzAccessDeniedHandler;
 import com.kuartz.core.auth.handler.KuartzAuthenticationEntryPoint;
 import com.kuartz.core.auth.handler.KuartzResponseExceptionTranslator;
-import com.kuartz.core.env.factory.YamlPropertyFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -27,7 +25,6 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 @Configuration
 @ComponentScan(basePackages = "com.kuartz.core") // TODO: @kutay-celebi 07.03.2020 get constants from core
 @EnableConfigurationProperties({AuthzProperties.class})
-@PropertySource(factory = YamlPropertyFactory.class, value = "classpath:api-path.yml")
 public class AuthzServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Autowired

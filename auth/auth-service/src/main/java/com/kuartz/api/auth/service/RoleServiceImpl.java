@@ -20,7 +20,7 @@ import com.kuartz.core.common.model.KzMessageModel;
 import com.kuartz.core.common.util.KzUtil;
 import com.kuartz.core.data.jpa.TransactionalRollback;
 import com.kuartz.core.env.KuartzMessageSource;
-import com.kuartz.core.service.KuartzService;
+import com.kuartz.core.service.AbstractKuartzService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +31,7 @@ import java.util.Optional;
 
 @Service
 @TransactionalRollback
-public class RoleServiceImpl extends KuartzService implements RoleService {
+public class RoleServiceImpl extends AbstractKuartzService implements RoleService {
 
     @Autowired
     private RoleRepository repository;

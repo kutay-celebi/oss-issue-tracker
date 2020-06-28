@@ -6,7 +6,7 @@ import com.kuartz.api.auth.dto.PrivilegeModel;
 import com.kuartz.api.auth.dto.query.PrivilegeQueryModel;
 import com.kuartz.api.auth.service.PrivilegeService;
 import com.kuartz.core.common.domain.KzPage;
-import com.kuartz.core.rest.model.KuartzResponse;
+import com.kuartz.core.common.model.KuartzResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;

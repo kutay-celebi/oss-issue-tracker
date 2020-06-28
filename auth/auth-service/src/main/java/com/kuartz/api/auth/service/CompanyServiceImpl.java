@@ -10,7 +10,7 @@ import com.kuartz.api.auth.repository.CompanyRepository;
 import com.kuartz.core.common.converter.KuartzModelConverter;
 import com.kuartz.core.common.domain.KzPage;
 import com.kuartz.core.data.jpa.TransactionalRollback;
-import com.kuartz.core.service.KuartzService;
+import com.kuartz.core.service.AbstractKuartzService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +20,7 @@ import java.util.Optional;
 @Transactional
 @TransactionalRollback
 @Service
-public class CompanyServiceImpl extends KuartzService implements CompanyService  {
+public class CompanyServiceImpl extends AbstractKuartzService implements CompanyService  {
 
     @Autowired
     private CompanyRepository repository;

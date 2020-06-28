@@ -8,9 +8,8 @@ dependencies {
     compile(
             // kuartz
             [group: 'com.kuartz.core.feign', name: 'kuartz-core-feign', version: "${kuartzFeignVersion}"],
-            [group: 'com.kuartz.core.rest', name: 'kuartz-core-rest', version: "${kuartzRestVersion}"],
             [group: 'com.kuartz.core.cloud', name: 'kuartz-cloud-core', version: "${kuartzCloudVersion}"],
-            [group: 'com.kuartz.core.common', name: 'kuartz-core-common', version: "${kuartzCommonVersion}"],
+            [group: 'org.springframework.cloud', name: 'spring-cloud-starter-oauth2'],
     )
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 

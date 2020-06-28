@@ -35,30 +35,17 @@ kuartz:
       data-source:
         - yetki_init.sql
         - uaa_init.sql
-feign:
-  client:
-    config:
-      default:
-        loggerLevel: FULL
-
-logging:
-  com.kuartz.core.auth.client:
-    UserRestService: debug
-  org.hibernate.SQL:
-    level:
-      -debug
-  level:
-    - debug
-    - error
-    - warn
-    - info
-  file: authz.log
 eureka:
   client:
     serviceUrl:
       defaultZone: ${REGISTRY_SERVICE_URL:http://localhost:8761/eureka}
     fetch-registry: true
     register-with-eureka: true
+feign:
+  hystrix:
+    enabled: true
+hystrix:
+  shareSecurityContext: true
 ---
 spring:
   profiles: docker
