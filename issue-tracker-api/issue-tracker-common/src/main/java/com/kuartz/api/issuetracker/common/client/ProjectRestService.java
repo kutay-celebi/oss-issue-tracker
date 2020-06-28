@@ -1,10 +1,8 @@
 package com.kuartz.api.issuetracker.common.client;
 
-import com.kuartz.core.rest.model.KuartzResponse;
+import com.kuartz.api.issuetracker.common.dto.ProjectModel;
+import com.kuartz.core.feign.client.KuartzCrudFeignClient;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * @author Kutay Çelebi
@@ -13,9 +11,5 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @FeignClient(name = "projectRestService",
         path = "${kuartz.client.issue-tracker.projectService.path}",
         url = "${kuartz.client.issue-tracker.url}")
-public interface ProjectRestService {
-    @RequestMapping(value = "/info",
-            method = RequestMethod.GET,
-            produces = {MediaType.APPLICATION_JSON_VALUE})
-    KuartzResponse<String> getInfo();
+public interface ProjectRestService extends KuartzCrudFeignClient<ProjectModel> {
 }

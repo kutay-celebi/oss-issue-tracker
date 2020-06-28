@@ -51,7 +51,13 @@ security:
     resource:
       token-info-uri: ${AUTH_RESOURCE_TOKEN_URI:http://localhost:9999/oauth/check_token}
       id: issue_tracker
-
+feign:
+  interceptors:
+    oauth2: true
+  hystrix:
+    enabled: true
+hystrix:
+  shareSecurityContext: true
 ---
 spring:
   profiles: docker

@@ -21,8 +21,6 @@ dependencies {
     compile(
             // kuartz
             [group: 'com.kuartz.core.feign', name: 'kuartz-core-feign', version: "${kuartzFeignVersion}"],
-            [group: 'com.kuartz.core.rest', name: 'kuartz-core-rest', version: "${kuartzRestVersion}"],
-            [group: 'com.kuartz.core.common', name: 'kuartz-core-common', version: "${kuartzCommonVersion}"],
     )
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
