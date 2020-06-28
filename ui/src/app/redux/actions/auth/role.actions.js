@@ -8,14 +8,21 @@ import {
     SUCCESS_ADD_ROLE,
     SUCCESS_ROLE_PAGE
 } from "./action.types";
-import {API_ADD_ROLE_PRIVILEGE, API_DELETE_ROLE, API_GET_ROLE_PAGE, API_REMOVE_PRIVILEGE_RELATION} from "../../../constants";
+import {
+    API_ADD_ROLE_PRIVILEGE,
+    API_DELETE_ROLE,
+    API_GET_ROLE,
+    API_GET_ROLE_PAGE,
+    API_REMOVE_PRIVILEGE_RELATION,
+    API_SAVE_ROLE
+} from "../../../constants";
 import {enqueueSnackbar} from "../core";
 import {apiClient} from "../../../service/apiClient";
 
 export const saveRole = (role) => async (dispatch) => {
     // todo add wait reducer.
     // todo move api constant.
-    await apiClient.post("role/save", role).then(
+    await apiClient.post(API_SAVE_ROLE, role).then(
         (response) => {
             dispatch(successAddRole(response.data));
         }
@@ -46,7 +53,7 @@ export const successRolePage = (query, response) => (dispatch) => {
 export const getRole = (id) => async (dispatch) => {
     // todo add wait reducer.
     // todo move api constant
-    await apiClient.get("/role/get/" + id)
+    await apiClient.get(API_GET_ROLE + id)
                    .then((response) => {
                        dispatch(setRole(response.data));
                    })

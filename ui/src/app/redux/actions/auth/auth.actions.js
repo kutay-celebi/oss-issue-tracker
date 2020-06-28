@@ -1,5 +1,5 @@
 import {LOGIN_FAIL, LOGIN_SUCCESS, LOGOUT_SUCCESS} from "./action.types";
-import {AUTH_PATH, AUTH_TOKEN_PATH, BASE_PATH, PATH_HOME_PAGE} from "../../../constants";
+import {AUTH_TOKEN_PATH, BASE_PATH, PATH_HOME_PAGE} from "../../../constants";
 import history from '../../../../@history'
 import {enqueueSnackbar} from "../core";
 import axios from "axios";
@@ -24,7 +24,7 @@ export const loginFail = (error) => (dispatch) => {
 export const refreshToken = () => (dispatch) => {
     var urlencoded = new URLSearchParams();
     urlencoded.append("grant_type", "refresh_token");
-    axios.post(BASE_PATH + AUTH_PATH + AUTH_TOKEN_PATH, urlencoded,
+    axios.post(BASE_PATH  + AUTH_TOKEN_PATH, urlencoded,
                      {
                          headers        : {
                              "Content-Type": "application/x-www-form-urlencoded",
@@ -47,7 +47,7 @@ export const login = (username, password, rememberMe) => async (dispatch) => {
     urlencoded.append("username", username);
     urlencoded.append("password", password);
     urlencoded.append("grant_type", "password");
-    await axios.post(BASE_PATH + AUTH_PATH + AUTH_TOKEN_PATH,
+    await axios.post(BASE_PATH  + AUTH_TOKEN_PATH,
                      urlencoded,
                      {
                          headers: {
