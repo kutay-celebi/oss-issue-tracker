@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 /**
  * @author Kutay Çelebi
  * @since 27.06.2020
@@ -27,17 +29,19 @@ public class ProjectServiceImpl extends AbstractKuartzService implements Project
 
     @Override
     public ProjectModel save(ProjectModel model) {
-        repository.saveFlush(KuartzModelConverter.convert(model, ProjectEntity.class));
-        return null;
+        ProjectEntity savedEntity = repository.saveFlush(KuartzModelConverter.convert(model, ProjectEntity.class));
+        return KuartzModelConverter.convert(savedEntity, ProjectModel.class);
     }
 
     @Override
     public KzMessageModel deleteById(Long id) {
-        return null;
+        repository.deleteById(id);
+        return KzMessageModel.succeed().addMessage(getDeleteSuccess());
     }
 
     @Override
     public ProjectModel get(Long id) {
-        return null;
+        Optional<ProjectEntity> optional = repository.findById(id);
+        return KuartzModelConverter.convert(optional.orElse(null), ProjectModel.class);
     }
 }

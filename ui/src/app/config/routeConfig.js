@@ -7,6 +7,7 @@ import {HomePageConfig} from "../view/home/HomePageConfig";
 import {UserManagementConfig} from "../view/auth/user/UserManagementConfig";
 import {CompanyDefinitionConfig} from "../view/company/CompanyDefinitionConfig";
 import {RoleDefinitionConfig} from "../view/auth/role/RoleDefinitionConfig";
+import {ProjectManagementConfig} from "../view/issue-tracker/project/ProjectManagementConfig";
 
 
 /**
@@ -20,7 +21,8 @@ const routeConfigs = [
     HomePageConfig,
     UserManagementConfig,
     CompanyDefinitionConfig,
-    RoleDefinitionConfig
+    RoleDefinitionConfig,
+    ProjectManagementConfig
 ];
 
 
