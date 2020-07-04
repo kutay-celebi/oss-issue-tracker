@@ -25,6 +25,7 @@ class Login extends Component {
 
     render() {
         const {classes} = this.props;
+        console.log(process.env);
 
         return (
             // <div className={clsx(classes.root, 'flex flex-1 justify-center p-24 w-full')}>
@@ -39,7 +40,8 @@ class Login extends Component {
                             <img className="w-128 m-32" src={"/assets/images/logo.png"} alt="logo"/>
 
                             <Typography variant="h6" className="mt-16 mb-32">LOGIN TO YOUR ACCOUNT</Typography>
-
+                            {process.env.REACT_APP_NODE_PATH === "src" ? "oldu" : "olmadı"}
+                            {process.env.PROFILE === "docker" ? "oldu" : "olmadı"}
                             <LoginForm/>
 
                         </CardContent>

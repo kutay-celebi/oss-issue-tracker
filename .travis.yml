@@ -1,5 +1,7 @@
 jobs:
   include:
+    #region BUILD STAGE
+
     - stage: micro-services-build
       name: auth-build
       language: java
@@ -19,6 +21,7 @@ jobs:
         - chmod +x gradle/wrapper/gradle-wrapper.jar
       script:
         - "./gradlew build"
+    #endregion
     - stage: docs-deployment
       branches:
         only:
@@ -41,6 +44,7 @@ jobs:
           target_branch: gh-pages
           on:
             branch: master
+#endregion
 #notifications:
 #  email:
 #    - mail@kutaycelebi.com
