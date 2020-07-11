@@ -1,0 +1,37 @@
+== Vue Application
+=== Setup
+
+The terminal opens and goes to the relevant folder.
+Dependencies are loaded with yarn.
+Application is started in development profile using Yarn.
+
+[TIP]
+===============================
+[source,shell script]
+----
+cd vue # <1>
+yarn install # <2>
+yarn run dev # <3>
+----
+<1> Go into the folder
+<2> Install dependencies
+<3> Run application
+===============================
+
+== Folder Structure
+
+[source, shell script]
+----
++---assets
+|   \---css
++---common
+|   \---constant
++---components
++---layouts
++---middleware
++---pages
++---plugins
++---static
++---store
+\---test
+----
