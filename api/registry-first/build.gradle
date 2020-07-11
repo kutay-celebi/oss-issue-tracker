@@ -16,10 +16,10 @@ dependencies {
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
 }
 
-docker {
-    springBootApplication {
-        baseImage = "openjdk:8-alpine"
-        ports = [8761, 8761]
-        jvmArgs = ['-Dspring.profiles.active=docker', '-Xmx1024m']
-    }
-}
+//docker {
+//    springBootApplication {
+//        baseImage = "openjdk:8-alpine"
+//        ports = [8761, 8761]
+//        jvmArgs = ['-Dspring.profiles.active=docker', '-Xmx1024m']
+//    }
+//}

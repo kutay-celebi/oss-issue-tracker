@@ -3,7 +3,6 @@ import {makeStyles} from "@material-ui/core";
 import List from "@material-ui/core/List";
 import clsx from "clsx";
 import {useSelector} from "react-redux";
-import KzUtils from "../../KzUtils";
 import {withRouter} from "react-router-dom";
 import {navbarConfig} from "../../../app/config/navbarConfig";
 import KzNavItem from "./KzNavItem";
@@ -11,7 +10,7 @@ import KzNavCollapseItem from "./KzNavCollapseItem";
 
 const useStyles = makeStyles(theme => ({
 
-    navigation          : {
+    navigation        : {
         color         : theme.palette.common.white,
         '& .list-item': {
             '&:hover'             : {
@@ -25,7 +24,7 @@ const useStyles = makeStyles(theme => ({
             color: theme.palette.common.white,
         }
     },
-    verticalNavigation  : {
+    verticalNavigation: {
         '&.active-square-list': {
             '& .list-item, & .active.list-item': {
                 width       : '100%',
@@ -40,7 +39,7 @@ const useStyles = makeStyles(theme => ({
             }
         }
     },
-    '@global'           : {
+    '@global'         : {
         '.popper-navigation-list': {
             '& .list-item': {
                 padding            : '8px 12px 8px 12px',
@@ -69,13 +68,19 @@ const KzNavigation = props => {
     const {userRole, folded} = useSelector(({authReducers, coreReducers}) => {
         return {
             userRole: authReducers.auth.principal.authority,
-            folded: coreReducers.navbar.onHover
+            folded  : coreReducers.navbar.onHover
         }
     });
 
-    const filterNav = navbarConfig.map((item) =>
-                                           KzUtils.checkNavbarPermission(userRole, item.auth) && item
-    );
+    // todo move at the login action
+    const filterNav = navbarConfig.filter((item) => {
+        return userRole.some(value => {
+            if (value.code.startsWith(item.auth)) {
+                return value.code.includes(item.auth);
+            }
+            return false;
+        })
+    });
 
     return (
         <List className={clsx(classes.navigation)}>
@@ -101,4 +106,4 @@ KzNavigation.defaultProps = {
     layout: 'vertical'
 };
 
-export default withRouter(KzNavigation);
+export default withRouter(React.memo(KzNavigation));

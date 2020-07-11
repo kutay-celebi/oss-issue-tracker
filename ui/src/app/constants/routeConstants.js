@@ -12,5 +12,8 @@ export const PATH_USER_MANAGEMENT     = "/uaa/user-management";
 export const PATH_COMPANY_DEFINITIYON = "/company-definition";
 export const PATH_ROLE_DEFINITION     = "/role-definition";
 
+// KIT
+export const PATH_KIT_PROJECT_MANAGEMENT = "/kit/project-management"
+
 
 export const ADD_CAR_PAGE = "/add-car";

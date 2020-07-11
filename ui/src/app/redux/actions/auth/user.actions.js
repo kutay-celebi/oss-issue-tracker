@@ -1,5 +1,5 @@
 import {CLEAR_ADD_USER_FORM, CLOSE_USER_FORM, OPEN_USER_FORM, SET_USER, SUCCESS_ADD_USER, SUCCESS_USER_PAGE} from "./action.types";
-import {API_GET_USER_PAGE} from "../../../constants";
+import {API_GET_USER, API_GET_USER_PAGE, API_SAVE_USER} from "../../../constants";
 import {enqueueSnackbar} from "../core";
 import {apiClient} from "../../../service/apiClient";
 import {initUserRoleRelationModel} from "../../reducers/auth/user.reducer";
@@ -22,7 +22,7 @@ export const getUserPage = (query) => async (dispatch) => {
 };
 
 export const saveUser = (user) => async (dispatch) => {
-    await apiClient.post("user/save", user)
+    await apiClient.post(API_SAVE_USER, user)
                    .then((response) => {
                        dispatch(successAddUser(response.data));
                    })
@@ -52,7 +52,7 @@ export const setUser = (user) => (dispatch) => {
 export const getUser = (username) => async (dispatch) => {
     // todo add wait reducer.
     // todo move api constant
-    await apiClient.get("/user/get/" + username)
+    await apiClient.get(API_GET_USER + username)
                    .then((response) => {
                        if (response.status === 200) {
                            dispatch(setUser(response.data))

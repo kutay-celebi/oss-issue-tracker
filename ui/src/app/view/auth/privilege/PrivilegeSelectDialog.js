@@ -88,7 +88,7 @@ const PrivilegeSelectDialog = (props) => {
                                 selectionProps       : row => ({
                                     disabled: props.existPrivilegeList ?
                                         props.existPrivilegeList.some(
-                                            value => value.privilege.uuid === row.uuid) || row.defaultPrivilege : false
+                                            value => value.privilege.uuid === row.uuid): false
                                 })
                             }}
                             data={privilegePage.content ? privilegePage.content : null}
