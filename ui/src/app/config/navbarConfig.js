@@ -1,10 +1,17 @@
-import {PATH_COMPANY_DEFINITIYON, PATH_HOME_PAGE, PATH_ROLE_DEFINITION, PATH_USER_MANAGEMENT} from "../constants";
+import {
+    PATH_COMPANY_DEFINITIYON,
+    PATH_HOME_PAGE,
+    PATH_KIT_PROJECT_MANAGEMENT,
+    PATH_ROLE_DEFINITION,
+    PATH_USER_MANAGEMENT
+} from "../constants";
 import {HomePageConfig} from "../view/home/HomePageConfig";
 import {AuthConfig} from "../view/auth/AuthConfig";
 import {UserManagementConfig} from "../view/auth/user/UserManagementConfig";
 import {faBuilding, faHome, faShieldAlt, faUsers, faUserTag} from "@fortawesome/free-solid-svg-icons";
 import {CompanyDefinitionConfig} from "../view/company/CompanyDefinitionConfig";
 import {RoleDefinitionConfig} from "../view/auth/role/RoleDefinitionConfig";
+import {ProjectManagementConfig} from "../view/issue-tracker/project/ProjectManagementConfig";
 
 
 /**
@@ -61,6 +68,27 @@ export const navbarConfig = [
                 exact   : true,
                 children: []
             }
+        ]
+    },
+    {
+        id      : "kit",
+        title   : "kit",
+        type    : "group",
+        icon    : faShieldAlt,
+        url     : null,
+        auth    : ["kit"],
+        exact   : false,
+        children: [
+            {
+                id      : "project-management",
+                title   : "projectManagement",
+                type    : "item",
+                icon    : faUsers,
+                url     : PATH_KIT_PROJECT_MANAGEMENT,
+                auth    : ProjectManagementConfig.auth,
+                exact   : true,
+                children: []
+            },
         ]
     }
 ];

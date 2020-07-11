@@ -1,0 +1,7 @@
+kuartz:
+  client:
+    issue-tracker:
+      url: 'http://localhost:3001'
+      projectService:
+        path: "/project"
+

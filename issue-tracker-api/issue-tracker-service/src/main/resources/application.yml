@@ -1,0 +1,70 @@
+server:
+  port: ${SERVER_PORT:3001}
+spring:
+  application:
+    name: issue-tracker-service
+  datasource:
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:54320/mydb}
+    driver-class-name: org.postgresql.Driver
+    username: ${DATASOURCE_USERNAME:kuartz}
+    password: ${DATASOURCE_PASS:k01.}
+    type: com.zaxxer.hikari.HikariDataSource
+    initialization-mode: always
+  jpa:
+    hibernate:
+      temp:
+        use_jdbc_metadata_defaults: false
+      ddl-auto: ${DDL_AUTO:create}
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyHbmImpl
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+    database-platform: org.hibernate.dialect.PostgreSQL95Dialect
+    show-sql: true
+    open-in-view: false
+    generate-ddl: true
+    properties:
+      hibernate:
+        format_sql: false
+  main:
+    allow-bean-definition-overriding: true
+kuartz:
+  jpa:
+    init:
+      enable: true
+      contive-on-error: true
+      data-source:
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${REGISTRY_SERVICE_URL:http://localhost:8761/eureka}
+    fetch-registry: true
+    register-with-eureka: true
+security:
+  oauth2:
+    serverPath: http//localhost:9999
+    client:
+      access-token-uri: ${AUTH_ACCESS_TOKEN_URI:http://localhost:9999/oauth/token}
+      user-authorization-uri: ${AUTH_AUTHORIZATION_URI:http://localhost:9999/oauth/authorize}
+      client-id: issue_tracker
+      client-secret: test
+      grant-type: "password"
+    resource:
+      token-info-uri: ${AUTH_RESOURCE_TOKEN_URI:http://localhost:9999/oauth/check_token}
+      id: issue_tracker
+feign:
+  interceptors:
+    oauth2: true
+  hystrix:
+    enabled: true
+hystrix:
+  shareSecurityContext: true
+---
+spring:
+  profiles: docker
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${REGISTRY_SERVICE_URL:http://localhost:8761/eureka}
+    fetch-registry: true
+    register-with-eureka: true
+  

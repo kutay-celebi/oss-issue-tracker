@@ -3,12 +3,12 @@ import {store} from "../redux/persistor";
 import axios from "axios";
 import {logout, refreshToken} from "../redux/actions/auth";
 import history from "../../@history";
-import {AUTH_PATH, BASE_PATH, PATH_LOGIN_ROOT} from "../constants";
+import {BASE_PATH, PATH_LOGIN_ROOT} from "../constants";
 import {enqueueSnackbar} from "../redux/actions/core";
 import {closeBackdrop, openBackdrop} from "../redux/actions/core/common.actions";
 
 export const apiClient = axios.create({
-                                          baseURL: BASE_PATH + AUTH_PATH,
+                                          baseURL: BASE_PATH,
                                           headers: {
                                               "content-type": "application/json",
                                               "Accept"      : "application/json"

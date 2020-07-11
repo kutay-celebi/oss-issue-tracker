@@ -27,4 +27,4 @@ lombok.config
 /nbdist/
 /.nb-gradle/
 
-github.properties
+../github.properties

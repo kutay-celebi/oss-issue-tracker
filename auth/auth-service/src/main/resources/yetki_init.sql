@@ -1,0 +1,13 @@
+INSERT INTO kuartz_uaa.uaa_privilege (id, created_at, deleted_at, deleted, updated_at, uuid, code, default_privilege, parent_privilege_id) VALUES (nextval('kuartz_uaa.privilege_seq'), current_timestamp, null, null, current_timestamp, uuid_generate_v4(), 'admin', true, null);
+INSERT INTO kuartz_uaa.uaa_privilege (id, created_at, deleted_at, deleted, updated_at, uuid, code, default_privilege, parent_privilege_id) VALUES (nextval('kuartz_uaa.privilege_seq'), current_timestamp, null, null, current_timestamp, uuid_generate_v4(), 'temelYetki', true, null);
+
+
+INSERT INTO kuartz_uaa.uaa_privilege (id, created_at, deleted_at, deleted, updated_at, uuid, code, default_privilege, parent_privilege_id) VALUES (nextval('kuartz_uaa.privilege_seq'), current_timestamp, null, null, current_timestamp, uuid_generate_v4(), 'uaa', true, null);
+INSERT INTO kuartz_uaa.uaa_privilege (id, created_at, deleted_at, deleted, updated_at, uuid, code, default_privilege, parent_privilege_id) VALUES (nextval('kuartz_uaa.privilege_seq'), current_timestamp, null, null, current_timestamp, uuid_generate_v4(), 'uaa_privilege', true, null);
+INSERT INTO kuartz_uaa.uaa_privilege (id, created_at, deleted_at, deleted, updated_at, uuid, code, default_privilege, parent_privilege_id) VALUES (nextval('kuartz_uaa.privilege_seq'), current_timestamp, null, null, current_timestamp, uuid_generate_v4(), 'uaa_role', true, null);
+
+
+INSERT INTO kuartz_uaa.uaa_privilege (id, created_at, deleted_at, deleted, updated_at, uuid, code, default_privilege, parent_privilege_id) VALUES (nextval('kuartz_uaa.privilege_seq'), current_timestamp, null, null, current_timestamp, uuid_generate_v4(), 'kit', true, null);
+INSERT INTO kuartz_uaa.uaa_privilege (id, created_at, deleted_at, deleted, updated_at, uuid, code, default_privilege, parent_privilege_id) VALUES (nextval('kuartz_uaa.privilege_seq'), current_timestamp, null, null, current_timestamp, uuid_generate_v4(), 'kit_project', true, null);
+INSERT INTO kuartz_uaa.uaa_privilege (id, created_at, deleted_at, deleted, updated_at, uuid, code, default_privilege, parent_privilege_id) VALUES (nextval('kuartz_uaa.privilege_seq'), current_timestamp, null, null, current_timestamp, uuid_generate_v4(), 'kit_project_r', true, null);
+INSERT INTO kuartz_uaa.uaa_privilege (id, created_at, deleted_at, deleted, updated_at, uuid, code, default_privilege, parent_privilege_id) VALUES (nextval('kuartz_uaa.privilege_seq'), current_timestamp, null, null, current_timestamp, uuid_generate_v4(), 'kit_project_crud', true, null);
