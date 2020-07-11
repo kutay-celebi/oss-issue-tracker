@@ -1,5 +1,8 @@
 jobs:
   include:
+    - before_install:
+        - "chmod +x gradlew"
+        - "chmod +x gradle/wrapper/gradle-wrapper.jar"
     - stage: micro-services-build
       name: auth-build
       language: java
@@ -28,8 +31,8 @@ jobs:
         - gem install bundler
       before_script:
         - "cd docs"
-        - chmod +x gradlew
-        - chmod +x gradle/wrapper/gradle-wrapper.jar
+        - "chmod +x gradlew"
+        - "chmod +x gradle/wrapper/gradle-wrapper.jar"
       script:
         - "./gradlew asciidoctor"
         - "./gradlew copyOutput --project-cache-dir=../cache"
