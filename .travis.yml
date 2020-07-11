@@ -7,9 +7,9 @@ jobs:
       language: java
       sudo: required
       before_script:
+        - "cd auth"
         - "chmod +x gradlew"
         - "chmod +x gradle/wrapper/gradle-wrapper.jar"
-        - "cd auth"
       script:
         - "./gradlew build"
     #endregion
@@ -19,9 +19,9 @@ jobs:
       sudo: required
       install: skip
       before_script:
+        - "cd issue-tracker-api"
         - "chmod +x gradlew"
         - "chmod +x gradle/wrapper/gradle-wrapper.jar"
-        - "cd issue-tracker-api"
       script:
         - "./gradlew build"
     #endregion
@@ -31,9 +31,9 @@ jobs:
       sudo: required
       install: skip
       before_script:
+        - "cd issue-tracker-api"
         - "chmod +x gradlew"
         - "chmod +x gradle/wrapper/gradle-wrapper.jar"
-        - "cd issue-tracker-api"
       script:
         - "./gradlew build"
     #endregion
@@ -45,10 +45,10 @@ jobs:
       sudo: required
       before_install:
         - gem install bundler
-        - "chmod +x gradlew"
-        - "chmod +x gradle/wrapper/gradle-wrapper.jar"
       before_script:
         - "cd docs"
+        - "chmod +x gradlew"
+        - "chmod +x gradle/wrapper/gradle-wrapper.jar"
       script:
         - "./gradlew asciidoctor"
         - "./gradlew copyOutput --project-cache-dir=../cache"
