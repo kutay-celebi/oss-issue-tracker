@@ -1,12 +1,12 @@
 jobs:
   include:
-    - before_install:
-        - "chmod +x gradlew"
-        - "chmod +x gradle/wrapper/gradle-wrapper.jar"
     - stage: micro-services-build
       name: auth-build
       language: java
       sudo: required
+      before_install:
+        - "chmod +x gradlew"
+        - "chmod +x gradle/wrapper/gradle-wrapper.jar"
       before_script:
         - "cd auth"
         - "chmod +x gradlew"
