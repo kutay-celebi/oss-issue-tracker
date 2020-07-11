@@ -14,7 +14,7 @@ jobs:
       language: java
       sudo: required
       before_script:
-        - "cd api"
+        - "cd issue-tracker-api"
         - "chmod +x gradlew"
         - "chmod +x gradle/wrapper/gradle-wrapper.jar"
       script:
