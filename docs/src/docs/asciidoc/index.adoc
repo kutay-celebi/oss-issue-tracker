@@ -1,5 +1,8 @@
 = Coder Handbook
-Kutay Çelebi
+Kutay Çelebi <mail@kutaycelebi.com>
+:revdate: {localdate}
+:revnumber: 0.1.0
+:version-label: v
 :source-highlighter: highlightjs
 :example-caption!:
 :sourcedir: src/main/java
@@ -9,5 +12,5 @@ Kutay Çelebi
 :toc: left
 :stylesheet: stylesheet.css
 
-include::guide/namingConvention.adoc[]
-include::guide/ascii.adoc[]
+include::guide/contributing.adoc[]
+//include::guide/ascii.adoc[]
