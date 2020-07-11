@@ -1,6 +1,7 @@
 jobs:
   include:
     - stage: micro-services-build
+      #region AUTH BUILD
       name: auth-build
       language: java
       sudo: required
@@ -9,19 +10,34 @@ jobs:
         - "chmod +x gradle/wrapper/gradle-wrapper.jar"
       before_script:
         - "cd auth"
-        - "chmod +x gradlew"
-        - "chmod +x gradle/wrapper/gradle-wrapper.jar"
       script:
         - "./gradlew build"
+      #endregion
+    #region MICROSERVICES CORE
+    - name: micro-services-core-build
+      language: java
+      sudo: required
+      before_install:
+        - "chmod +x gradlew"
+        - "chmod +x gradle/wrapper/gradle-wrapper.jar"
+      before_script:
+        - "cd issue-tracker-api"
+      script:
+        - "./gradlew build"
+    #endregion
+    #region API BUILD
     - name: api-build
       language: java
       sudo: required
-      before_script:
-        - "cd issue-tracker-api"
+      before_install:
         - "chmod +x gradlew"
         - "chmod +x gradle/wrapper/gradle-wrapper.jar"
+      before_script:
+        - "cd issue-tracker-api"
       script:
         - "./gradlew build"
+    #endregion
+    #region DOC DEPLOYMENT
     - stage: docs-deployment
       branches:
         only:
@@ -29,10 +45,10 @@ jobs:
       sudo: required
       before_install:
         - gem install bundler
-      before_script:
-        - "cd docs"
         - "chmod +x gradlew"
         - "chmod +x gradle/wrapper/gradle-wrapper.jar"
+      before_script:
+        - "cd docs"
       script:
         - "./gradlew asciidoctor"
         - "./gradlew copyOutput --project-cache-dir=../cache"
@@ -44,6 +60,8 @@ jobs:
           target_branch: gh-pages
           on:
             branch: master
+    #endregion
+
 #notifications:
 #  email:
 #    - mail@kutaycelebi.com
