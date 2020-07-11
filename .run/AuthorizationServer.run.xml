@@ -5,6 +5,10 @@
     <option name="ENABLE_JMX_AGENT" value="false" />
     <option name="ALTERNATIVE_JRE_PATH" />
     <option name="SHORTEN_COMMAND_LINE" value="CLASSPATH_FILE" />
+    <envs>
+      <env name="kuartz.jpa.init.enable" value="true" />
+      <env name="spring.jpa.hibernate.ddl-auto" value="create" />
+    </envs>
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

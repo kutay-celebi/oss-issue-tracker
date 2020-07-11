@@ -1,13 +1,14 @@
 import {BASE_PATH} from "~/common/constant/api/path";
 
-export default function ({$axios, redirect}, inject) {
-  const api = axios.create({
-                             baseURL: BASE_PATH,
-                             headers: {
-                               "content-type": "application/json",
-                               "Accept"      : "application/json"
-                             },
-                             timeout: 60000
-                           })
+export default function ({$axios}, inject) {
+  const api = $axios.create(BASE_PATH,
+                            {
+                              headers: {
+                                "content-type": "application/json",
+                                "Accept"      : "application/json"
+                              },
+                              timeout: 60000
+                            })
+  api.setBaseURL(BASE_PATH)
   inject("api", api)
 }

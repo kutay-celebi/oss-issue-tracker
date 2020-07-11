@@ -1,8 +1,8 @@
-export const BASE_PATH = "http://192.168.0.21:8765"; // todo gateway'e cors ekleyince alalim.
+export const BASE_PATH = "http://192.168.0.28:8765"; // todo gateway'e cors ekleyince alalim.
 
 
 export const AUTH_PATH       = "/auth";
-export const AUTH_TOKEN_PATH = "/oauth/token";
+export const AUTH_TOKEN_PATH = AUTH_PATH+ "/oauth/token";
 
 export const API_GET_ROLE_PAGE = "/role/page";
 

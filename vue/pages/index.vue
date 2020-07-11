@@ -51,8 +51,8 @@
     data() {
       return {
         formError   : null,
-        formUsername: '',
-        formPassword: ''
+        formUsername: "kcelebi",
+        formPassword: "123"
       }
     },
     methods: {
