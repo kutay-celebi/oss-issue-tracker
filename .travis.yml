@@ -1,26 +1,26 @@
 jobs:
   include:
+    #region AUTH BUILD
     - stage: micro-services-build
-      #region AUTH BUILD
+      install: skip
       name: auth-build
       language: java
       sudo: required
-      before_install:
+      before_script:
         - "chmod +x gradlew"
         - "chmod +x gradle/wrapper/gradle-wrapper.jar"
-      before_script:
         - "cd auth"
       script:
         - "./gradlew build"
-      #endregion
+    #endregion
     #region MICROSERVICES CORE
     - name: micro-services-core-build
       language: java
       sudo: required
-      before_install:
+      install: skip
+      before_script:
         - "chmod +x gradlew"
         - "chmod +x gradle/wrapper/gradle-wrapper.jar"
-      before_script:
         - "cd issue-tracker-api"
       script:
         - "./gradlew build"
@@ -29,10 +29,10 @@ jobs:
     - name: api-build
       language: java
       sudo: required
-      before_install:
+      install: skip
+      before_script:
         - "chmod +x gradlew"
         - "chmod +x gradle/wrapper/gradle-wrapper.jar"
-      before_script:
         - "cd issue-tracker-api"
       script:
         - "./gradlew build"
