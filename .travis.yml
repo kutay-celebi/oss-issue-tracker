@@ -6,8 +6,8 @@ jobs:
       sudo: required
       before_script:
         - "cd auth"
-        - chmod +x gradlew
-        - chmod +x gradle/wrapper/gradle-wrapper.jar
+        - "chmod +x gradlew"
+        - "chmod +x gradle/wrapper/gradle-wrapper.jar"
       script:
         - "./gradlew build"
     - name: api-build
@@ -15,8 +15,8 @@ jobs:
       sudo: required
       before_script:
         - "cd api"
-        - chmod +x gradlew
-        - chmod +x gradle/wrapper/gradle-wrapper.jar
+        - "chmod +x gradlew"
+        - "chmod +x gradle/wrapper/gradle-wrapper.jar"
       script:
         - "./gradlew build"
     - stage: docs-deployment
