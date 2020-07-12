@@ -33,6 +33,7 @@ kuartz:
       enable: true
       contive-on-error: true
       data-source:
+        - schema.sql
         - yetki_init.sql
         - uaa_init.sql
 eureka:

@@ -13,4 +13,6 @@ Kutay Çelebi <mail@kutaycelebi.com>
 :stylesheet: stylesheet.css
 
 include::guide/contributing.adoc[]
+
+include::guide/vue.adoc[]
 //include::guide/ascii.adoc[]
