@@ -1,6 +1,9 @@
 export default {
   login(state, payload) {
-    state.isLogin = !state.isLogin
+    state.isLogin = true
     state.user    = payload
+  },
+  storePayload(state, payload) {
+    state.user    = payload;
   }
 }

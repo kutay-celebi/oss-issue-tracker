@@ -1,5 +1,5 @@
 export default {
-  isNOpen: state => {
-    return state.isLogin
+  getUserPrincipal: state => {
+    return state.user
   }
 }
