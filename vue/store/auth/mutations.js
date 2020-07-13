@@ -4,9 +4,6 @@ export default {
     state.user    = payload
   },
   storePayload(state, payload) {
-    console.log("payload", payload)
-    state.naber   = true;
-    state.isLogin = payload.isLogin
-    state.user    = payload.user;
+    state.user    = payload;
   }
 }

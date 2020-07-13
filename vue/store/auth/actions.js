@@ -1,4 +1,5 @@
 import {AUTH_TOKEN_PATH} from "~/common/constant/api/path";
+
 const Cookie = process.client ? require('js-cookie') : undefined
 export default {
   async login(dispatch, {username, password}) {
@@ -22,10 +23,7 @@ export default {
     })
   },
 
-  storeAuth(context, {cookie}) {
-    if (cookie) {
-      const authCookie = cookie.split(";").find(c => c.trim().startsWith("authCookie="));
-      context.commit("storePayload", authCookie)
-    }
+  storeAuth(context, cookie) {
+    context.commit("storePayload", cookie)
   }
 }
