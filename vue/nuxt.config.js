@@ -27,13 +27,15 @@ export default {
   /*
   ** Global CSS
   */
-  css         : [],
+  css         : [
+  ],
   /*
   ** Plugins to load before mounting the App
   ** https://nuxtjs.org/guide/plugins
   */
   plugins     : [
     "~/plugins/axios",
+    '~/plugins/fontawesome.js',
     {
       src : "~/plugins/persistedState",
       ssr : true,

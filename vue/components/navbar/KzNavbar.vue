@@ -3,27 +3,9 @@
     <v-navigation-drawer
       v-model="isNavbarOpen"
       app
-      clipped
-    >
+      clipped>
       <v-list dense>
-        <v-list-item link>
-          <v-list-item-action>
-            <v-icon>mdi-view-dashboard</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>
-              Dashboard
-            </v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item link>
-          <v-list-item-action>
-            <v-icon>mdi-cog</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Settings</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
+        <kz-navbar-item v-for="item in items" :navItem="item" :authorities="userAuthorities"/>
       </v-list>
     </v-navigation-drawer>
   </div>
@@ -31,11 +13,26 @@
 
 <script>
 
+  import {navItem}    from "~/common/config/navbarConfig";
+  import KzNavbarItem from "~/components/navbar/KzNavbarItem";
+
   export default {
-    name    : "KzNavbar",
-    computed: {
+    name      : "KzNavbar",
+    components: {KzNavbarItem},
+    data      : () => ({
+      items: navItem
+    }),
+    computed  : {
       isNavbarOpen() {
         return this.$store.state.navbar.isOpen
+      },
+      createNavbarItems() {
+        return navItem;
+      },
+      userAuthorities() {
+        console.warn("navbar component")
+        console.warn(this.$store.state.auth)
+        return this.$store.state.auth.user.principal.authority
       }
     }
   }
