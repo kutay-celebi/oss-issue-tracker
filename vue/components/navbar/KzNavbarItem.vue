@@ -11,14 +11,20 @@
       </template>
       <v-list-item v-for="(child, i) in navItem.children">
         <v-list-item-content>
-          <v-list-item-title>{{child.title}}</v-list-item-title>
+          <v-list-item-title>
+            <nuxt-link :to="navItem.url">
+            {{child.title}}
+            </nuxt-link>
+          </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-list-group>
     <v-list-group :key="navItem.key" v-else-if="checkAuth">
       <v-list-item>
         <v-list-item-title>
-          {{navItem.title}}
+          <nuxt-link :to="navItem.url">
+            {{navItem.title}}
+          </nuxt-link>
         </v-list-item-title>
       </v-list-item>
     </v-list-group>
