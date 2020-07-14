@@ -12,7 +12,7 @@
       <v-list-item v-for="(child, i) in navItem.children">
         <v-list-item-content>
           <v-list-item-title>
-            <nuxt-link :to="navItem.url">
+            <nuxt-link :to="child.url">
             {{child.title}}
             </nuxt-link>
           </v-list-item-title>
