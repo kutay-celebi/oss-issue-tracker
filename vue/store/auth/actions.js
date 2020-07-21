@@ -18,8 +18,8 @@ export default {
       dispatch.commit("login", response)
       this.$router.push("/home")
     }).catch((error) => {
-      //  todo generic snack error
-      console.log(error.response.data.message)
+      //todo @kcelebi generic snack error
+      console.log(error)
     })
   },
 

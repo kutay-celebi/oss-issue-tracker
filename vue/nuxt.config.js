@@ -70,7 +70,7 @@ export default {
   */
   axios       : {
 
-    baseURL: "http://192.168.0.28:8765"
+    baseURL: "http://localhost:8765"
   },
   /*
   ** Build configuration
