@@ -25,5 +25,9 @@ export default {
 
   storeAuth(context, cookie) {
     context.commit("storePayload", cookie)
+  },
+
+  clearAuth(dispatch) {
+    dispatch.commit("clearAuth")
   }
 }

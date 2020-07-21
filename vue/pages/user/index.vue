@@ -17,7 +17,6 @@
     },
     async fetch() {
       await this.$api.get(API_GET_USER_USERNAME_OR_EMAIL + "kcelebi").then(response => {
-        console.log(response)
         this.user = JSON.stringify(response.data)
       })
     }
