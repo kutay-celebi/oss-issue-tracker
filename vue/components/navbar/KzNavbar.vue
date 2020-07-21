@@ -30,8 +30,6 @@
         return navItem;
       },
       userAuthorities() {
-        console.warn("navbar component")
-        console.warn(this.$store.state.auth)
         return this.$store.state.auth.user.principal.authority
       }
     }

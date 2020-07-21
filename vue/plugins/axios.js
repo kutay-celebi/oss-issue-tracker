@@ -1,6 +1,6 @@
 import {BASE_PATH} from "~/common/constant/api/path";
 
-export default function ({$axios}, inject) {
+export default function ({$axios, store, redirect, dispatch}, inject) {
   const api = $axios.create(BASE_PATH,
                             {
                               headers: {
@@ -10,5 +10,13 @@ export default function ({$axios}, inject) {
                               timeout: 60000
                             })
   api.setBaseURL(BASE_PATH)
+
+  api.onError((error) => {
+    if (error.response.status === 401) {
+      redirect("/")
+    }
+  })
+
+
   inject("api", api)
 }

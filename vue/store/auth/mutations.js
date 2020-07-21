@@ -4,6 +4,9 @@ export default {
     state.user    = payload
   },
   storePayload(state, payload) {
-    state.user    = payload;
+    state.user = payload;
+  },
+  clearAuth(state) {
+    state.user = {};
   }
 }

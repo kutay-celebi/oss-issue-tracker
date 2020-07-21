@@ -4,7 +4,7 @@ spring:
   application:
     name: authz-service
   datasource:
-    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:54320/mydb}
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/mydb}
     driver-class-name: org.postgresql.Driver
     username: ${DATASOURCE_USERNAME:kuartz}
     password: ${DATASOURCE_PASS:k01.}
