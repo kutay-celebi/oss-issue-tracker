@@ -27,6 +27,7 @@ yarn run dev # <3>
 +---common
 |   \---constant
 +---components
++---lang
 +---layouts
 +---middleware
 +---pages
@@ -35,3 +36,17 @@ yarn run dev # <3>
 +---store
 \---test
 ----
+
+== I18N Usage
+
+Multiple language support is provided with the i18n-module provided by the nuxt community.
+Translation available with `$i18n` in contexts.
+Bundle keys are put in `json` files in Lang folder.
+
+.Example usages,
+[TIP]
+====================
+[source, vue]
+ <h1>{{ $t('greeting') }}</h1>
+====================
+

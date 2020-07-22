@@ -1,6 +1,10 @@
 <template>
   <div>
     Logged in as {{username}}
+    {{$t('hello.world')}}
+    <div>
+      {{availableLocales}}
+    </div>
   </div>
 </template>
 
@@ -8,9 +12,13 @@
   export default {
     name      : "Home",
     middleware: "auth",
-    computed: {
+    computed  : {
       username() {
         return this.$store.state.auth.username
+      },
+      availableLocales() {
+        console.warn(this.$i18n)
+        return this.$i18n.availableLocales.filter(i => i !== this.$i18n.locale)
       }
     }
   }
