@@ -27,20 +27,15 @@ export default {
   /*
   ** Global CSS
   */
-  css         : [
-  ],
+  css         : [],
   /*
   ** Plugins to load before mounting the App
   ** https://nuxtjs.org/guide/plugins
   */
   plugins     : [
     "~/plugins/axios",
+    "~/plugins/i18n",
     '~/plugins/fontawesome.js',
-    {
-      src : "~/plugins/persistedState",
-      ssr : true,
-      mode: "client"
-    },
   ],
   /*
   ** Auto import components
@@ -69,7 +64,6 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios       : {
-
     baseURL: "http://localhost:8765"
   },
   /*
