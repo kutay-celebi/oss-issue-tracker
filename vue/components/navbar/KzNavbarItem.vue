@@ -5,14 +5,13 @@
         <v-list-item-content>
           <v-list-item-title>{{navItem.title}}</v-list-item-title>
         </v-list-item-content>
-        <!--<v-list-item-icon>-->
-        <!--  <font-awesome-icon :icon="navItem.icon"/>-->
-        <!--</v-list-item-icon>-->
       </template>
       <v-list-item v-for="(child, i) in navItem.children">
-        <v-list-item-content>
-          <v-list-item-title>{{child.title}}</v-list-item-title>
-        </v-list-item-content>
+        <nuxt-link :to="child.path">
+          <v-list-item-content>
+            <v-list-item-title>{{child.title}}</v-list-item-title>
+          </v-list-item-content>
+        </nuxt-link>
       </v-list-item>
     </v-list-group>
     <v-list-group :key="navItem.key" v-else-if="checkAuth">

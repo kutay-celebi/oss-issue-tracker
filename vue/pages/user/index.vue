@@ -1,6 +1,6 @@
 <template>
-  <div>
-    {{user}}
+  <div class="border-2">
+      {{user}}
   </div>
 </template>
 
