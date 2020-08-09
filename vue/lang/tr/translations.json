@@ -2,6 +2,11 @@
   "common": {
     "close": "Kapat",
     "email": "E-Posta",
+    "isEnabled": {
+      "disabled": "Pasif",
+      "enabled": "Aktif",
+      "text": "Aktif Mi?"
+    },
     "save": "Kaydet"
   },
   "enum": {

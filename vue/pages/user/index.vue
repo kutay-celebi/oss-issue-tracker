@@ -2,28 +2,25 @@
   <CrudPage>
     <div slot="content">
       <user-definition-form/>
+      <user-datatable :query="query"/>
     </div>
   </CrudPage>
 </template>
 
 <script>
-  import {API_GET_USER_USERNAME_OR_EMAIL} from "~/common/constant/api/path";
-  import CrudPage                         from "~/components/form/PageContent";
-  import UserDefinitionForm               from "~/components/uaa/UserDefinitionForm";
+  import CrudPage           from "~/components/form/PageContent";
+  import UserDefinitionForm from "~/components/uaa/UserDefinitionForm";
+  import UserDatatable      from "~/components/uaa/user/UserDatatable";
+  import {userPageQuery}    from "~/common/query/uaa/user/userPageQuery";
 
   export default {
     name      : "index",
-    components: {UserDefinitionForm, CrudPage},
+    components: {UserDatatable, UserDefinitionForm, CrudPage},
     middleware: ["auth", "api"],
     data      : function () {
       return {
-        user: {}
+        query: userPageQuery
       }
-    },
-    async fetch() {
-      await this.$api.get(API_GET_USER_USERNAME_OR_EMAIL + "kcelebi").then(response => {
-        this.user = JSON.stringify(response.data)
-      })
     }
   }
 </script>

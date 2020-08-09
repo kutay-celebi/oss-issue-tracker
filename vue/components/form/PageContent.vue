@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="formHeader">
-      Header
+      <!--  todo @kcelebi add header-->
     </div>
     <slot name="content"/>
   </div>
