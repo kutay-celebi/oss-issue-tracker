@@ -1,0 +1,27 @@
+{
+  "common": {
+    "close": "Kapat",
+    "email": "E-Posta",
+    "save": "Kaydet"
+  },
+  "enum": {
+    "gender": {
+      "female": "Kadın",
+      "male": "Erkek"
+    }
+  },
+  "user": {
+    "birthday": "Doğum Günü",
+    "identificationNumber": "Kimlik No",
+    "lastName": "Soyad",
+    "midName": "İkinci Ad",
+    "name": "Adı",
+    "nationality": "Uyruk",
+    "new": "Yeni Kullanıcı",
+    "personalInfo": "Kişisel Bilgiler",
+    "surname": "Soyadı",
+    "title": "Görev",
+    "userDefinition": "Kullanıcı Tanımlama",
+    "username": "Kullanıcı Adı"
+  }
+}
