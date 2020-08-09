@@ -4,14 +4,10 @@
     <kz-navbar/>
     <kz-appbar/>
 
-
     <v-main>
-      <v-container
-        class="fill-height"
-        fluid
-      >
+      <div class="contentWrapper">
         <Nuxt/>
-      </v-container>
+      </div>
     </v-main>
 
     <v-footer app>
@@ -21,16 +17,31 @@
 </template>
 
 <script>
-  import KzNavbar from "~/components/navbar/KzNavbar";
-  import KzAppbar from "~/components/appbar/KzAppbar";
+  import KzNavbar from "~/components/kuartz/navbar/KzNavbar";
+  import KzAppbar from "~/components/kuartz/appbar/KzAppbar";
+
   export default {
     components: {KzAppbar, KzNavbar},
-    props: {
+    props     : {
       source: String,
     },
 
-    created () {
-      this.$vuetify.theme.dark = true
+    created() {
+      this.$vuetify.theme.dark = false
     },
   }
 </script>
+
+<style scoped>
+  .contentWrapper {
+    max-width: 100%;
+    margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    /*align-items: center;*/
+    text-align: center;
+    width: 100%;
+    padding: 2rem;
+  }
+</style>

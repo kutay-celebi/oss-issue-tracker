@@ -33,7 +33,7 @@ export default {
   ** https://nuxtjs.org/guide/plugins
   */
   plugins     : [
-    "~/plugins/axios",
+    {src:"~/plugins/axios", ssr:true},
     "~/plugins/i18n",
     '~/plugins/fontawesome.js',
   ],
@@ -50,12 +50,16 @@ export default {
     '@nuxtjs/eslint-module',
     // Doc: https://github.com/nuxt-community/nuxt-tailwindcss
     '@nuxtjs/tailwindcss',
-    '@nuxtjs/vuetify',
+    '@nuxtjs/vuetify'
   ],
+
+  vuetify: {
+    optionsPath: "./vuetify.options.js"
+  },
   /*
   ** Nuxt.js modules
   */
-  modules     : [
+  modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
   ],
@@ -63,15 +67,15 @@ export default {
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
-  axios       : {
+  axios  : {
     baseURL: "http://localhost:8765"
   },
   /*
   ** Build configuration
   ** See https://nuxtjs.org/api/configuration-build/
   */
-  build       : {},
-  vue         : {
+  build  : {},
+  vue    : {
     config: {
       devtools: true
     }

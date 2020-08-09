@@ -14,7 +14,7 @@
 <script>
 
   import {navItem}    from "~/common/config/navbarConfig";
-  import KzNavbarItem from "~/components/navbar/KzNavbarItem";
+  import KzNavbarItem from "~/components/kuartz/navbar/KzNavbarItem";
 
   export default {
     name      : "KzNavbar",

@@ -20,8 +20,8 @@ export default ({app, store}) => {
                              }
                            ],
                            messages      : {
-                             en: require('~/lang/en.json'),
-                             tr: require('~/lang/tr.json')
+                             en: require('~/lang/en/translations.json'),
+                             tr: require('~/lang/tr/translations.json')
                            }
                          })
 

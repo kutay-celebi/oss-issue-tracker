@@ -10,8 +10,9 @@ export const navItem = [
       {
         key  : "udefinition",
         title: "User Definition",
-        icon:  "fa-users",
-        auth : ["nbr"]
+        icon : "fa-users",
+        auth : ["nbr"],
+        path : "/user"
       }
     ]
   }
