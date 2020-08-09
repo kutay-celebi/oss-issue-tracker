@@ -4,8 +4,10 @@ export default function ({$axios, store, redirect, dispatch}, inject) {
   const api = $axios.create(BASE_PATH,
                             {
                               headers: {
-                                "content-type": "application/json",
-                                "Accept"      : "application/json"
+                                post: {
+                                  "content-type": "application/json",
+                                  "Accept"      : "application/json"
+                                }
                               },
                               timeout: 60000
                             })
@@ -15,6 +17,15 @@ export default function ({$axios, store, redirect, dispatch}, inject) {
     if (error.response.status === 401) {
       redirect("/")
     }
+  })
+
+  api.onRequest(request => {
+    console.log('[ REQUEST ]' + request.url)
+    if (store.state.auth) {
+      request.headers.common['Authorization'] = "Bearer " + store.state.auth.user.access_token
+    }
+
+    return request
   })
 
 

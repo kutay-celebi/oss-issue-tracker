@@ -33,7 +33,7 @@ export default {
   ** https://nuxtjs.org/guide/plugins
   */
   plugins     : [
-    "~/plugins/axios",
+    {src:"~/plugins/axios", ssr:true},
     "~/plugins/i18n",
     '~/plugins/fontawesome.js',
   ],
