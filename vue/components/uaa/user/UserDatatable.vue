@@ -13,7 +13,7 @@
         {{item.enabled ? $t("common.isEnabled.enabled") : $t("common.isEnabled.disabled")}}
       </template>
       <template v-slot:item.data-table-select="{ isSelected, item }">
-        <v-simple-checkbox color="green" :value="isSelected" @input="select(item)"/>
+        <v-simple-checkbox color="green" :value="isSelected" @input="selectRow(item)"/>
       </template>
     </v-data-table>
     {{selected}}
@@ -92,7 +92,7 @@
         this.query.pageable.pageSize   = rows
         this.getDataFromApi()
       },
-      select(item) {
+      selectRow(item) {
         this.$emit("select", item)
       }
     },
