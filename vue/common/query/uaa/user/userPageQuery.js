@@ -4,7 +4,7 @@ export const userPageQuery = {
   "username": null,
   "pageable": {
     "pageNumber": 0,
-    "pageSize"  : 15,
+    "pageSize"  : 20, // todo @kcelebi move constants
     "sort"      : {}
   }
 }

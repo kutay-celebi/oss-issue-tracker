@@ -1,9 +1,23 @@
 <template>
-  <v-data-table :items="result" :items-per-page="query.pageable.pageSize" :page="query.pageable.page" :headers="headers" :footer-props="{'items-per-page-options':[2,15, 30, 50, 100, -1]}" >
-    <template v-slot:item.enabled="{ item }">
-      {{item.enabled ? $t("common.isEnabled.enabled") : $t("common.isEnabled.disabled")}}
-    </template>
-  </v-data-table>
+  <v-container fluid>
+    <v-data-table :items="result"
+                  :items-per-page.sync="query.pageable.pageSize"
+                  :page.sync="query.pageable.page"
+                  :headers="headers"
+                  @update:items-per-page="changeRows"
+                  @update:page="changePage"
+                  :server-items-length="totalElement"
+                  show-select
+                  :footer-props="{'items-per-page-options':[5,10, 20, 30, 100, -1]}">
+      <template v-slot:item.enabled="{ item }">
+        {{item.enabled ? $t("common.isEnabled.enabled") : $t("common.isEnabled.disabled")}}
+      </template>
+      <template v-slot:item.data-table-select="{ isSelected, item }">
+        <v-simple-checkbox color="green" :value="isSelected" @input="select(item)"/>
+      </template>
+    </v-data-table>
+    {{selected}}
+  </v-container>
 </template>
 
 <script>
@@ -11,18 +25,21 @@
   import {userPageQuery}     from "~/common/query/uaa/user/userPageQuery";
 
   export default {
-    name : "UserDatatable",
-    props: {
-      query: {
+    name   : "UserDatatable",
+    props  : {
+      query : {
         required: true,
         type    : Object,
         default : userPageQuery
+      },
+      select: {
+        type: Function
       }
     },
     data() {
       return {
-        result : [],
-        headers: [
+        result      : [],
+        headers     : [
           {
             value   : 'username',
             text    : this.$t('user.username'),
@@ -54,13 +71,33 @@
             sortable: false,
           }
         ],
+        selected    : null,
+        totalElement: null
+      }
+    },
+    methods: {
+      getDataFromApi() {
+        this.$api.$post(API_GET_USER_PAGE, this.query).then(response => {
+          console.log(response)
+          this.totalElement = response.totalElements
+          this.result       = response.content
+        });
+      },
+      changePage(page) {
+        this.query.pageable.pageNumber = page - 1
+        this.getDataFromApi()
+      },
+      changeRows(rows) {
+        this.query.pageable.pageNumber = 0
+        this.query.pageable.pageSize   = rows
+        this.getDataFromApi()
+      },
+      select(item) {
+        this.$emit("select", item)
       }
     },
     async fetch() {
-      await this.$api.$post(API_GET_USER_PAGE, this.query).then(response => {
-        console.log(response)
-        this.result = response.content
-      });
+      await this.getDataFromApi();
     }
   }
 </script>
