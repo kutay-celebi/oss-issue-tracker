@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <div>
     <v-data-table :items="result"
                   :items-per-page.sync="query.pageable.pageSize"
                   :page.sync="query.pageable.page"
@@ -7,17 +7,22 @@
                   @update:items-per-page="changeRows"
                   @update:page="changePage"
                   :server-items-length="totalElement"
+                  @item-selected="selectRow"
+                  @toggle-select-all="selectRow"
                   show-select
+                  v-model="selected"
+                  class="w-full"
                   :footer-props="{'items-per-page-options':[5,10, 20, 30, 100, -1]}">
       <template v-slot:item.enabled="{ item }">
         {{item.enabled ? $t("common.isEnabled.enabled") : $t("common.isEnabled.disabled")}}
       </template>
-      <template v-slot:item.data-table-select="{ isSelected, item }">
-        <v-simple-checkbox color="green" :value="isSelected" @input="selectRow(item)"/>
+      <template v-slot:item.data-table-select="{ item,isSelected, select }">
+        <v-simple-checkbox color="green" :value="item.username !== 'kcelebi' && isSelected" @input="select($event)" :disabled="item.username === 'kcelebi'"/>
       </template>
     </v-data-table>
+
     {{selected}}
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -27,12 +32,12 @@
   export default {
     name   : "UserDatatable",
     props  : {
-      query : {
+      query: {
         required: true,
         type    : Object,
         default : userPageQuery
       },
-      select: {
+      onSelect: {
         type: Function
       }
     },
@@ -71,13 +76,13 @@
             sortable: false,
           }
         ],
-        selected    : null,
+        selected    : [],
         totalElement: null
       }
     },
     methods: {
-      getDataFromApi() {
-        this.$api.$post(API_GET_USER_PAGE, this.query).then(response => {
+      async getDataFromApi() {
+        await this.$api.$post(API_GET_USER_PAGE, this.query).then(response => {
           console.log(response)
           this.totalElement = response.totalElements
           this.result       = response.content
@@ -93,7 +98,7 @@
         this.getDataFromApi()
       },
       selectRow(item) {
-        this.$emit("select", item)
+        this.$emit("onSelect", item)
       }
     },
     async fetch() {

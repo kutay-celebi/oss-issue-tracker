@@ -1,10 +1,13 @@
 <template>
-  <CrudPage>
-    <div slot="content">
-      <user-definition-form/>
-      <user-datatable :query="query"/>
-    </div>
-  </CrudPage>
+    <CrudPage>
+        <div slot="content">
+            <user-definition-form/>
+
+            <v-container fluid>
+                <user-datatable v-bind:query="query"/>
+            </v-container>
+        </div>
+    </CrudPage>
 </template>
 
 <script>
@@ -14,13 +17,13 @@
   import {userPageQuery}    from "~/common/query/uaa/user/userPageQuery";
 
   export default {
-    name      : "index",
-    components: {UserDatatable, UserDefinitionForm, CrudPage},
-    middleware: ["auth", "api"],
-    data      : function () {
-      return {
-        query: userPageQuery
-      }
+        name      : "index",
+        components: {UserDatatable, UserDefinitionForm, CrudPage},
+        middleware: ["auth", "api"],
+        data      : function () {
+            return {
+                query: userPageQuery
+            }
+        }
     }
-  }
 </script>
