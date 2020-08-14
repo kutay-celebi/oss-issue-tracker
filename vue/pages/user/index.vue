@@ -1,29 +1,29 @@
 <template>
-  <CrudPage>
-    <div slot="content">
-      <user-definition-form/>
-    </div>
-  </CrudPage>
+    <CrudPage>
+        <div slot="content">
+            <user-definition-form/>
+
+            <v-container fluid>
+                <user-datatable v-bind:query="query"/>
+            </v-container>
+        </div>
+    </CrudPage>
 </template>
 
 <script>
-  import {API_GET_USER_USERNAME_OR_EMAIL} from "~/common/constant/api/path";
-  import CrudPage                         from "~/components/form/PageContent";
-  import UserDefinitionForm               from "~/components/uaa/UserDefinitionForm";
+  import CrudPage           from "~/components/form/PageContent";
+  import UserDefinitionForm from "~/components/uaa/UserDefinitionForm";
+  import UserDatatable      from "~/components/uaa/user/UserDatatable";
+  import {userPageQuery}    from "~/common/query/uaa/user/userPageQuery";
 
   export default {
-    name      : "index",
-    components: {UserDefinitionForm, CrudPage},
-    middleware: ["auth", "api"],
-    data      : function () {
-      return {
-        user: {}
-      }
-    },
-    async fetch() {
-      await this.$api.get(API_GET_USER_USERNAME_OR_EMAIL + "kcelebi").then(response => {
-        this.user = JSON.stringify(response.data)
-      })
+        name      : "index",
+        components: {UserDatatable, UserDefinitionForm, CrudPage},
+        middleware: ["auth", "api"],
+        data      : function () {
+            return {
+                query: userPageQuery
+            }
+        }
     }
-  }
 </script>

@@ -3,17 +3,17 @@ export default {
   ** Nuxt rendering mode
   ** See https://nuxtjs.org/api/configuration-mode
   */
-  mode        : 'universal',
+  mode  : 'universal',
   /*
   ** Nuxt target
   ** See https://nuxtjs.org/api/configuration-target
   */
-  target      : 'server',
+  target: 'server',
   /*
   ** Headers of the page
   ** See https://nuxtjs.org/api/configuration-head
   */
-  head        : {
+  head  : {
     title: process.env.npm_package_name || '',
     meta : [
       {charset: 'utf-8'},
@@ -27,13 +27,16 @@ export default {
   /*
   ** Global CSS
   */
-  css         : [],
+  css   : [],
+
+  serverMiddleware: ['~/middleware/serverMiddleware'],
+
   /*
   ** Plugins to load before mounting the App
   ** https://nuxtjs.org/guide/plugins
   */
   plugins     : [
-    {src:"~/plugins/axios", ssr:true},
+    {src: "~/plugins/axios", ssr: true},
     "~/plugins/i18n",
     '~/plugins/fontawesome.js',
   ],
@@ -74,7 +77,13 @@ export default {
   ** Build configuration
   ** See https://nuxtjs.org/api/configuration-build/
   */
-  build  : {},
+  build  : {
+    extend(config, ctx) {
+      if (ctx.isDev) {
+        config.devtool = ctx.isClient ? 'eval-source-map' : 'inline-source-map'
+      }
+    }
+  },
   vue    : {
     config: {
       devtools: true

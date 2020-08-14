@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="w-full">
     <div class="formHeader">
-      Header
+      <!--  todo @kcelebi add header-->
     </div>
-    <slot name="content"/>
+    <slot name="content" class="w-full" />
   </div>
 </template>
 

@@ -2,6 +2,11 @@
   "common": {
     "close": "Close",
     "email": "E-Mail",
+    "isEnabled": {
+      "disabled": "Disabled",
+      "enabled": "Enabled",
+      "text": "Is Enabled?"
+    },
     "save": "Save"
   },
   "enum": {
