@@ -20,6 +20,7 @@ export default {
     },
     "~/plugins/i18n",
     '~/plugins/fontawesome.js',
+    '~/plugins/sessionStorage',
   ],
   components  : true,
   buildModules: [
@@ -33,9 +34,6 @@ export default {
   modules     : [
     '@nuxtjs/axios',
   ],
-  axios       : {
-    baseURL: "http://localhost:8765"
-  },
   build       : {
     extend(config, ctx) {
       if (ctx.isDev) {
