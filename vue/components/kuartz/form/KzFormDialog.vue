@@ -2,11 +2,12 @@
   <v-dialog v-model="isOpen" persistent max-width="w-10">
 
     <template v-slot:activator="{ on, attrs }">
-      <v-btn color="primary"
-             dark
+      <v-btn color="secondary"
+             fab
+             small
              v-bind="attrs"
              v-on="on">
-        {{buttonText}}
+        <v-icon small> $vuetify.icons.add</v-icon>
       </v-btn>
     </template>
 
@@ -28,10 +29,12 @@
 
 <script>
 
+
+
   export default {
     name   : "KzFormDialog",
     data   : () => ({
-      isOpen: false
+      isOpen: false,
     }),
     props  : {
       buttonText: {

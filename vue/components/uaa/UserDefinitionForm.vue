@@ -3,13 +3,13 @@
     <div slot="content">
       <form>
         <v-container fluid>
-          <v-row align="center" align-content="center">
+          <v-row align="center" align-content="center" dense>
             <v-col cols="12" sm="12" md="6">
-              <v-text-field :label="$t('user.username')" required v-model="user.username" outlined/>
+              <text-field-outlined :label="$t('user.username')" required v-model="user.username" outlined/>
             </v-col>
 
             <v-col cols="12" sm="12" md="6">
-              <v-text-field :label="$t('common.email')" required v-model="user.email"/>
+              <text-field-outlined :label="$t('common.email')" required v-model="user.email"/>
             </v-col>
           </v-row>
         </v-container>
@@ -18,31 +18,31 @@
         <v-divider/>
 
         <v-container fluid>
-          <v-row align="center" align-content="center">
+          <v-row align="center" align-content="center" dense>
             <v-col cols="12" sm="12" md="6">
-              <v-text-field :label="$t('user.identificationNumber')" required v-model="user.person.identificationNumber"/>
+              <text-field-outlined :label="$t('user.identificationNumber')" required v-model="user.person.identificationNumber"/>
             </v-col>
 
             <v-col cols="12" sm="12" md="6">
-              <v-text-field :label="$t('user.nationality')" required v-model="user.person.nationality"/>
+              <text-field-outlined :label="$t('user.nationality')" required v-model="user.person.nationality"/>
             </v-col>
 
             <v-col cols="12" sm="12" md="6">
-              <v-text-field :label="$t('user.name')" required v-model="user.person.name"/>
+              <text-field-outlined :label="$t('user.name')" required v-model="user.person.name"/>
             </v-col>
 
             <v-col cols="12" sm="12" md="6">
-              <v-text-field :label="$t('user.midName')" required v-model="user.person.midName"/>
+              <text-field-outlined :label="$t('user.midName')" required v-model="user.person.midName"/>
             </v-col>
 
             <span/>
 
             <v-col cols="12" sm="12" md="6">
-              <v-text-field :label="$t('user.lastName')" required v-model="user.person.lastName"/>
+              <text-field-outlined :label="$t('user.lastName')" required v-model="user.person.lastName"/>
             </v-col>
 
             <v-col cols="12" sm="12" md="6">
-              <v-text-field :label="$t('user.title')" required v-model="user.person.title"/>
+              <text-field-outlined :label="$t('user.title')" required v-model="user.person.title"/>
             </v-col>
 
             <v-col cols="12" sm="12" md="6">
@@ -60,11 +60,11 @@
 </template>
 
 <script>
-  import KzFormDialog from "~/components/kuartz/form/KzFormDialog";
-  import KzDatePicker from "~/components/kuartz/datepicker/KzDatePicker";
-  import GenderSelect from "~/components/form/GenderSelect";
+import KzFormDialog from "~/components/kuartz/form/KzFormDialog";
+import KzDatePicker from "~/components/kuartz/datepicker/KzDatePicker";
+import GenderSelect from "~/components/form/GenderSelect";
 
-  export default {
+export default {
     name      : "UserDefinitionForm",
     components: {GenderSelect, KzDatePicker, KzFormDialog},
     data      : () => ({

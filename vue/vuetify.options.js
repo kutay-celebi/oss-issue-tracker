@@ -1,26 +1,41 @@
-import dark from "~/dark";
+import dark              from "~/dark";
+import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+
+const CUSTOM_ICONS = {
+  add : { // custom icon I want to use
+    component: FontAwesomeIcon,
+    props    : {
+      icon: ['fas', 'plus']
+    }
+  },
+  user: { // used for the nav-icon by vuetify
+    component: FontAwesomeIcon,
+    props    : {
+      icon: ['fas', 'user']
+    }
+  }
+}
 
 export default {
-  // breakpoint: {},
-  // icons     : {},
-  // lang      : {},
-  // rtl   : true,
-  // theme     : {}
-  customProperties: true,
-  theme           : {
-    dark  : false,
-    themes: {
+  icons: {
+    iconfont: "faSvg",
+    values  : CUSTOM_ICONS
+  },
+  theme: {
+    options: {
+      customProperties: true,
+    },
+    dark   : false,
+    themes : {
       light: {
-        primary: '#3f51b5',
+        primary  : '#3f51b5',
         secondary: '#b0bec5',
-        accent: '#8c9eff',
-        error: '#b71c1c',
+        accent   : '#8c9eff',
+        error    : '#b71c1c'
       },
-      dark: {
-        primary  : dark,
+      dark : {
+        primary   : dark,
         secondary : "#E1E2E2",
-        // accent: colors.shades.black,
-        // error: colors.red.accent3,
         kzProperty: "#3f3"
       },
     }

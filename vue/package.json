@@ -24,10 +24,12 @@
     "vuex-persistedstate": "^3.1.0"
   },
   "devDependencies": {
+    "@nuxt/types": "~2.13.0",
     "@nuxtjs/eslint-config": "3.0.0",
     "@nuxtjs/eslint-module": "2.0.0",
     "@nuxtjs/tailwindcss": "2.0.0",
     "@nuxtjs/vuetify": "1.11.2",
+    "@nuxtjs/style-resources":  "1.0.0",
     "@vue/test-utils": "1.0.3",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "10.1.0",
