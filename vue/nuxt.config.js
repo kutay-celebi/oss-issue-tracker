@@ -1,7 +1,7 @@
 export default {
-  mode        : 'spa',
-  target      : 'server',
-  head        : {
+  mode          : 'universal',
+  target        : 'server',
+  head          : {
     title: process.env.npm_package_name || '',
     meta : [
       {charset: 'utf-8'},
@@ -12,36 +12,54 @@ export default {
       {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}
     ]
   },
-  css         : [],
+  styleResources: {
+    scss: [
+      "./assets/kz-variable.scss"
+    ]
+  },
+  css           : [],
   // serverMiddleware: ['~/middleware/serverMiddleware'],
-  plugins     : [
+  plugins       : [
     {
       src: "~/plugins/axios", ssr: true
     },
+    {
+      src: '~/plugins/sessionStorage', ssr: false
+    },
+    {
+      src: "~/plugins/text-field-outlined", ssr: true
+    },
     "~/plugins/i18n",
     '~/plugins/fontawesome.js',
-    '~/plugins/sessionStorage',
   ],
-  components  : true,
-  buildModules: [
+  axios         : {
+    baseURL: "http://localhost:8765"
+  },
+  loading       : {
+    continuous: true
+  },
+  components    : true,
+  buildModules  : [
     '@nuxtjs/eslint-module',
+    '@nuxtjs/style-resources',
     '@nuxtjs/tailwindcss',
     '@nuxtjs/vuetify'
   ],
-  vuetify     : {
+  vuetify       : {
     optionsPath: "./vuetify.options.js"
   },
-  modules     : [
+  modules       : [
     '@nuxtjs/axios',
   ],
-  build       : {
+  build         : {
+    ssr: true,
     extend(config, ctx) {
       if (ctx.isDev) {
         config.devtool = ctx.isClient ? 'eval-source-map' : 'inline-source-map'
       }
     }
   },
-  vue         : {
+  vue           : {
     config: {
       devtools: true
     }

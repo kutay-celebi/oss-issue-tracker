@@ -2,6 +2,8 @@
   <v-select
     :value="value"
     :items="genders"
+    dense
+    outlined
     @change="$emit('input', $event)"
     item-value="val"
     :item-text="item => $t(item.label)"
