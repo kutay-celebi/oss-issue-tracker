@@ -1,5 +1,3 @@
-const {VuetifyLoaderPlugin} = require('vuetify-loader')
-
 export default {
   mode            : 'spa',
   target          : 'server',
@@ -14,28 +12,35 @@ export default {
       {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}
     ]
   },
-  serverMiddleware: ['~/middleware/serverMiddleware'],
+  serverMiddleware: [
+    '~/middleware/serverMiddleware'
+  ],
   plugins         : [
-    {src: "~/plugins/axios", ssr: true},
+    {
+      src: "~/plugins/axios", ssr: true
+    },
     "~/plugins/i18n",
     '~/plugins/fontawesome.js',
-    '~/plugins/sessionStorage',
+    {
+      src: '~/plugins/sessionStorage', ssr: false
+    },
   ],
   components      : true,
   buildModules    : [
     '@nuxtjs/eslint-module',
     '@nuxtjs/tailwindcss',
-    '@nuxtjs/vuetify'
+    '@nuxtjs/vuetify',
   ],
   modules         : [
     '@nuxtjs/axios',
-    'nuxt-sass-resources-loader'
-  ],
-  sassResources   : [
-    '~/assets/variable.scss'
+    '@nuxtjs/style-resources',
   ],
   css             : [],
+  styleResources  : {
+    scss: "./assets/styles/variables.scss"
+  },
   build           : {
+    // transpile: [/^vuetify/],
     extend(config, ctx) {
       if (ctx.isDev) {
         config.devtool = ctx.isClient ? 'eval-source-map' : 'inline-source-map'
@@ -43,31 +48,31 @@ export default {
     }
 
   },
-  vue             : {
-    config: {
-      devtools: true
-    }
-  },
   axios           : {
     baseURL: "http://localhost:8765"
   },
 
   vuetify: {
-    customProperties: true,
-    customVariables : ['~/assets/variable.scss'],
-    theme           : {
-      dark  : false,
-      themes: {
-        light: {
-          primary  : '#3f51b5',
-          secondary: '#b0bec5',
-          accent   : '#8c9eff',
-          error    : '#b71c1c',
-        },
-        dark : {
-          secondary: "#E1E2E2",
-        },
-      }
+    treeShake: true,
+    customVariables: ["~/assets/variables.scss"],
+    options  : {
+      customProperties: true
     }
   },
 }
+
+
+// theme          : {
+//   dark  : false,
+//   themes: {
+//     light: {
+//       primary  : '#3f51b5',
+//       secondary: '#b0bec5',
+//       accent   : '#8c9eff',
+//       error    : '#b71c1c',
+//     },
+//     dark : {
+//       secondary: "#E1E2E2",
+//     },
+//   }
+// }
