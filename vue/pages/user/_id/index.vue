@@ -1,10 +1,12 @@
 <template>
-
+  <div>
+    Naber la
+  </div>
 </template>
 
 <script>
 export default {
-  name: "FilterForm"
+  name: "id"
 }
 </script>
 

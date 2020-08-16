@@ -1,5 +1,7 @@
 <template>
-  <kz-form-dialog :buttonText="$t('user.new')" :title="$t('user.new')" @save="save">
+  <kz-form-dialog :buttonText="$t('user.new')"
+                  :title="$t('user.new')"
+                  @save="save">
     <div slot="content">
       <form>
         <v-container fluid>
@@ -14,7 +16,7 @@
           </v-row>
         </v-container>
 
-        <v-subheader>{{$t('user.personalInfo')}}</v-subheader>
+        <v-subheader>{{ $t('user.personalInfo') }}</v-subheader>
         <v-divider/>
 
         <v-container fluid>
@@ -65,33 +67,22 @@ import KzDatePicker from "~/components/kuartz/datepicker/KzDatePicker";
 import GenderSelect from "~/components/form/GenderSelect";
 
 export default {
-    name      : "UserDefinitionForm",
-    components: {GenderSelect, KzDatePicker, KzFormDialog},
-    data      : () => ({
-      user: {
-        "email"   : "",
-        "enabled" : true,
-        "username": "",
-        "password": "",
-        "person"  : {
-          "birthday"            : "",
-          "gender"              : "FEMALE",
-          "identificationNumber": "",
-          "lastName"            : "",
-          "midName"             : "",
-          "name"                : "",
-          "nationality"         : "",
-          "title"               : "",
-        },
-      }
-    }),
-    methods   : {
-      save() {
-        console.log(this.user.person.gender)
-        this.$store.dispatch("auth/user/save", this.user)
-      }
-    },
-  }
+  name      : "UserDefinitionForm",
+  components: {GenderSelect, KzDatePicker, KzFormDialog},
+  data      : () => ({
+
+  }),
+  computed:{
+    user(){
+      return this.$store.getters["auth/userform/getUser"]
+    }
+  },
+  methods   : {
+    save() {
+      this.$store.dispatch("auth/user/save", this.user)
+    }
+  },
+}
 </script>
 
 <style scoped>

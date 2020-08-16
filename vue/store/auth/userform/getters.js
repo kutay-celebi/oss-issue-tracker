@@ -1,5 +1,5 @@
 export default {
-  getUserPrincipal: state => {
+  getUser: state => {
     return state.user
   }
 }

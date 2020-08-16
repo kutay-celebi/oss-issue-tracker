@@ -10,6 +10,7 @@
                   @item-selected="selectRow"
                   @toggle-select-all="selectRow"
                   show-select
+                  dense
                   v-model="selected"
                   class="w-full"
                   :footer-props="{'items-per-page-options':[5,10, 20, 30, 100, -1]}">
@@ -22,8 +23,16 @@
                            @input="select($event)"
                            :disabled="item.username === 'kcelebi'"/>
       </template>
+      <template v-slot:item.actions="{ item }" class="text-center" c>
+        <v-icon
+          small
+          @click="editRow(item)"
+        >
+          $vuetify.icons.edit
+        </v-icon>
+      </template>
     </v-data-table>
-
+    {{this.$store.state.auth.userform.user}}
   </div>
 </template>
 
@@ -76,6 +85,12 @@ export default {
           text    : this.$t('user.surname'),
           align   : 'center',
           sortable: false,
+        },
+        {
+          text    : "Actions", //todo @kcelebi migrate i18n
+          value   : "actions",
+          sortable: false,
+          align   : "center"
         }
       ],
       selected    : [],
@@ -101,6 +116,9 @@ export default {
     },
     selectRow(item) {
       this.$emit("onSelect", item)
+    },
+    editRow(item) {
+      this.$store.dispatch("auth/userform/openForm", {item})
     }
   },
   async fetch() {

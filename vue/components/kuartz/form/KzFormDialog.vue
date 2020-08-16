@@ -13,15 +13,15 @@
 
     <v-card>
       <v-card-title>
-        {{title}}
+        {{ title }}
       </v-card-title>
       <v-card-text>
         <slot name="content"/>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" text @click="toggleDialog">{{$t("common.close")}}</v-btn>
-        <v-btn color="blue darken-1" text @click="$emit('save')">{{$t("common.save")}}</v-btn>
+        <v-btn color="blue darken-1" text @click="toggleDialog">{{ $t("common.close") }}</v-btn>
+        <v-btn color="blue darken-1" text @click="$emit('save')">{{ $t("common.save") }}</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -30,30 +30,29 @@
 <script>
 
 
-
-  export default {
-    name   : "KzFormDialog",
-    data   : () => ({
-      isOpen: false,
-    }),
-    props  : {
-      buttonText: {
-        type   : String,
-        default: "New"
-      },
-      title     : {
-        required: true,
-
-      }
+export default {
+  name   : "KzFormDialog",
+  data   : () => ({
+    isOpen: false
+  }),
+  props  : {
+    buttonText: {
+      type   : String,
+      default: "New"
     },
-    methods: {
-      toggleDialog() {
-        this.isOpen = !this.isOpen
-      }
+    title     : {
+      required: true,
+
+    },
+    open      : {
+      type   : Boolean,
+      default: false
+    }
+  },
+  methods: {
+    toggleDialog() {
+      this.isOpen = !this.isOpen
     }
   }
+}
 </script>
-
-<style scoped>
-
-</style>

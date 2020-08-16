@@ -13,7 +13,13 @@ const CUSTOM_ICONS = {
     props    : {
       icon: ['fas', 'user']
     }
-  }
+  },
+  edit: { // used for the nav-icon by vuetify
+    component: FontAwesomeIcon,
+    props    : {
+      icon: ['fas', 'edit']
+    }
+  },
 }
 
 export default {
