@@ -14,5 +14,5 @@ Kutay Çelebi <mail@kutaycelebi.com>
 
 include::guide/contributing.adoc[]
 
-include::guide/vue.adoc[]
+include::guide/ui/vue.adoc[]
 //include::guide/ascii.adoc[]
