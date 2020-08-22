@@ -1,8 +1,10 @@
 <template>
   <v-select
-    v-model="myValue"
+    :value="value"
     :items="genders"
-    @change="$emit('update:field', myValue)"
+    dense
+    outlined
+    @change="$emit('input', $event)"
     item-value="val"
     :item-text="item => $t(item.label)"
     label="Standard">
@@ -10,32 +12,18 @@
 </template>
 
 <script>
-  import GENDER from "~/common/enum/GENDER";
+import GENDER from "~/common/enum/GENDER";
 
-  export default {
+export default {
     name   : "GenderSelect",
-    props  : {
-      field: {
-        required: true
-      }
-    },
+    props  : ['value'],
     data() {
       return {
-        myValue: this.field,
         genders: Object.values(GENDER),
       }
     },
     watch: {
-      field(){
-        this.myValue = this.field;
-      }
     },
-    methods: {
-      select(e) {
-        this.$emit('input', e)
-        this.myValue = e
-      }
-    }
   }
 </script>
 

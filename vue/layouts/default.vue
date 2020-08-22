@@ -5,7 +5,7 @@
     <kz-appbar/>
 
     <v-main>
-      <div class="contentWrapper">
+      <div id="contentWrapper" class="contentWrapper">
         <Nuxt/>
       </div>
     </v-main>
@@ -17,10 +17,10 @@
 </template>
 
 <script>
-  import KzNavbar from "~/components/kuartz/navbar/KzNavbar";
-  import KzAppbar from "~/components/kuartz/appbar/KzAppbar";
+import KzNavbar from "~/components/kuartz/navbar/KzNavbar";
+import KzAppbar from "~/components/kuartz/appbar/KzAppbar";
 
-  export default {
+export default {
     components: {KzAppbar, KzNavbar},
     props     : {
       source: String,
@@ -39,9 +39,7 @@
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    /*align-items: center;*/
     text-align: center;
     width: 100%;
-    padding: 2rem;
   }
 </style>

@@ -9,6 +9,8 @@
   >
     <template v-slot:activator="{ on, attrs }">
       <v-text-field
+        outlined
+        dense
         v-model="date"
         label="Picker without buttons"
         v-bind="attrs"

@@ -1,19 +1,7 @@
 export default {
-  /*
-  ** Nuxt rendering mode
-  ** See https://nuxtjs.org/api/configuration-mode
-  */
-  mode  : 'universal',
-  /*
-  ** Nuxt target
-  ** See https://nuxtjs.org/api/configuration-target
-  */
-  target: 'server',
-  /*
-  ** Headers of the page
-  ** See https://nuxtjs.org/api/configuration-head
-  */
-  head  : {
+  mode          : 'universal',
+  target        : 'server',
+  head          : {
     title: process.env.npm_package_name || '',
     meta : [
       {charset: 'utf-8'},
@@ -24,67 +12,55 @@ export default {
       {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}
     ]
   },
-  /*
-  ** Global CSS
-  */
-  css   : [],
-
-  serverMiddleware: ['~/middleware/serverMiddleware'],
-
-  /*
-  ** Plugins to load before mounting the App
-  ** https://nuxtjs.org/guide/plugins
-  */
-  plugins     : [
-    {src: "~/plugins/axios", ssr: true},
+  styleResources: {
+    scss: [
+      "./assets/kz-variable.scss"
+    ]
+  },
+  css           : [],
+  // serverMiddleware: ['~/middleware/serverMiddleware'],
+  plugins       : [
+    {
+      src: "~/plugins/axios"
+    },
+    {
+      src: '~/plugins/sessionStorage', ssr: false
+    },
+    {
+      src: "~/plugins/text-field-outlined", ssr: true
+    },
     "~/plugins/i18n",
     '~/plugins/fontawesome.js',
   ],
-  /*
-  ** Auto import components
-  ** See https://nuxtjs.org/api/configuration-components
-  */
-  components  : true,
-  /*
-  ** Nuxt.js dev-modules
-  */
-  buildModules: [
-    // Doc: https://github.com/nuxt-community/eslint-module
+  axios         : {
+    baseURL: "http://localhost:8765"
+  },
+  loading       : {
+    continuous: true
+  },
+  components    : true,
+  buildModules  : [
     '@nuxtjs/eslint-module',
-    // Doc: https://github.com/nuxt-community/nuxt-tailwindcss
+    '@nuxtjs/style-resources',
     '@nuxtjs/tailwindcss',
     '@nuxtjs/vuetify'
   ],
-
-  vuetify: {
+  vuetify       : {
     optionsPath: "./vuetify.options.js"
   },
-  /*
-  ** Nuxt.js modules
-  */
-  modules: [
-    // Doc: https://axios.nuxtjs.org/usage
+  modules       : [
     '@nuxtjs/axios',
   ],
-  /*
-  ** Axios module configuration
-  ** See https://axios.nuxtjs.org/options
-  */
-  axios  : {
-    baseURL: "http://localhost:8765"
-  },
-  /*
-  ** Build configuration
-  ** See https://nuxtjs.org/api/configuration-build/
-  */
-  build  : {
+  build         : {
+    ssr: true,
     extend(config, ctx) {
+      config.stats = 'errors-only'
       if (ctx.isDev) {
         config.devtool = ctx.isClient ? 'eval-source-map' : 'inline-source-map'
       }
     }
   },
-  vue    : {
+  vue           : {
     config: {
       devtools: true
     }
