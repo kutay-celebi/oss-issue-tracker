@@ -20,8 +20,7 @@
       <template v-slot:item.data-table-select="{ item,isSelected, select }">
         <v-simple-checkbox color="green"
                            :value="item.username !== 'kcelebi' && isSelected"
-                           @input="select($event)"
-                           :disabled="item.username === 'kcelebi'"/>
+                           @input="select($event)"/>
       </template>
       <template v-slot:item.actions="{ item }" class="text-center" c>
         <v-icon
