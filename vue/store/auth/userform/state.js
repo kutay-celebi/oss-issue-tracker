@@ -1,5 +1,8 @@
-export default () => ({
-  user: {
+export const initialState = {
+  testText: {
+    aa: 'aaaaa',
+  },
+  userForm    : {
     "email"   : "",
     "enabled" : true,
     "username": "",
@@ -15,4 +18,9 @@ export default () => ({
       "title"               : "",
     },
   }
+
+}
+
+export default () => ({
+  ...initialState
 })

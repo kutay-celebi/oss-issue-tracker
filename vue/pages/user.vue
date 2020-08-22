@@ -1,12 +1,14 @@
 <template>
   <PageContent>
     <crud-header slot="header" :header-text="$t('user.userDefinition')" sub-title="Subtitle">
-      <!--      <user-definition-form slot="form"/>-->
+      <div slot="form">
+        <client-only>
+          <nuxt-child :key="$route.fullPath"/>
+        </client-only>
+      </div>
     </crud-header>
     <div slot="content">
-
       <v-container fluid>
-        <nuxt-child nuxt-child-key="name"/>
         <user-datatable :query="query"/>
       </v-container>
     </div>

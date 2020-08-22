@@ -21,7 +21,7 @@ export default {
   // serverMiddleware: ['~/middleware/serverMiddleware'],
   plugins       : [
     {
-      src: "~/plugins/axios", ssr: true
+      src: "~/plugins/axios"
     },
     {
       src: '~/plugins/sessionStorage', ssr: false
@@ -54,6 +54,7 @@ export default {
   build         : {
     ssr: true,
     extend(config, ctx) {
+      config.stats = 'errors-only'
       if (ctx.isDev) {
         config.devtool = ctx.isClient ? 'eval-source-map' : 'inline-source-map'
       }

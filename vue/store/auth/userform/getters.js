@@ -1,5 +1,5 @@
+import {getField} from "vuex-map-fields";
+
 export default {
-  getUser: state => {
-    return state.user
-  }
+  getField
 }

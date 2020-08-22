@@ -32,7 +32,6 @@
         </v-icon>
       </template>
     </v-data-table>
-    {{this.$store.state.auth.userform.user}}
   </div>
 </template>
 
@@ -98,31 +97,27 @@ export default {
     }
   },
   methods: {
-    async getDataFromApi() {
-      await this.$api.$post(API_GET_USER_PAGE, this.query).then(response => {
-        console.log(response)
-        this.totalElement = response.totalElements
-        this.result       = response.content
-      });
-    },
     changePage(page) {
       this.query.pageable.pageNumber = page - 1
-      this.getDataFromApi()
+      this.$fetch()
     },
     changeRows(rows) {
       this.query.pageable.pageNumber = 0
       this.query.pageable.pageSize   = rows
-      this.getDataFromApi()
+      this.$fetch()
     },
     selectRow(item) {
       this.$emit("onSelect", item)
     },
     editRow(item) {
-      this.$store.dispatch("auth/userform/openForm", {item})
+      this.$router.push({ path: `/user/${item.username}`, force:true })
     }
   },
   async fetch() {
-    await this.getDataFromApi();
+    await this.$api.$post(API_GET_USER_PAGE, this.query).then(response => {
+      this.totalElement = response.totalElements
+      this.result       = response.content
+    });
   }
 }
 </script>
