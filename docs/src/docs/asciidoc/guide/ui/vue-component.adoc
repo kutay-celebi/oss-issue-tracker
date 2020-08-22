@@ -1,0 +1,162 @@
+== Vue Components
+
+=== Form Handling
+
+==== Dynamic Route Approach
+
+We adopt the dynamic route approach when performing a crud operation.
+In the light of this information, the example below can be examined.
+For example, in user transactions, the page structure should be as follows,
+
+[source,shell script]
+----
+|---pages
+|   |---user.vue <1>
+|   |---user
+|       |---_id.vue <2>
+----
+<1> User's home page containing the datatable
+<2> The route that contains the user form, and the id parameter is managed
+
+==== Form Dialog Component
+
+We use the *KzFormDialog* component as Form Handling.
+
+[source,vue]
+----
+<template>
+  <div>
+    <kz-form-dialog :buttonText="$t('user.new')"
+                    :title="$t('user.new')"
+                    :is-open="isOpen"
+                    @open-dialog="openForm"
+                    @close-dialog="closeDialog"
+                    @save="save">
+      <div slot="content">
+        <form>
+          <v-container fluid>
+            <v-row align="center" align-content="center" dense>
+              <v-col cols="12" sm="12" md="6">
+                <text-field-outlined :label="$t('user.username')" required v-model="username" outlined/>
+              </v-col>
+              <v-col cols="12" sm="12" md="6">
+                <text-field-outlined :label="$t('common.email')" required v-model="email"/>
+              </v-col>
+            </v-row>
+          </v-container>
+        </form>
+      </div>
+    </kz-form-dialog>
+  </div>
+</template>
+
+<script>
+import KzFormDialog from "~/components/kuartz/form/KzFormDialog";
+import KzDatePicker from "~/components/kuartz/datepicker/KzDatePicker";
+import GenderSelect from "~/components/form/GenderSelect";
+import {mapFields} from 'vuex-map-fields';
+
+export default {
+  name      : "UserDefinitionForm",
+  components: {GenderSelect, KzDatePicker, KzFormDialog},
+  computed  : {
+    ...mapFields("auth/userform/", { // <1>
+      username                  : "userForm.username",
+      email                     : "userForm.email",
+      personIdentificationNumber: "userForm.person.identificationNumber",
+      personNationality         : "userForm.person.nationality",
+      personName                : "userForm.person.name",
+      personMidname             : "userForm.person.midName",
+      personLastname            : "userForm.person.lastName",
+      personTitle               : "userForm.person.title",
+      personBirthday            : "userForm.person.birthday",
+      personGender              : "userForm.person.gender"
+    }),
+    isOpen() {
+      return this.$store.state.auth.userform.formDialog;
+    },
+  },
+  methods   : {
+    save() { // <2>
+      this.$store.dispatch("auth/userform/save")
+    },
+    closeDialog() { // <3>
+      this.$store.dispatch("auth/userform/closeDialog")
+    },
+    openForm() { // <4>
+      this.$store.dispatch("auth/userform/openDialog")
+    }
+  },
+}
+</script>
+----
+<1> Map each fields.
+<2> Save form action.
+<3> Close form dialog action.
+<4> Open form dialog action.
+
+==== Vue Map Fields
+
+We use the https://github.com/maoberlehner/vuex-map-fields[Vue Map Fields] library in form handling.
+We will usually manage the forms within the state, so the form needs to be initialized in the state.
+
+.Example,
+[TIP]
+====================
+[source,javascript]
+----
+ export const initialState = {
+  userForm    : {
+    "email"   : "",
+    "enabled" : true,
+    "username": "",
+    "password": "",
+    "person"  : {
+      "birthday"            : "",
+      "gender"              : "FEMALE",
+      "identificationNumber": "",
+      "lastName"            : "",
+      "midName"             : "",
+      "name"                : "",
+      "nationality"         : "",
+      "title"               : "",
+    },
+  }
+
+}
+
+export default () => ({
+...initialState
+})
+----
+====================
+
+For the Vue Map Fields library guide, you can check the documentation in the library's github repo.
+
+[IMPORTANT]
+====================
+Do not forget to add `updateField` and `getField` in Mutation and Getter files in the respective store namespace.
+
+.mutations.js
+[source,javascript]
+----
+import {updateField}  from "vuex-map-fields";
+
+export default {
+  updateField
+}
+----
+
+.getters.js
+[source,javascript]
+----
+import {getField} from "vuex-map-fields";
+
+export default {
+  getField
+}
+----
+
+====================
+
+
