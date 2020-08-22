@@ -1,7 +1,4 @@
 export const initialState = {
-  testText: {
-    aa: 'aaaaa',
-  },
   userForm    : {
     "email"   : "",
     "enabled" : true,

@@ -49,4 +49,3 @@ Bundle keys are put in `json` files in Lang folder.
 [source, vue]
  <h1>{{ $t('greeting') }}</h1>
 ====================
-
