@@ -13,6 +13,7 @@
           {{ title }}
         </v-card-title>
         <v-card-text>
+          <slot name="tabs"/>
           <slot name="content"/>
         </v-card-text>
         <v-card-actions>

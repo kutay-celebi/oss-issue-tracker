@@ -9,6 +9,9 @@
     },
     "save": "Save"
   },
+  "contact": {
+    "web": "Web"
+  },
   "enum": {
     "gender": {
       "female": "Female",

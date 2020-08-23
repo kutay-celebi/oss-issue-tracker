@@ -9,6 +9,7 @@ import com.kuartz.core.data.jpa.entity.KuartzEntity;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -56,12 +57,12 @@ public class PersonEntity extends KuartzEntity {
     @Column(name = "GENDER")
     private Gender gender;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "CONTACT_ID", foreignKey = @ForeignKey(name = "FK_PERSON_CONTACT"))
     private ContactEntity contact;
 
     // TODO: @kutay-celebi 22.03.2020 keep the past company information of the person
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COMPANY_ID", foreignKey = @ForeignKey(name = "FK_USER_PERSON"))
     private CompanyEntity company;
 

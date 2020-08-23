@@ -9,6 +9,9 @@
     },
     "save": "Kaydet"
   },
+  "contact": {
+    "web": "Web"
+  },
   "enum": {
     "gender": {
       "female": "Kadın",
