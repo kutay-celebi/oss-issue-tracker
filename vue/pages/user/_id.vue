@@ -5,12 +5,17 @@
                   @open-dialog="openForm"
                   @close-dialog="closeDialog"
                   @save="save">
-    <v-tabs slot="tabs" @change="changeTab" v-model="tab">
-      <v-tab>Temel Bilgiler</v-tab> <!--todo @kcelebi i18n-->
-      <v-tab>İletişim</v-tab> <!--todo @kcelebi i18n-->
+    <v-tabs slot="tabs" v-model="tab">
+      <v-tab href="#temel">Temel Bilgiler</v-tab> <!--todo @kcelebi i18n-->
+      <v-tab href="#contact">İletişim</v-tab> <!--todo @kcelebi i18n-->
     </v-tabs>
-    <v-tabs-items slot="content">
-      <nuxt-child :key="$route.fullPath"/>
+    <v-tabs-items slot="content" v-model="tab">
+      <v-tab-item value="temel">
+        <user-definition-form/>
+      </v-tab-item>
+      <v-tab-item value="contact">
+        <contact-form :store-name-space="`auth/userform/`" contact-object-path="userForm.person.contact"/>
+      </v-tab-item>
     </v-tabs-items>
   </kz-form-dialog>
 </template>
@@ -43,37 +48,10 @@ export default {
     },
     openForm() {
       this.$store.dispatch("auth/userform/openDialog")
-    },
-    changeTab(tab) {
-      let params = this.$route.params;
-      switch (tab) {
-        case 0: {
-          params.tab = null
-          break;
-        }
-        case 1: {
-          params.tab = "contact"
-          break;
-        }
-      }
-      this.$router.push({params})
-    }
-  },
-  asyncData({route}) {
-    console.log(route.params)
-    let tab;
-    if (route.params.tab === "contact") {
-      tab = 1
-    } else {
-      tab = 0
-    }
-    return {
-      tab: tab
     }
   },
   async fetch() {
     if (this.$route.params.id !== undefined) {
-      console.log(this.$route)
       const user = await this.$api.$get(API_GET_USER_USERNAME_OR_EMAIL + this.$route.params.id)
                              .then(res => {
                                return res;

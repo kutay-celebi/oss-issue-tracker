@@ -26,15 +26,10 @@ export default {
     }
   },
   computed: {
-    ...mapFields("auth/userform/", {
+    ...mapFields("storeNameSpace", {
       web: "userForm.person.contact" + ".web",
-    }),
-    operation() {
-      console.log("CHILD")
-      console.log(this.$route.params)
-      return this.$route.fullPath
-    }
-  },
+    })
+  }
 }
 </script>
 
